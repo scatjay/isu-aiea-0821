@@ -115,8 +115,18 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 .geyebrow{font-size:.78rem; letter-spacing:.14em; color:var(--ink-3); margin:0 0 .7rem}
 #gform h1{font-size:1.5rem; margin:0 0 1rem; font-weight:800}
 .ghint{font-size:.9rem; color:var(--ink-2); margin:0 0 1.4rem; line-height:1.7}
-#gpass{width:100%; font:inherit; font-size:1.15rem; text-align:center; letter-spacing:.22em; padding:.7rem .8rem; border:1px solid var(--line); border-radius:.45rem; background:var(--bg); color:var(--ink)}
-#gpass:focus-visible{outline:2px solid var(--core); outline-offset:2px; border-color:var(--core)}
+#gname,#gpass{width:100%; font:inherit; padding:.7rem .8rem; border:1px solid var(--line); border-radius:.45rem; background:var(--bg); color:var(--ink)}
+#gname{text-align:center; margin-bottom:.6rem}
+#gpass{font-size:1.15rem; text-align:center; letter-spacing:.22em}
+#gname:focus-visible,#gpass:focus-visible{outline:2px solid var(--core); outline-offset:2px; border-color:var(--core)}
+.gnote{font-size:.78rem; color:var(--ink-3); line-height:1.65; margin:1.2rem 0 0; padding-top:1rem; border-top:1px solid var(--line)}
+/* 登入後的身分列 */
+.me{display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; font-size:.85rem; color:var(--ink-2)}
+.me b{color:var(--ink)}
+.sync{font-size:.78rem; padding:.15rem .5rem; border-radius:999px; border:1px solid var(--line); white-space:nowrap}
+.sync[data-s="ok"]{color:var(--core); border-color:var(--core)}
+.sync[data-s="off"]{color:var(--ink-3)}
+.sync[data-s="err"]{color:var(--warn); border-color:var(--warn)}
 #gform button{width:100%; margin-top:.8rem; font:inherit; font-weight:700; padding:.7rem; border:none; border-radius:.45rem; background:var(--core); color:var(--card); cursor:pointer}
 #gform button:hover{filter:brightness(1.1)}
 #gform button:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
@@ -129,10 +139,12 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <form id="gform" autocomplete="off">
     <p class="geyebrow">義守大學 · 教師專業成長工作坊</p>
     <h1>用 AI 做出一門課</h1>
-    <p class="ghint">請輸入通行碼進入。<br><b>通行碼就是上課當天的日期</b>，四位數字（月月日日）。</p>
+    <p class="ghint">請填大名並輸入通行碼。<br><b>通行碼就是上課當天的日期</b>，四位數字（月月日日）。</p>
+    <input id="gname" type="text" maxlength="20" placeholder="你的大名" aria-label="姓名" autocomplete="name">
     <input id="gpass" type="password" inputmode="numeric" maxlength="8" placeholder="４ 位數字" aria-label="通行碼">
     <button type="submit">進入</button>
     <p id="gerr" role="alert"></p>
+    <p class="gnote">填大名是為了讓講師看得到大家的進度、知道要去幫誰。<br>這頁只會送出你的姓名和「哪幾個單元打勾了」，不會送出你寫的內容。</p>
   </form>
 </div>
 
@@ -156,7 +168,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 
 <div class="prog">
   <div class="prog-in">
-    <span>今天進度</span>
+    <span class="me"><b id="mename">　</b><span class="sync" id="msync" data-s="off">未連線</span></span>
     <span class="bar"><i id="pbar"></i></span>
     <span id="ptxt" style="font-variant-numeric:tabular-nums">0 / 6</span>
   </div>
@@ -406,48 +418,104 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 </div>
 
 <script>
-/* 通行碼閘。⚠ 靜態站的密碼一定在原始碼裡，這只是擋路人用的，
-   不是資安措施——所以這頁永遠不放名單、個資、未公開考題。 */
+/* ─────────────────────────────────────────────────────────────
+   通行碼閘 + 進度同步
+
+   ⚠ 靜態站的密碼一定在原始碼裡，會按 F12 的人就繞得過去。
+     它只是擋路人用的，不是資安措施 → 這頁永遠不放名單、個資、考題。
+
+   ⚠ 學員端對資料庫是「只能寫、不能讀」（規則 .read:false）。
+     所以任何人拿到這頁也讀不到別人的姓名與進度；
+     要看全班的只有講師端 dashboard，那支用另一把鑰匙、不在這個 repo 裡。
+
+   ⚠ 送出的只有「姓名 + 哪幾格打勾 + 時間」。
+     學員在單元裡寫的內容一律留在自己電腦，不上傳。
+   ───────────────────────────────────────────────────────────── */
+var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebasedatabase.app
+                  //   留空＝完全離線模式，網頁照常運作，只是講師看不到進度
+
 (function(){
-  var PASS='0821', SKEY='isu0821-ok';
+  var PASS='0821', MEKEY='isu0821-me', PKEY='isu0821-progress';
   var gate=document.getElementById('gate'), site=document.getElementById('site');
-  var form=document.getElementById('gform'), inp=document.getElementById('gpass'), err=document.getElementById('gerr');
-  function open_(){ gate.remove(); site.hidden=false; }
-  try{ if(sessionStorage.getItem(SKEY)==='1'){ open_(); return; } }catch(e){}
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    if(inp.value.trim()===PASS){
-      try{ sessionStorage.setItem(SKEY,'1'); }catch(e){}
-      open_();
-    }else{
-      err.textContent='通行碼不對。是上課那天的日期，月月日日四位數。';
-      inp.value=''; inp.focus();
+  var form=document.getElementById('gform');
+  var iname=document.getElementById('gname'), ipass=document.getElementById('gpass');
+  var err=document.getElementById('gerr');
+  var me=null;
+
+  try{ me=JSON.parse(localStorage.getItem(MEKEY)||'null'); }catch(e){}
+
+  function rid(){
+    return 'u' + Math.random().toString(36).slice(2,8) + Date.now().toString(36).slice(-4);
+  }
+  function enter(){
+    gate.remove(); site.hidden=false;
+    document.getElementById('mename').textContent = me.name;
+    boot();
+  }
+  if(me && me.id && me.name){ enter(); }
+  else{
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      var n=iname.value.trim().slice(0,20);
+      if(!n){ err.textContent='請先填大名。'; iname.focus(); return; }
+      if(ipass.value.trim()!==PASS){
+        err.textContent='通行碼不對。是上課那天的日期，月月日日四位數。';
+        ipass.value=''; ipass.focus(); return;
+      }
+      me={id:rid(), name:n};
+      try{ localStorage.setItem(MEKEY,JSON.stringify(me)); }catch(e){}
+      enter();
+    });
+    iname.focus();
+  }
+
+  /* ── 進度 ── */
+  function boot(){
+    var boxes=[].slice.call(document.querySelectorAll('.unit input[type=checkbox]'));
+    var bar=document.getElementById('pbar'), txt=document.getElementById('ptxt');
+    var badge=document.getElementById('msync');
+    var saved={};
+    try{ saved=JSON.parse(localStorage.getItem(PKEY)||'{}'); }catch(e){}
+
+    function mask(){ return boxes.map(function(b){return b.checked?'1':'0';}).join(''); }
+
+    var timer=null;
+    function push(){
+      if(!FB_DB){ badge.dataset.s='off'; badge.textContent='離線模式'; return; }
+      clearTimeout(timer);
+      timer=setTimeout(function(){
+        badge.dataset.s='off'; badge.textContent='同步中…';
+        fetch(FB_DB.replace(/\/+$/,'')+'/isu0821/students/'+me.id+'.json',{
+          method:'PUT',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({name:me.name, done:mask(), t:Date.now()})
+        }).then(function(r){
+          if(r.ok){ badge.dataset.s='ok'; badge.textContent='已同步'; }
+          else{ badge.dataset.s='err'; badge.textContent='同步失敗（不影響你）'; }
+        }).catch(function(){
+          badge.dataset.s='err'; badge.textContent='離線（不影響你）';
+        });
+      }, 600);
     }
-  });
-  inp.focus();
+
+    function paint(){
+      var n=boxes.filter(function(b){return b.checked;}).length;
+      bar.style.width=(n/boxes.length*100)+'%';
+      txt.textContent=n+' / '+boxes.length;
+    }
+    boxes.forEach(function(b,i){
+      b.checked=!!saved[i];
+      b.addEventListener('change',function(){
+        saved[i]=b.checked;
+        try{ localStorage.setItem(PKEY,JSON.stringify(saved)); }catch(e){}
+        paint(); push();
+      });
+    });
+    paint(); push();
+  }
 })();
 
 (function(){
-  var KEY='isu0821-progress';
-  var boxes=[].slice.call(document.querySelectorAll('.unit input[type=checkbox]'));
-  var bar=document.getElementById('pbar'), txt=document.getElementById('ptxt');
-  var saved={};
-  try{ saved=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){}
-
-  function paint(){
-    var n=boxes.filter(function(b){return b.checked;}).length;
-    bar.style.width=(n/boxes.length*100)+'%';
-    txt.textContent=n+' / '+boxes.length;
-  }
-  boxes.forEach(function(b,i){
-    b.checked=!!saved[i];
-    b.addEventListener('change',function(){
-      saved[i]=b.checked;
-      try{ localStorage.setItem(KEY,JSON.stringify(saved)); }catch(e){}
-      paint();
-    });
-  });
-  paint();
 
   document.querySelectorAll('.pr button').forEach(function(btn){
     btn.addEventListener('click',function(){
