@@ -111,6 +111,8 @@ h1{font-size:clamp(1.7rem,4.5vw,2.6rem); line-height:1.25; margin:0 0 .8rem; tex
 
 .check{display:flex; align-items:center; gap:.55rem; margin-top:1.1rem; padding-top:.9rem; border-top:1px solid var(--line); font-size:.9rem; color:var(--ink-2); cursor:pointer; user-select:none}
 .check input{width:1.05rem; height:1.05rem; accent-color:var(--core); cursor:pointer}
+.cnt{margin-left:auto; font-size:.82rem; color:var(--ink-3); font-variant-numeric:tabular-nums}
+.cnt.has{color:var(--core); font-weight:700}
 
 /* ── 單元 1 的三題 ── */
 .qa{margin:1rem 0 0}
@@ -264,8 +266,8 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 </div>
 
 <div class="lanes">
-  <div class="lane core"><b>核心練習（人人都要做完）</b><p>每段一題。做不完沒關係，但這幾題就是下午收斂成送審稿的材料來源。</p></div>
-  <div class="lane bonus"><b>加碼（自己往下走）</b><p>核心做完還有時間就開始做，不用等別人、不用等講師。做不到也完全不影響今天的產出。</p></div>
+  <div class="lane core"><b>練習（人人都要做完）</b><p>每段一題。做不完沒關係，但這幾題就是下午收斂成送審稿的材料來源。</p></div>
+  <div class="lane bonus"><b>加碼（自己往下走）</b><p>練習做完還有時間就開始做，不用等別人、不用等講師。做不到也完全不影響今天的產出。</p></div>
 </div>
 
 <div class="prog">
@@ -284,7 +286,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <div class="drill bonus">
     <p class="dlabel">先做這個・把 Claude 桌面版裝起來（約 10 分鐘）</p>
     <p style="font-size:.9rem;margin:.2rem 0 .6rem;color:var(--ink-2)">
-      <b>已經裝好也登入好的人</b>，直接跳到下面的核心練習。</p>
+      <b>已經裝好也登入好的人</b>，直接跳到下面的練習 1。</p>
     <ol>
       <li><b>先按下載，讓它在背景跑。</b><br>
         👉 <a href="https://claude.ai/download" target="_blank" rel="noopener"><b>claude.ai/download</b></a>　（Windows／macOS 會自動判斷）<br>
@@ -304,10 +306,12 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   </div>
 
   <div class="drill core">
-    <p class="dlabel">核心練習 1</p>
+    <p class="dlabel">練習 1</p>
     <ol>
       <li>打開 Claude 桌面版，登入。</li>
-      <li>問它一句：<b>「你現在讀得到我電腦上的檔案嗎？」</b>不管它回什麼，把回答看完——你要知道它現在碰得到什麼、碰不到什麼。</li>
+      <li><b>隨便打一句話給它</b>——「你好」就可以。<b>看到它回話，就代表裝好了。</b><br>
+        <span style="color:var(--ink-3)">這一步只是確認它會動。不用想要問什麼。</span></li>
+      <li>再問它一句：<b>「你現在讀得到我電腦上的檔案嗎？」</b>不管它回什麼，把回答看完——你要知道它現在碰得到什麼、碰不到什麼。</li>
       <li>寫下面三句話——<b>直接打在這頁上</b>，不用另外拿紙：</li>
     </ol>
 
@@ -344,7 +348,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   </div>
 
   <div class="stuck"><b>卡住了：</b>裝不起來、登不進去，現在就舉手。<b>今天每個單元都有不需要帳號也交得出東西的路。</b>你不會因為這個而空手回去。</div>
-  <label class="check"><input type="checkbox"> 這一段我做完了</label>
+  <label class="check"><input type="checkbox"> 這個單元我做完了<span class="cnt" data-cnt></span></label>
 </article>
 
 <!-- ══════════ U2 ══════════ -->
@@ -353,7 +357,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <p class="uwhy">到目前為止它只是個聊天視窗。這一段之後，它才真的碰得到你的東西。<b>沒帶教材也做得完</b>——講師會發給你自己的課綱。</p>
 
   <div class="drill core">
-    <p class="dlabel">核心練習 2</p>
+    <p class="dlabel">練習 2</p>
     <ol>
       <li><b>建兩個資料夾</b>，名字照這樣取：<br>
         　<code>〔課名〕_課程原料</code>　←　讀進去的東西<br>
@@ -386,7 +390,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   </div>
 
   <div class="stuck"><b>卡住了：</b>如果授權畫面直接被擋、出現「管理員政策」之類的字，那是<b>學校帳號的設定</b>，換 wifi 或開熱點都沒有用——改用個人 Gmail 帳號登入就會過。這件事今天很可能會發生在一部分人身上，不是你操作錯。</div>
-  <label class="check"><input type="checkbox"> 這個單元我做完了</label>
+  <label class="check"><input type="checkbox"> 這個單元我做完了<span class="cnt" data-cnt></span></label>
 </article>
 
 <!-- ══════════ U3 ══════════ -->
@@ -395,7 +399,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <p class="uwhy">下午要寫「驗證方式」，那一格不能用形容詞填。<b>但我們不量「省了多少時間」</b>——你那份簡報早就做好了，省不了。我們量的是另一件事：<b>有幾件你一直想做、卻從來沒時間做的事，今天第一次做完了。</b></p>
 
   <div class="drill core">
-    <p class="dlabel">核心練習 3</p>
+    <p class="dlabel">練習 3</p>
     <ol>
       <li><b>記下現在幾點。</b></li>
       <li>把課綱給它，貼這句：</li>
@@ -466,7 +470,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   </div>
 
   <div class="stuck"><b>要講清楚的分工：</b>它會做結構、做取捨、對準受眾。<b>但案例和教學經驗是你的，它生不出來。</b>今天做出來的東西，交給學生之前你還要再調兩三輪——這句話請寫進你的送審稿。</div>
-  <label class="check"><input type="checkbox"> 這個單元我做完了</label>
+  <label class="check"><input type="checkbox"> 這個單元我做完了<span class="cnt" data-cnt></span></label>
 </article>
 
 <p style="text-align:center;color:var(--ink-3);font-size:.9rem;margin:2rem 0">🍱　12:00–13:30 午休　·　上午沒裝好的人這時候補　|　10:50–11:10 與 15:00–15:30 各休息一次</p>
@@ -477,7 +481,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <p class="uwhy">上午做的是單次的，用完就沒了。這一段做「可以重複跑的東西」。<b>認證分初階和專業，分水嶺就在這裡</b>：交出一份成果是初階；<b>有一套可重跑的流程＋自動化，才是專業要的「工具包」。</b>今天最重要的一段。</p>
 
   <div class="drill core">
-    <p class="dlabel">核心練習 4</p>
+    <p class="dlabel">練習 4</p>
     <ol>
       <li><b>先花 30 秒選題</b>——這學期你會重複做三次以上的動作是哪一個？
         <div style="margin:.5rem 0 .2rem;font-size:.94rem">
@@ -510,7 +514,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <b>卡住了：</b>跟講師拿現成的骨架，改參數讓它動起來就好。<b>會改比會寫重要。</b><br>
     但請至少換成你自己的課跑出一份真的輸出——<b>四十三份一模一樣的講師檔，外審看得出來。</b>
   </div>
-  <label class="check"><input type="checkbox"> 這個單元我做完了</label>
+  <label class="check"><input type="checkbox"> 這個單元我做完了<span class="cnt" data-cnt></span></label>
 </article>
 
 <!-- ══════════ U5 ══════════ -->
@@ -534,7 +538,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   </div>
 
   <div class="drill core">
-    <p class="dlabel">核心練習 5</p>
+    <p class="dlabel">練習 5</p>
     <ol>
       <li>上面六段裡，<b>至少完成「題目」和「驗證方式」兩段</b>——這兩段最難事後補，其他段回家寫得出來。</li>
       <li>寫完請 Claude 看一遍：「這份稿子哪一段最弱？」</li>
@@ -546,13 +550,13 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   ① 上面這六段是一個好用的<b>敘述骨架</b>，但官方把它寫在<b>基礎級</b>的繳交規格底下。專業級的硬要件是<b>「工具包＋自動化設計」</b>——就是你單元 4 做的那個。<br>
   ② 課程可以<b>回溯前兩年</b>，你過去教過的可能已經算數。<br>
   ③ 實際格式、必選科目、送審排程，<b>請跟總辦確認</b>，不要照這頁的說法送。</div>
-  <label class="check"><input type="checkbox"> 這個單元我做完了</label>
+  <label class="check"><input type="checkbox"> 這個單元我做完了<span class="cnt" data-cnt></span></label>
 </article>
 
 <!-- ══════════ 自由探索 ══════════ -->
 <section class="blk">
   <h2>自由探索菜單</h2>
-  <p class="lede">核心五題都做完了、還有時間的人，從這裡挑。這些不會在台上講，但講師會走動，挑到哪一題都可以直接問。<b>前三題是分流用的，先看有沒有你。</b></p>
+  <p class="lede">五個練習都做完了、還有時間的人，從這裡挑。這些不會在台上講，但講師會走動，挑到哪一題都可以直接問。<b>前三題是分流用的，先看有沒有你。</b></p>
   <div class="tw"><table>
     <tr><th>題目</th><th>做什麼</th><th>誰會有興趣</th></tr>
     <tr><td><b>我沒有舊課可以翻新</b></td><td>拿你 115-1 那門新課的課綱，跑同一套稽核。再加一題：<b>請它掃同系所其他老師的課綱，告訴我我這門課跟誰重疊、缺口在哪</b><br><span style="color:var(--warn)">全系掃描請等講師示範完再跑，不要全班同時跑</span></td><td><b>今年第一次開這門課的人</b>——今天在場大概有十位，這條線是給你的</td></tr>
@@ -594,7 +598,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 
   <div class="stuck" style="background:var(--bonus-soft)">
     <b style="color:var(--bonus)">這是下一場的題目。</b>今天不做——今天先把手上這門課翻新完。
-    但如果你今天做完核心五題還有力氣，<b>「幫我做一個這門課的課程頁」</b>就是最好的加碼題。
+    但如果你今天五個練習都做完還有力氣，<b>「幫我做一個這門課的課程頁」</b>就是最好的加碼題。
     做出來的東西今天就能上線。
   </div>
 </section>
@@ -739,15 +743,47 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
       txt.textContent=n+' / '+boxes.length;
       idDone.textContent=n;
     }
+
+    /* ── 完成人數：全班看得到 ─────────────────────────────
+       🔴 走 /isu0821/done/ 這條路徑，裡面**只有隨機 id，沒有姓名**，
+          所以可以公開讀。有姓名的 /students/ 仍然 .read:false。
+          學員看到的是「已完成 12 人」，看不到是誰。                     */
+    var cnts=[].slice.call(document.querySelectorAll('[data-cnt]'));
+
+    function markDone(i, on){
+      if(!FB_DB) return;
+      var url=FB_DB.replace(/\/+$/,'')+'/isu0821/done/u'+(i+1)+'/'+me.id+'.json';
+      fetch(url, on ? {method:'PUT', headers:{'Content-Type':'application/json'}, body:'true'}
+                   : {method:'DELETE'})
+        .then(function(){ loadCounts(); }).catch(function(){});
+    }
+
+    function loadCounts(){
+      if(!FB_DB) return;
+      fetch(FB_DB.replace(/\/+$/,'')+'/isu0821/done.json')
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(d){
+          if(d===null) return;
+          cnts.forEach(function(el,i){
+            var g=(d||{})['u'+(i+1)]||{};
+            var n=Object.keys(g).length;
+            el.textContent = n ? ('已完成 '+n+' 人') : '還沒有人完成';
+            el.className = 'cnt' + (n ? ' has' : '');
+          });
+        }).catch(function(){});
+    }
+
     boxes.forEach(function(b,i){
       b.checked=!!saved[i];
       b.addEventListener('change',function(){
         saved[i]=b.checked;
         try{ localStorage.setItem(PKEY,JSON.stringify(saved)); }catch(e){}
-        paint(); push();
+        paint(); push(); markDone(i, b.checked);
       });
     });
     paint(); push();
+    loadCounts();
+    setInterval(loadCounts, 30000);   // 每 30 秒更新，看得到全班在動
     initQA();
   }
 
