@@ -115,10 +115,11 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 .geyebrow{font-size:.78rem; letter-spacing:.14em; color:var(--ink-3); margin:0 0 .7rem}
 #gform h1{font-size:1.5rem; margin:0 0 1rem; font-weight:800}
 .ghint{font-size:.9rem; color:var(--ink-2); margin:0 0 1.4rem; line-height:1.7}
-#gname,#gpass{width:100%; font:inherit; padding:.7rem .8rem; border:1px solid var(--line); border-radius:.45rem; background:var(--bg); color:var(--ink)}
+#gname,#gpass,#gdept{width:100%; font:inherit; padding:.7rem .8rem; border:1px solid var(--line); border-radius:.45rem; background:var(--bg); color:var(--ink)}
 #gname{text-align:center; margin-bottom:.6rem}
+#gdept{margin-bottom:.6rem; text-align:center; text-align-last:center}
 #gpass{font-size:1.15rem; text-align:center; letter-spacing:.22em}
-#gname:focus-visible,#gpass:focus-visible{outline:2px solid var(--core); outline-offset:2px; border-color:var(--core)}
+#gname:focus-visible,#gpass:focus-visible,#gdept:focus-visible{outline:2px solid var(--core); outline-offset:2px; border-color:var(--core)}
 .gnote{font-size:.78rem; color:var(--ink-3); line-height:1.65; margin:1.2rem 0 0; padding-top:1rem; border-top:1px solid var(--line)}
 /* 登入後的身分列 */
 .me{display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; font-size:.85rem; color:var(--ink-2)}
@@ -139,8 +140,45 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <form id="gform" autocomplete="off">
     <p class="geyebrow">義守大學 · 教師專業成長工作坊</p>
     <h1>用 AI 做出一門課</h1>
-    <p class="ghint">請填大名並輸入通行碼。<br><b>通行碼就是上課當天的日期</b>，四位數字（月月日日）。</p>
+    <p class="ghint">請填大名、選系所，並輸入通行碼。<br>通行碼由講師提供。</p>
     <input id="gname" type="text" maxlength="20" placeholder="你的大名" aria-label="姓名" autocomplete="name">
+    <select id="gdept" aria-label="系所">
+      <option value="">請選擇系所</option>
+      <optgroup label="管理學院">
+        <option>企業管理學系</option>
+        <option>管理碩士在職專班</option>
+        <option>工管系</option>
+        <option>資管系</option>
+        <option>應日系／企管系</option>
+        <option>IMBA</option>
+      </optgroup>
+      <optgroup label="工學院">
+        <option>電子工程學系</option>
+        <option>資訊工程學系</option>
+        <option>電機系</option>
+        <option>機械系</option>
+        <option>化工系</option>
+        <option>材料科學與工程學系</option>
+        <option>生物醫學工程系</option>
+        <option>醫工系</option>
+      </optgroup>
+      <optgroup label="醫學院">
+        <option>醫學系</option>
+        <option>醫技系</option>
+        <option>營養學系</option>
+        <option>護理學系</option>
+        <option>物理治療學系</option>
+        <option>職能治療學系</option>
+        <option>醫學科學與生物科技系</option>
+      </optgroup>
+      <optgroup label="其他學院／學程">
+        <option>餐旅管理學系</option>
+        <option>運動科技與休閒管理學系</option>
+        <option>智慧觀光餐旅管理英語學士學位學程</option>
+        <option>International Program on AI Technology</option>
+      </optgroup>
+      <option value="其他">其他（沒有我的系所）</option>
+    </select>
     <input id="gpass" type="password" inputmode="numeric" maxlength="8" placeholder="４ 位數字" aria-label="通行碼">
     <button type="submit">進入</button>
     <p id="gerr" role="alert"></p>
@@ -463,10 +501,11 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
                   //   留空＝完全離線模式，網頁照常運作，只是講師看不到進度
 
 (function(){
-  var PASS='0821', MEKEY='isu0821-me', PKEY='isu0821-progress';
+  var PASS='1280', MEKEY='isu0821-me', PKEY='isu0821-progress';
   var gate=document.getElementById('gate'), site=document.getElementById('site');
   var form=document.getElementById('gform');
   var iname=document.getElementById('gname'), ipass=document.getElementById('gpass');
+  var idept=document.getElementById('gdept');
   var err=document.getElementById('gerr');
   var me=null;
 
@@ -477,7 +516,8 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
   }
   function enter(){
     gate.remove(); site.hidden=false;
-    document.getElementById('mename').textContent = me.name;
+    document.getElementById('mename').textContent =
+      me.name + (me.dept ? '　' + me.dept : '');
     boot();
   }
   if(me && me.id && me.name){ enter(); }
@@ -486,11 +526,12 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
       e.preventDefault();
       var n=iname.value.trim().slice(0,20);
       if(!n){ err.textContent='請先填大名。'; iname.focus(); return; }
+      if(!idept.value){ err.textContent='請選一下系所。'; idept.focus(); return; }
       if(ipass.value.trim()!==PASS){
-        err.textContent='通行碼不對。是上課那天的日期，月月日日四位數。';
+        err.textContent='通行碼不對，請再確認一次。';
         ipass.value=''; ipass.focus(); return;
       }
-      me={id:rid(), name:n};
+      me={id:rid(), name:n, dept:idept.value.slice(0,40)};
       try{ localStorage.setItem(MEKEY,JSON.stringify(me)); }catch(e){}
       enter();
     });
@@ -516,7 +557,7 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
         fetch(FB_DB.replace(/\/+$/,'')+'/isu0821/students/'+me.id+'.json',{
           method:'PUT',
           headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({name:me.name, done:mask(), t:Date.now()})
+          body:JSON.stringify({name:me.name, dept:me.dept||'', done:mask(), t:Date.now()})
         }).then(function(r){
           if(r.ok){ badge.dataset.s='ok'; badge.textContent='已同步'; }
           else{ badge.dataset.s='err'; badge.textContent='同步失敗（不影響你）'; }
