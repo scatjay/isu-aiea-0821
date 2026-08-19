@@ -96,6 +96,8 @@ h1{font-size:clamp(1.7rem,4.5vw,2.6rem); line-height:1.25; margin:0 0 .8rem; tex
 .drill.bonus .dlabel{color:var(--bonus)}
 .drill ol,.drill ul{margin:.4rem 0; padding-left:1.3rem}
 .drill li{margin:.3rem 0}
+.bno{display:inline-block; font-size:.72rem; font-weight:700; letter-spacing:.04em;
+  color:var(--bonus); border:1px solid var(--bonus); border-radius:.25rem; padding:.05rem .35rem; margin-right:.4rem}
 .done{font-size:.88rem; color:var(--ink-2); margin:.7rem 0 0; padding-top:.6rem; border-top:1px dashed var(--line)}
 .done b{color:var(--ink)}
 
@@ -280,7 +282,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <p class="uwhy">這半小時不教東西，只做兩件事：確認你按下去會有反應，以及挑定今天要動的那門課。裝不起來的人在這裡就要舉手，不要撐到十一點。</p>
 
   <div class="drill bonus">
-    <p class="dlabel">第一件事：把 Claude 桌面版裝起來（約 10 分鐘）</p>
+    <p class="dlabel">準備 0・先把 Claude 桌面版裝起來（約 10 分鐘）</p>
     <p style="font-size:.9rem;margin:.2rem 0 .6rem;color:var(--ink-2)">
       <b>已經裝好也登入好的人</b>，直接跳到下面的核心練習。</p>
     <ol>
@@ -302,7 +304,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   </div>
 
   <div class="drill core">
-    <p class="dlabel">核心練習</p>
+    <p class="dlabel">核心練習 0</p>
     <ol>
       <li>打開 Claude 桌面版，登入。</li>
       <li>問它一句：<b>「你現在讀得到我電腦上的檔案嗎？」</b>不管它回什麼，把回答看完——你要知道它現在碰得到什麼、碰不到什麼。</li>
@@ -351,7 +353,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <p class="uwhy">到目前為止它只是個聊天視窗。這一段之後，它才真的碰得到你的東西。<b>沒帶教材也做得完</b>——講師會發給你自己的課綱。</p>
 
   <div class="drill core">
-    <p class="dlabel">核心練習</p>
+    <p class="dlabel">核心練習 1</p>
     <ol>
       <li><b>建兩個資料夾</b>，名字照這樣取：<br>
         　<code>〔課名〕_課程原料</code>　←　讀進去的東西<br>
@@ -374,12 +376,12 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   </div>
 
   <div class="drill bonus">
-    <p class="dlabel">加碼</p>
+    <p class="dlabel">加碼 1</p>
     <ul>
-      <li><b>自己跑一次抓課綱</b>：跟講師拿那段指令，把姓名換成你自己的，讓它去學校系統把你<b>另一門課</b>的課綱抓回來。<br>
+      <li><b class="bno">加碼 1-1</b> <b>自己跑一次抓課綱</b>：跟講師拿那段指令，把姓名換成你自己的，讓它去學校系統把你<b>另一門課</b>的課綱抓回來。<br>
         <span style="color:var(--warn)">請等講師示範完再跑，不要全班同時打學校系統。</span></li>
-      <li>接上 <b>Google 雲端硬碟</b>，讓它直接讀你放在雲端的教材。</li>
-      <li>接上 <b>行事曆</b>與 <b>Gmail</b>（開學後才有感；Gmail 只擬草稿，寄出永遠是你自己按）。</li>
+      <li><b class="bno">加碼 1-2</b> 接上 <b>Google 雲端硬碟</b>，讓它直接讀你放在雲端的教材。</li>
+      <li><b class="bno">加碼 1-3</b> 接上 <b>行事曆</b>與 <b>Gmail</b>（開學後才有感；Gmail 只擬草稿，寄出永遠是你自己按）。</li>
     </ul>
   </div>
 
@@ -393,7 +395,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <p class="uwhy">下午要寫「驗證方式」，那一格不能用形容詞填。<b>但我們不量「省了多少時間」</b>——你那份簡報早就做好了，省不了。我們量的是另一件事：<b>有幾件你一直想做、卻從來沒時間做的事，今天第一次做完了。</b></p>
 
   <div class="drill core">
-    <p class="dlabel">核心練習</p>
+    <p class="dlabel">核心練習 2</p>
     <ol>
       <li><b>記下現在幾點。</b></li>
       <li>把課綱給它，貼這句：</li>
@@ -455,11 +457,11 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   </div>
 
   <div class="drill bonus">
-    <p class="dlabel">加碼</p>
+    <p class="dlabel">加碼 2</p>
     <ul>
-      <li>請它把 18 週進度改寫成「AI 融入版」，存成 <code>課綱_AI融入版.md</code>，再要一份 <code>前後對照表.md</code>。</li>
-      <li>換一個對象重寫：「如果台下是完全沒有背景的大一新生，這 18 週要怎麼調？」</li>
-      <li>把你自己教這門課最有效的那個例子講給它聽，請它找出還可以放進哪幾週。</li>
+      <li><b class="bno">加碼 2-1</b> 請它把 18 週進度改寫成「AI 融入版」，存成 <code>課綱_AI融入版.md</code>，再要一份 <code>前後對照表.md</code>。</li>
+      <li><b class="bno">加碼 2-2</b> 換一個對象重寫：「如果台下是完全沒有背景的大一新生，這 18 週要怎麼調？」</li>
+      <li><b class="bno">加碼 2-3</b> 把你自己教這門課最有效的那個例子講給它聽，請它找出還可以放進哪幾週。</li>
     </ul>
   </div>
 
@@ -475,7 +477,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <p class="uwhy">上午做的是單次的，用完就沒了。這一段做「可以重複跑的東西」。<b>認證分初階和專業，分水嶺就在這裡</b>：交出一份成果是初階；<b>有一套可重跑的流程＋自動化，才是專業要的「工具包」。</b>今天最重要的一段。</p>
 
   <div class="drill core">
-    <p class="dlabel">核心練習</p>
+    <p class="dlabel">核心練習 3</p>
     <ol>
       <li><b>先花 30 秒選題</b>——這學期你會重複做三次以上的動作是哪一個？
         <div style="margin:.5rem 0 .2rem;font-size:.94rem">
@@ -497,10 +499,10 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   </div>
 
   <div class="drill bonus">
-    <p class="dlabel">加碼</p>
+    <p class="dlabel">加碼 3</p>
     <ul>
-      <li>跑不動就回去把說明書寫清楚，再試一次。<b>這個來回本身就是最好的練習</b>——你會發現「哪裡沒講清楚」就是它做不出來的地方。</li>
-      <li>把 <code>SKILL.md</code> 改成可以套用在你<b>所有課</b>的通用版。</li>
+      <li><b class="bno">加碼 3-1</b> 跑不動就回去把說明書寫清楚，再試一次。<b>這個來回本身就是最好的練習</b>——你會發現「哪裡沒講清楚」就是它做不出來的地方。</li>
+      <li><b class="bno">加碼 3-2</b> 把 <code>SKILL.md</code> 改成可以套用在你<b>所有課</b>的通用版。</li>
     </ul>
   </div>
 
@@ -532,7 +534,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   </div>
 
   <div class="drill core">
-    <p class="dlabel">核心練習</p>
+    <p class="dlabel">核心練習 4</p>
     <ol>
       <li>上面六段裡，<b>至少完成「題目」和「驗證方式」兩段</b>——這兩段最難事後補，其他段回家寫得出來。</li>
       <li>寫完請 Claude 看一遍：「這份稿子哪一段最弱？」</li>
