@@ -49,6 +49,23 @@ h1{font-size:clamp(1.7rem,4.5vw,2.6rem); line-height:1.25; margin:0 0 .8rem; tex
 .meta{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.4rem}
 .chip{font-size:.82rem; padding:.28rem .7rem; border-radius:999px; background:var(--card); border:1px solid var(--line); color:var(--ink-2)}
 
+/* ── 身分卡 ── */
+.idcard{display:flex; align-items:center; gap:1.2rem; flex-wrap:wrap;
+  background:var(--card); border:1px solid var(--line); border-left:4px solid var(--core);
+  border-radius:.6rem; padding:1rem 1.2rem; margin:2rem 0 0; box-shadow:var(--shadow)}
+.idmain{flex:1 1 12rem; min-width:0}
+.idhi{font-size:.72rem; letter-spacing:.14em; color:var(--ink-3); margin:0}
+.idname{margin:.15rem 0 0; font-size:1.05rem; line-height:1.4}
+.idname b{font-weight:700}
+.idname span{color:var(--ink-2); font-size:.9rem; margin-left:.5rem}
+.idlast{margin:.2rem 0 0; font-size:.78rem; color:var(--ink-3)}
+.idprog{display:flex; align-items:baseline; gap:.4rem; flex-wrap:wrap; color:var(--ink-2); font-size:.85rem}
+.idprog b{font-size:1.8rem; font-weight:800; color:var(--core); line-height:1; font-variant-numeric:tabular-nums}
+#idSwitch{font:inherit; font-size:.8rem; padding:.4rem .8rem; white-space:nowrap;
+  border:1px solid var(--line); background:var(--bg); color:var(--ink-2); border-radius:.35rem; cursor:pointer}
+#idSwitch:hover{border-color:var(--core); color:var(--core)}
+#idSwitch:focus-visible{outline:2px solid var(--core); outline-offset:2px}
+
 /* ── 雙軌說明 ── */
 .lanes{display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1rem; margin:2rem 0}
 .lane{padding:1rem 1.1rem; border-radius:.6rem; border:1px solid var(--line); background:var(--card)}
@@ -92,6 +109,34 @@ h1{font-size:clamp(1.7rem,4.5vw,2.6rem); line-height:1.25; margin:0 0 .8rem; tex
 
 .check{display:flex; align-items:center; gap:.55rem; margin-top:1.1rem; padding-top:.9rem; border-top:1px solid var(--line); font-size:.9rem; color:var(--ink-2); cursor:pointer; user-select:none}
 .check input{width:1.05rem; height:1.05rem; accent-color:var(--core); cursor:pointer}
+
+/* ── 開場三題 ── */
+.qa{margin:1rem 0 0}
+.qa label{display:block; font-size:.9rem; font-weight:700; margin:.9rem 0 .35rem}
+.qa label span{font-weight:400; color:var(--ink-3); font-size:.82rem; margin-left:.4rem}
+.qa textarea{width:100%; font:inherit; font-size:.92rem; line-height:1.6; padding:.6rem .75rem;
+  border:1px solid var(--line); border-radius:.4rem; background:var(--bg); color:var(--ink); resize:vertical}
+.qa textarea:focus-visible{outline:2px solid var(--core); outline-offset:2px; border-color:var(--core)}
+.qabar{display:flex; align-items:center; gap:.8rem; flex-wrap:wrap; margin-top:.9rem}
+#qaSave{font:inherit; font-weight:700; font-size:.88rem; padding:.55rem 1.1rem; border:none;
+  border-radius:.4rem; background:var(--core); color:var(--card); cursor:pointer}
+#qaSave:hover{filter:brightness(1.1)}
+#qaSave:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+#qaMsg{font-size:.82rem; color:var(--ink-2)}
+.qawarn{font-size:.8rem; color:var(--ink-2); line-height:1.65; margin:.9rem 0 0;
+  padding:.6rem .8rem; background:var(--warn-soft); border-radius:.4rem}
+.qawarn b{color:var(--warn)}
+.qahead{display:flex; align-items:center; justify-content:space-between; gap:.8rem;
+  margin:1.4rem 0 .6rem; padding-top:1rem; border-top:1px solid var(--line); font-size:.95rem}
+#qaRefresh{font:inherit; font-size:.76rem; padding:.25rem .6rem; border:1px solid var(--line);
+  background:var(--bg); color:var(--ink-2); border-radius:.3rem; cursor:pointer}
+#qaRefresh:hover{border-color:var(--core); color:var(--core)}
+.ans{border-left:3px solid var(--line); padding:.5rem 0 .5rem .9rem; margin:.7rem 0; font-size:.9rem}
+.ans .col{display:inline-block; font-size:.72rem; letter-spacing:.06em; color:var(--ink-3);
+  background:var(--bg); border:1px solid var(--line); border-radius:999px; padding:.1rem .55rem; margin-bottom:.35rem}
+.ans p{margin:.25rem 0; color:var(--ink-2)}
+.ans p b{color:var(--ink); font-weight:400}
+.ans .qn{color:var(--ink-3); font-size:.8rem; margin-right:.35rem}
 
 /* ── tables ── */
 .tw{overflow-x:auto; margin:1rem 0; border:1px solid var(--line); border-radius:.5rem}
@@ -203,6 +248,19 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   </p>
 </header>
 
+<div class="idcard">
+  <div class="idmain">
+    <p class="idhi">已登入</p>
+    <p class="idname"><b id="idName">—</b><span id="idDept"></span></p>
+    <p class="idlast" id="idLast"></p>
+  </div>
+  <div class="idprog">
+    <b id="idDone">0</b><span>／5 個單元完成</span>
+    <span class="sync" id="msync" data-s="off">未連線</span>
+  </div>
+  <button type="button" id="idSwitch">換一個人</button>
+</div>
+
 <div class="lanes">
   <div class="lane core"><b>核心練習（人人都要做完）</b><p>每段一題。做不完沒關係，但這幾題就是下午收斂成送審稿的材料來源。</p></div>
   <div class="lane bonus"><b>加碼（自己往下走）</b><p>核心做完還有時間就開始做，不用等別人、不用等講師。做不到也完全不影響今天的產出。</p></div>
@@ -210,9 +268,9 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 
 <div class="prog">
   <div class="prog-in">
-    <span class="me"><b id="mename">　</b><span class="sync" id="msync" data-s="off">未連線</span></span>
+    <span class="me"><b id="mename">　</b></span>
     <span class="bar"><i id="pbar"></i></span>
-    <span id="ptxt" style="font-variant-numeric:tabular-nums">0 / 6</span>
+    <span id="ptxt" style="font-variant-numeric:tabular-nums">0 / 5</span>
   </div>
 </div>
 
@@ -221,18 +279,57 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <div class="uhead"><span class="utag">開場</span><h2>先確認工具會動，然後挑一門課</h2><span class="utime">09:00–09:30</span></div>
   <p class="uwhy">這半小時不教東西，只做兩件事：確認你按下去會有反應，以及挑定今天要動的那門課。裝不起來的人在這裡就要舉手，不要撐到十一點。</p>
 
+  <div class="drill bonus">
+    <p class="dlabel">第一件事：把 Claude 桌面版裝起來（約 10 分鐘）</p>
+    <p style="font-size:.9rem;margin:.2rem 0 .6rem;color:var(--ink-2)">
+      <b>已經裝好也登入好的人</b>，直接跳到下面的核心練習。</p>
+    <ol>
+      <li><b>先按下載，讓它在背景跑。</b>到 <b>claude.ai</b> → 下載桌面版（Windows / macOS）。<br>
+        <span style="color:var(--ink-3)">43 個人同時抓，這是全場最慢的一步。先按下去，然後邊等邊做第 2、3 步。</span></li>
+      <li><b>註冊帳號——用個人 Gmail，不要用學校信箱。</b><br>
+        <span style="color:var(--warn)">學校的 Google Workspace 常會擋掉第三方授權，而且訂閱是綁在個人帳號上的。用學校信箱註冊，等一下接雲端硬碟那段很可能會卡住，而換 wifi 或開熱點都沒有用。</span></li>
+      <li><b>升級成 Pro。</b>左下角自己的名字 → 升級方案 → 選 Pro（月付約 20 美元，隨時可取消）。</li>
+      <li>下載完成後<b>安裝、打開、用同一個帳號登入</b>。</li>
+    </ol>
+    <p class="done"><b>做完長這樣：</b>桌面版打得開，左下角顯示你的帳號，方案是 Pro。</p>
+    <p style="font-size:.85rem;margin:.9rem 0 0;color:var(--ink-2)">
+      <b>桌面版和網頁版差在哪？</b>桌面版<b>讀得到你電腦上的資料夾、也寫得回去</b>。今天下午要做的事非它不可，網頁版做不到。<br>
+      <b>不想付錢、或刷卡卡住？</b>先舉手，然後照樣往下做——今天每個單元都設計成「沒有帳號也交得出東西」。
+      只有「讀整個資料夾」「把檔案寫回電腦」那兩段需要付費方案。
+    </p>
+  </div>
+
   <div class="drill core">
     <p class="dlabel">核心練習</p>
     <ol>
       <li>打開 Claude 桌面版，登入。</li>
       <li>問它一句：<b>「你現在讀得到我電腦上的檔案嗎？」</b>不管它回什麼，把回答看完——你要知道它現在碰得到什麼、碰不到什麼。</li>
-      <li>在紙上寫三句話：<br>
-        ① 我 115-1 要教的一門課是＿＿＿＿（課名／課號），我教這門課第＿＿年（<b>第一次教就寫 1</b>）<br>
-        ② 這門課現在最讓我不滿意的一件事是＿＿＿＿<br>
-        ③ 如果今天只能改一件事，我要改＿＿＿＿
-      </li>
+      <li>寫下面三句話——<b>直接打在這頁上</b>，不用另外拿紙：</li>
     </ol>
-    <p class="done"><b>做完長這樣：</b>畫面上有回應，紙上那三句寫完了。<b>那三句就是送審稿的第一段。</b></p>
+
+    <div class="qa">
+      <label for="q1">① 我 115-1 要教的一門課是（課名／課號），我教這門課第幾年？<span>第一次教就寫「第 1 年」</span></label>
+      <textarea id="q1" maxlength="200" rows="2" placeholder="例：電路學（A5020710），第 6 年"></textarea>
+
+      <label for="q2">② 這門課現在最讓我不滿意的一件事是？</label>
+      <textarea id="q2" maxlength="200" rows="2" placeholder="例：後面幾週的內容跟業界現況脫節，但我一直沒空重排"></textarea>
+
+      <label for="q3">③ 如果今天只能改一件事，我要改什麼？</label>
+      <textarea id="q3" maxlength="200" rows="2" placeholder="例：把第 12–15 週換成實作，但不知道評分怎麼設計"></textarea>
+
+      <div class="qabar">
+        <button type="button" id="qaSave">送出，並看看大家怎麼寫</button>
+        <span id="qaMsg"></span>
+      </div>
+      <p class="qawarn">⚠️ 送出的內容<b>全班看得到</b>（不會顯示你的名字，只會顯示學院）。<b>不要寫學生姓名或任何個資。</b>不想送出也沒關係——你打的字一律會存在自己的瀏覽器裡，不按送出就不會出去。</p>
+    </div>
+
+    <div id="qaBoard" hidden>
+      <div class="qahead"><b>大家怎麼寫</b><button type="button" id="qaRefresh">重新整理</button></div>
+      <div id="qaList"></div>
+    </div>
+
+    <p class="done"><b>做完長這樣：</b>畫面上有回應，三句都寫完了。<b>那三句就是送審稿的第一段。</b></p>
   </div>
 
   <div class="stuck" style="background:var(--bonus-soft)">
@@ -310,6 +407,42 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     </ol>
     <p class="done"><b>做完長這樣：</b><code>送審產出</code> 裡多了一份稽核報告，而且你知道它花了幾分鐘。<b>下午那格要這樣寫：</b>「這件事我原本一學期做 <b>0 次</b>（想做但沒時間），今天 ＿＿ 分鐘做完，下學期可以每門課都做一次。」</p>
   </div>
+
+  <h3>順便講清楚：你正在花什麼、以及它問你的那些問題</h3>
+  <p style="font-size:.92rem;margin:.3rem 0 0;color:var(--ink-2)">跑到這裡你已經用了兩小時，大概開始好奇額度怎麼算、它為什麼一直跳出來問你。一次講完。</p>
+
+  <h3 style="font-size:.95rem">① 額度：兩個桶子</h3>
+  <div class="tw"><table>
+    <tr><th>桶子</th><th>怎麼算</th><th>用完會怎樣</th></tr>
+    <tr><td><b>5 小時額度</b></td><td>從你第一句話開始計時，五小時內能用的量。時間到自動重來</td><td>暫停一下，等它回滿</td></tr>
+    <tr><td><b>週額度</b></td><td>一整週的總量，每週固定重置</td><td>這是真的會擋住你的那個</td></tr>
+  </table></div>
+  <p style="font-size:.9rem;margin:.2rem 0 0;color:var(--ink-2)">省額度最有效的一招不是少用，是<b>「一次講清楚」而不是「一次講一點讓它猜」</b>。反覆丟半句話來回試，是燒得最快的方式。<br><span style="color:var(--warn)">另外：不要順手按「超額加購」，那個很貴。</span></p>
+
+  <h3 style="font-size:.95rem">② 模型：挑貴的不一定比較好</h3>
+  <div class="tw"><table>
+    <tr><th>模型</th><th>什麼時候用</th></tr>
+    <tr><td><b>Opus</b></td><td>要它想清楚才動手：規劃整門課的架構、把一堆散的教材理出順序</td></tr>
+    <tr><td><b>Sonnet</b></td><td><b>今天的預設。</b>改講義、生簡報、跑腳本，大部分事情</td></tr>
+    <tr><td><b>Haiku</b></td><td>機械性的事：改錯字、換格式、批次重新命名</td></tr>
+  </table></div>
+  <p style="font-size:.9rem;margin:.2rem 0 0;color:var(--ink-2)"><b>不確定就用 Sonnet</b>，覺得它想得太淺再換 Opus。</p>
+
+  <h3 style="font-size:.95rem">③ 思考力道（effort）：讓它想久一點</h3>
+  <p style="font-size:.9rem;margin:.2rem 0 0;color:var(--ink-2)">同一個模型可以調「要想多久再回答」。想得久＝答案好，但也＝慢、耗得多。<b>低</b>＝你已經知道答案只是要它打字；<b>中</b>＝一般備課，預設；<b>高</b>＝「這門課到底該怎麼排」這種真的需要它想的問題。</p>
+
+  <h3 style="font-size:.95rem">④ 它一直跳出來問你——那是權限模式</h3>
+  <p style="font-size:.9rem;margin:.2rem 0 .3rem;color:var(--ink-2)">它要動你電腦上的東西之前會先問。有幾種模式決定它問得多勤：</p>
+  <div class="tw"><table>
+    <tr><th>模式</th><th>行為</th><th>什麼時候用</th></tr>
+    <tr><td><b>每次都問</b><br><span style="color:var(--ink-3);font-size:.85em">預設</span></td><td>每一個動作都停下來等你按同意</td><td>剛開始用、或它在動你不熟的資料夾</td></tr>
+    <tr><td><b>計畫模式</b></td><td><b>只讀不寫。</b>先把它打算做的事整個講給你聽，你同意才開始動</td><td><b>老師最該學的一個。</b>你可以先看它理解得對不對，再放它去做</td></tr>
+    <tr><td><b>自動接受編輯</b></td><td>改檔案不再一個一個問，但危險的動作還是會問</td><td>已經來回幾輪、你信得過它在做什麼的時候</td></tr>
+    <tr><td><b>略過所有確認</b><br><span style="color:var(--warn);font-size:.85em">bypass</span></td><td><b>完全不問，直接做。</b></td><td>只在「這個資料夾就算被改壞我也不心疼」的時候</td></tr>
+  </table></div>
+  <p class="stuck" style="margin-top:.7rem"><b>今天的建議：預設就好，覺得煩再往下放一格。</b>
+  很多人第一天就切到「略過所有確認」，因為問得煩——但那也是你唯一的煞車。
+  真正該養成的習慣是<b>計畫模式</b>：讓它先講要做什麼，你看過再放行。<b>它太雞婆的時候直接按停，停掉不會壞。</b></p>
 
   <div class="stuck">
     <b>它抓出來的東西，多半不是你填錯——這句話很重要：</b><br>
@@ -514,10 +647,38 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
   function rid(){
     return 'u' + Math.random().toString(36).slice(2,8) + Date.now().toString(36).slice(-4);
   }
+  function ago(t){
+    if(!t) return '';
+    var s=Math.round((Date.now()-t)/1000);
+    if(s<90) return '剛剛';
+    if(s<3600) return Math.floor(s/60)+' 分鐘前';
+    if(s<86400) return Math.floor(s/3600)+' 小時前';
+    return Math.floor(s/86400)+' 天前';
+  }
+
   function enter(){
     gate.remove(); site.hidden=false;
+    document.getElementById('idName').textContent = me.name;
+    document.getElementById('idDept').textContent = me.dept || '';
     document.getElementById('mename').textContent =
       me.name + (me.dept ? '　' + me.dept : '');
+    var last=document.getElementById('idLast');
+    last.textContent = me.seen ? ('上次來是 ' + ago(me.seen)) : '這是你第一次進來';
+    me.seen = Date.now();
+    try{ localStorage.setItem(MEKEY,JSON.stringify(me)); }catch(e){}
+
+    // 「換一個人」——沒有這個，身分存進瀏覽器之後就換不掉了：
+    // 講師示範、或老師借同事的筆電，都會卡在別人的名字底下。
+    document.getElementById('idSwitch').addEventListener('click',function(){
+      if(!confirm('要換成另一個人嗎？\n\n這台裝置上的身分、進度勾選、以及開場那三題打的字都會清掉。\n（已經送出去的東西不受影響。）')) return;
+      // 🔴 三題的內容也要清。不清的話下一個人接手會看到前一個人打的字。
+      try{
+        localStorage.removeItem(MEKEY); localStorage.removeItem(PKEY);
+        localStorage.removeItem(QKEY);  localStorage.removeItem(AKEY);
+      }catch(e){}
+      location.reload();
+    });
+
     boot();
   }
   if(me && me.id && me.name){ enter(); }
@@ -567,10 +728,12 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
       }, 600);
     }
 
+    var idDone=document.getElementById('idDone');
     function paint(){
       var n=boxes.filter(function(b){return b.checked;}).length;
       bar.style.width=(n/boxes.length*100)+'%';
       txt.textContent=n+' / '+boxes.length;
+      idDone.textContent=n;
     }
     boxes.forEach(function(b,i){
       b.checked=!!saved[i];
@@ -581,6 +744,97 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
       });
     });
     paint(); push();
+    initQA();
+  }
+
+  /* ── 開場三題：本機保存 ＋ 去識別化互看 ───────────────────
+     🔴 這裡的資料**刻意存在另一條路徑** `/isu0821/answers/`，而且**不含姓名**。
+        /students/ 那條有姓名，規則是 .read:false，路人撈不到名單；
+        /answers/ 這條可以公開讀，因為它本來就沒有可識別的東西。
+        去識別化是結構上的，不是把名字塗掉。
+     🔴 只送「學院」不送「系所」——名冊上有好幾個系所只有 1 人，
+        系所＋答案就等於指名道姓。學院各有十人上下，安全得多。          */
+  var QKEY='isu0821-answers', AKEY='isu0821-answer-key';
+
+  function college(dept){
+    var m={管理:'管理學院',工學:'工學院',醫學:'醫學院'};
+    var opt=null, sel=document.getElementById('gdept');
+    if(sel){ for(var i=0;i<sel.options.length;i++){
+      if(sel.options[i].value===dept||sel.options[i].text===dept){ opt=sel.options[i]; break; } } }
+    if(opt && opt.parentNode && opt.parentNode.label) return opt.parentNode.label;
+    return '其他學院／學程';
+  }
+
+  function initQA(){
+    var ids=['q1','q2','q3'], msg=document.getElementById('qaMsg');
+    var board=document.getElementById('qaBoard'), list=document.getElementById('qaList');
+    var saved={};
+    try{ saved=JSON.parse(localStorage.getItem(QKEY)||'{}'); }catch(e){}
+
+    ids.forEach(function(id){
+      var el=document.getElementById(id);
+      if(!el) return;
+      el.value=saved[id]||'';
+      el.addEventListener('input',function(){
+        saved[id]=el.value;
+        try{ localStorage.setItem(QKEY,JSON.stringify(saved)); }catch(e){}
+      });
+    });
+
+    function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+    function draw(d){
+      var ks=Object.keys(d||{});
+      if(!ks.length){ list.innerHTML='<p style="color:var(--ink-3);font-size:.88rem;margin:0">還沒有人送出。你可以是第一個。</p>'; return; }
+      ks.sort(function(a,b){ return (d[b].t||0)-(d[a].t||0); });
+      list.innerHTML = ks.map(function(k){
+        var v=d[k]||{};
+        var body=[['①',v.a1],['②',v.a2],['③',v.a3]].filter(function(p){return p[1];})
+          .map(function(p){ return '<p><span class="qn">'+p[0]+'</span><b>'+esc(p[1])+'</b></p>'; }).join('');
+        if(!body) return '';
+        return '<div class="ans"><span class="col">'+esc(v.col||'—')+'</span>'+body+'</div>';
+      }).join('');
+    }
+
+    function load(){
+      if(!FB_DB){ return; }
+      fetch(FB_DB.replace(/\/+$/,'')+'/isu0821/answers.json')
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(d){ if(d!==null){ board.hidden=false; draw(d); } })
+        .catch(function(){});
+    }
+
+    document.getElementById('qaRefresh').addEventListener('click',load);
+
+    document.getElementById('qaSave').addEventListener('click',function(){
+      var a1=(document.getElementById('q1').value||'').trim().slice(0,200);
+      var a2=(document.getElementById('q2').value||'').trim().slice(0,200);
+      var a3=(document.getElementById('q3').value||'').trim().slice(0,200);
+      if(!a1 && !a2 && !a3){ msg.textContent='三題至少寫一題再送出。'; return; }
+      if(!FB_DB){
+        msg.textContent='已存在你自己的瀏覽器。（講師還沒開啟共享，所以看不到別人的。）';
+        return;
+      }
+      var key=null;
+      try{ key=localStorage.getItem(AKEY); }catch(e){}
+      if(!key){
+        key='a'+Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);
+        try{ localStorage.setItem(AKEY,key); }catch(e){}
+      }
+      msg.textContent='送出中…';
+      fetch(FB_DB.replace(/\/+$/,'')+'/isu0821/answers/'+key+'.json',{
+        method:'PUT', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({a1:a1,a2:a2,a3:a3,col:college(me.dept||''),t:Date.now()})
+      }).then(function(r){
+        msg.textContent = r.ok ? '送出了。再按一次可以更新你的答案。' : '送不出去，但你的內容已存在本機。';
+        if(r.ok) load();
+      }).catch(function(){
+        msg.textContent='連不上，但你的內容已存在本機。';
+      });
+    });
+
+    load();
   }
 })();
 
