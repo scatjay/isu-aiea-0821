@@ -264,7 +264,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   </div>
   <div class="idprog">
     <b id="idDone">0</b><span>／5 個單元完成</span>
-    <span class="sync" id="msync" data-s="off">未連線</span>
+    <span class="sync" id="msync" data-s="off" hidden></span>
   </div>
   <button type="button" id="idSwitch">登出</button>
 </div>
@@ -750,19 +750,22 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
 
     var timer=null;
     function push(){
-      if(!FB_DB){ badge.dataset.s='off'; badge.textContent='離線模式'; return; }
+      // 沒接資料庫時**什麼都不顯示**。
+      // 原本寫「離線模式」，那是開發用語，老師看到只會以為自己網路壞了。
+      if(!FB_DB){ badge.hidden=true; return; }
+      badge.hidden=false;
       clearTimeout(timer);
       timer=setTimeout(function(){
-        badge.dataset.s='off'; badge.textContent='同步中…';
+        badge.dataset.s='off'; badge.textContent='回報中…';
         fetch(FB_DB.replace(/\/+$/,'')+'/isu0821/students/'+me.id+'.json',{
           method:'PUT',
           headers:{'Content-Type':'application/json'},
           body:JSON.stringify({name:me.name, dept:me.dept||'', done:mask(), t:Date.now()})
         }).then(function(r){
-          if(r.ok){ badge.dataset.s='ok'; badge.textContent='已同步'; }
-          else{ badge.dataset.s='err'; badge.textContent='同步失敗（不影響你）'; }
+          if(r.ok){ badge.dataset.s='ok'; badge.textContent='進度已回報'; }
+          else{ badge.dataset.s='err'; badge.textContent='進度存在這台電腦'; }
         }).catch(function(){
-          badge.dataset.s='err'; badge.textContent='離線（不影響你）';
+          badge.dataset.s='err'; badge.textContent='進度存在這台電腦';
         });
       }, 600);
     }
@@ -894,7 +897,7 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
       var a3=(document.getElementById('q3').value||'').trim().slice(0,200);
       if(!a1 && !a2 && !a3){ msg.textContent='三題至少寫一題再送出。'; return; }
       if(!FB_DB){
-        msg.textContent='已存在你自己的瀏覽器。（講師還沒開啟共享，所以看不到別人的。）';
+        msg.textContent='已存在你自己的電腦裡。（互看功能還沒開，所以看不到別人的。）';
         return;
       }
       var key=null;
@@ -908,10 +911,10 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
         method:'PUT', headers:{'Content-Type':'application/json'},
         body:JSON.stringify({a1:a1,a2:a2,a3:a3,col:college(me.dept||''),t:Date.now()})
       }).then(function(r){
-        msg.textContent = r.ok ? '送出了。再按一次可以更新你的答案。' : '送不出去，但你的內容已存在本機。';
+        msg.textContent = r.ok ? '送出了。再按一次可以更新你的答案。' : '送不出去，但你打的字已存在你自己的電腦裡。';
         if(r.ok) load();
       }).catch(function(){
-        msg.textContent='連不上，但你的內容已存在本機。';
+        msg.textContent='連不上，但你打的字已存在你自己的電腦裡。';
       });
     });
 
