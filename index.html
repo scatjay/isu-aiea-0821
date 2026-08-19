@@ -384,10 +384,21 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <div class="drill bonus">
     <p class="dlabel">加碼 2</p>
     <ul>
-      <li><b class="bno">加碼 2-1</b> <b>自己跑一次抓課綱</b>：跟講師拿那段指令，把姓名換成你自己的，讓它去學校系統把你<b>另一門課</b>的課綱抓回來。<br>
+      <li><b class="bno">加碼 2-1</b> <b>接上 Gmail、行事曆、雲端硬碟——這三個免費就能用，不必付費方案。</b><br>
+        在 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> <b>網頁版</b> → 右下角你的名字 → 設定 → <b>Connectors</b> → 一個一個按 <b>Connect</b> → 完成 Google 授權。<br>
+        接好之後試這三句：<br>
+        　「我今天有什麼行程？」<br>
+        　「列出我雲端硬碟最近修改過的 3 個檔案。」<br>
+        　「幫我擬一封信給助教。」<span style="color:var(--warn)">（只擬草稿。寄出永遠是你自己按。）</span><br>
+        <span style="color:var(--ink-3)">8/19 用免費帳號實測過：三個都連得上，答案跟原始資料逐項核對都正確。</span></li>
+
+      <li><b class="bno">加碼 2-2</b> <b>順手看一眼授權畫面上的網址。</b><br>
+        按 Connect 的時候，Google 的同意畫面上會出現 <code>drivemcp.googleapis.com/<b>mcp</b></code>。<br>
+        <b>那個 <code>mcp</code> 就是今天一直在講的那個 MCP。</b>
+        網頁版點 Connect、跟在桌面版設定 MCP，<b>底層是同一件事</b>，差別只在有沒有圖形介面、以及能不能碰你電腦裡的檔案。</li>
+
+      <li><b class="bno">加碼 2-3</b> <b>自己跑一次抓課綱</b>：跟講師拿那段指令，把姓名換成你自己的，讓它去學校系統把你<b>另一門課</b>的課綱抓回來。<br>
         <span style="color:var(--warn)">請等講師示範完再跑，不要全班同時打學校系統。</span></li>
-      <li><b class="bno">加碼 2-2</b> 接上 <b>Google 雲端硬碟</b>，讓它直接讀你放在雲端的教材。</li>
-      <li><b class="bno">加碼 2-3</b> 接上 <b>行事曆</b>與 <b>Gmail</b>（開學後才有感；Gmail 只擬草稿，寄出永遠是你自己按）。</li>
     </ul>
   </div>
 
@@ -416,6 +427,21 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
       <li><b>記下現在幾點。</b></li>
     </ol>
     <p class="done"><b>做完長這樣：</b><code>送審產出</code> 裡多了一份稽核報告，而且你知道它花了幾分鐘。<b>下午那格要這樣寫：</b>「這件事我原本一學期做 <b>0 次</b>（想做但沒時間），今天 ＿＿ 分鐘做完，下學期可以每門課都做一次。」</p>
+  </div>
+
+  <div class="stuck" style="background:var(--bonus-soft)">
+    <b style="color:var(--bonus)">在你相信這份稽核報告之前——先知道它會怎麼唬你</b><br>
+    這三個都是 <b>8/19 用真實帳號測出來的</b>，不是假設：
+    <div class="tw" style="margin:.7rem 0 .5rem"><table>
+      <tr><th>做了什麼</th><th>結果</th></tr>
+      <tr><td>問某個 AI「我雲端硬碟最近改過哪 3 個檔案」</td><td>答「沒有搜尋到」——<b>但那個帳號明明有檔案</b>。畫面上完全看不出這次失敗了</td></tr>
+      <tr><td>請它讀一份真實的課綱網址</td><td><b>18 週進度整段是編的</b>，還編出原始網頁根本沒出現過的詞。表格工整、數字加總剛好 100、語氣很有把握</td></tr>
+      <tr><td>另一個 AI 讀同一個網址</td><td>答「被網站的 robots.txt 擋下來」——<b>那個網站根本沒有 robots.txt</b>。它編了一個聽起來很專業的假理由</td></tr>
+    </table></div>
+    <b>第三種最危險</b>，因為它不是答錯，是給你一個你查不動的技術藉口。<br><br>
+    <b>所以稽核報告出來之後，請做一件事：挑其中一條，自己回課綱上找那個位置。</b>
+    對得上，後面就可以放心讀；對不上，整份重跑。<br>
+    <span style="color:var(--ink-3)">這個動作本身就是下午「驗證方式」那一段最好的材料——你不只用了 AI，你還檢查了它。</span>
   </div>
 
   <h3>順便講清楚：你正在花什麼、以及它問你的那些問題</h3>
