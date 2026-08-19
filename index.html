@@ -701,9 +701,10 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
   function enter(){
     gate.remove(); site.hidden=false;
     document.getElementById('idName').textContent = me.name;
-    document.getElementById('idDept').textContent = me.dept || '';
+    // 系所前面一定要有標籤。沒有的話，名字旁邊浮一個「其他單位」看不出是什麼。
+    document.getElementById('idDept').textContent = me.dept ? ('系所：' + me.dept) : '';
     document.getElementById('mename').textContent =
-      me.name + (me.dept ? '　' + me.dept : '');
+      me.name + (me.dept ? '（' + me.dept + '）' : '');
     var last=document.getElementById('idLast');
     last.textContent = me.seen ? ('上次來是 ' + ago(me.seen)) : '這是你第一次進來';
     me.seen = Date.now();
