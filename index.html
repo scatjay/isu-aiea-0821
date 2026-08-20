@@ -383,10 +383,10 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v3.6　·　2026-08-20 17:15 更新（三題與檢核後台留存） </p>
+    <p class="ver" id="verStamp">v3.7　·　2026-08-20 17:20 更新（開新課路徑 · 環境能做什麼） </p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
-  <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
+  <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>預設是拿你 115-1 真的要教的那門課</b>的官方課綱動手——因為手上有真材料，六小時才走得完。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。<br><span style="font-size:.94em">要<b>開一門全新的課</b>也完全走得通，同一套流程、同一份產出，只是起點不同——單元 1 會說明。</span></p>
   <div class="meta">
     <span class="chip">6 小時 · 5 個單元</span>
     <span class="chip">依個人進度，不分組</span>
@@ -460,6 +460,21 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 <article class="unit" data-u="0">
   <div class="uhead"><span class="utag">單元 1</span><h2>先確認工具會動，然後挑一門課</h2><span class="utime">09:00–09:30</span></div>
   <p class="uwhy">這半小時不教東西，只做兩件事：確認你按下去會有反應，以及挑定今天要動的那門課。裝不起來的人在這裡就要舉手，不要撐到十一點。</p>
+
+  <div class="stuck" style="background:var(--bonus-soft)">
+    <b style="color:var(--bonus)">「我想開的是一門<u>全新</u>的課，今天還適合我嗎？」——適合，起點不同而已</b><br>
+    今天的預設是「翻新既有課」，因為多數人手上有現成材料，六小時走得完。
+    但<b>同一套流程開新課完全成立</b>，而且下午的產出、AIEA 送審規格都一模一樣。<br>
+    <div class="tw" style="margin:.5rem 0"><table>
+      <tr><th></th><th>翻新既有課（預設）</th><th>開一門新課</th></tr>
+      <tr><td><b>單元 2 放什麼</b></td><td>你的 115-1 官方課綱</td><td>你手邊的<b>參考材料</b>：教科書目錄、別校的類似課綱、系上給的能力指標、你寫的構想筆記</td></tr>
+      <tr><td><b>單元 3 做什麼</b></td><td>稽核現有課綱，找出不一致</td><td>請它<b>從無到有生一版 18 週進度</b>，你再逐週挑毛病</td></tr>
+      <tr><td><b>驗證方式怎麼寫</b></td><td>「原本一學期做 0 次，今天 N 分鐘做完」</td><td>「從零排一門課原本要 ＿ 小時，今天 N 分鐘有了初稿，我改了 ＿ 處」</td></tr>
+      <tr><td><b>下午產出</b></td><td colspan="2" style="text-align:center">一樣：課綱包 ＋ 六段送審稿</td></tr>
+    </table></div>
+    <span style="color:var(--ink-3)">真的什麼材料都沒有？也做得完——講師會給你一份範例課綱當練習材料，
+    流程一模一樣，你回去換成自己的就好。</span>
+  </div>
 
   <div class="drill bonus">
     <p class="dlabel">先做這個・把 Claude 桌面版裝起來（約 10 分鐘）</p>
@@ -740,6 +755,23 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
       ③ 剛建好還沒同步，等 30 秒再問一次。</span><br>
       <span style="color:var(--ink-3)">通了之後，「義守AI課程」這個資料夾就是你課後放教材的地方——
       下次不用再傳檔案，直接叫它去那裡拿、也叫它寫回那裡。</span>
+    </div>
+
+    <div class="stuck">
+      <b>你現在建好的，不只是「一個會改課綱的工具」——是一個工作環境</b><br>
+      今天為了走完流程，我們只叫它做課綱。但同一個環境接上之後，
+      <b>它讀得到、也寫得出這些</b>，都在同一個資料夾裡完成，不用切換軟體：<br>
+      <div class="tw" style="margin:.5rem 0"><table>
+        <tr><th>你想要的</th><th>它產出什麼</th></tr>
+        <tr><td>上課簡報</td><td>可以直接開的 <code>.pptx</code>，或一頁式網頁簡報</td></tr>
+        <tr><td>學習單、作業說明、評分規準</td><td><code>.docx</code> / <code>.pdf</code>，格式排好的</td></tr>
+        <tr><td>成績或問卷的整理</td><td><code>.xlsx</code>，含公式與圖表</td></tr>
+        <tr><td>課程網頁、教學網站</td><td>就是你現在看的這一頁——它自己寫的</td></tr>
+        <tr><td>把一堆 PDF 教材整理成講義</td><td>讀完全部，輸出你要的格式</td></tr>
+      </table></div>
+      <span style="color:var(--warn)"><b>今天先不要做這些</b>——時間不夠，而且會岔開主線。
+      但你要知道<b>今天裝的東西不是「課綱專用」</b>，回去之後這些都做得到。</span><br>
+      <span style="color:var(--ink-3)">下午單元 5（挑戰題）會示範其中一種：讓它把整套流程記下來，下次自己重跑。</span>
     </div>
 
     <details style="margin:.9rem 0 0;font-size:.88rem">
@@ -1175,7 +1207,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v3.6';
+var PAGE_VER = 'v3.7';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
