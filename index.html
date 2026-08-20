@@ -420,7 +420,7 @@ details.peek summary:hover{color:var(--core)}
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v4.8　·　2026-08-20 23:48 更新</p>
+    <p class="ver" id="verStamp">v4.9　·　2026-08-20 23:58 更新</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。四個單元。<b>預設是拿你 115-1 真的要教的那門課</b>的官方課綱動手——因為手上有真材料，六小時才走得完。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。<br><span style="font-size:.94em">要<b>開一門全新的課</b>也完全走得通，同一套流程、同一份產出，只是起點不同——單元 1 會說明。</span></p>
@@ -1057,6 +1057,37 @@ details.peek summary:hover{color:var(--core)}
     每一條都附上我們實際跑出來的證據。</span>
   </div>
 
+  <div class="stuck" id="whatisdebugchrome" style="background:var(--bonus-soft)">
+    <b style="color:var(--bonus)">先解釋一下「debug Chrome」是什麼——等一下整段都靠它</b><br>
+
+    <b>它就是 Chrome，只是多開了一個「讓程式也能操作它」的開口。</b><br>
+    <span style="color:var(--ink-3)">平常的瀏覽器只聽你的：你點、你打字、你捲動。
+    debug 模式多開一道門，讓<b>程式也能下同樣的指令</b>——
+    開哪一頁、讀畫面上有什麼、按哪個按鈕。<b>能做的事完全一樣，只是換一個人在操作。</b></span><br>
+
+    <b>為什麼非要它不可？</b>
+    <span style="color:var(--ink-3)">因為<b>很多學校系統根本沒開 API</b>。
+    沒有 API 的時候，「開一個瀏覽器、登入、把頁面讀回來」就是唯一的路——
+    而這條路的前提是：<b>只要你自己進得去，程式就讀得到。</b>
+    不管那個系統是不是開源、有沒有提供 API。</span><br>
+
+    <b>那它會不會亂動我原本的瀏覽器？</b>
+    <span style="color:var(--ink-3)"><b>不會，它是另一個獨立的瀏覽器視窗</b>，
+    用的是另一份設定檔。你原本開著的分頁、書籤、登入狀態<b>完全不受影響</b>。
+    關掉它，什麼都沒變。</span><br>
+
+    <b>那它是不是拿到我的密碼了？</b>
+    <span style="color:var(--core)"><b>沒有，而且這是重點。</b>
+    你是在<b>瀏覽器自己的登入畫面</b>打帳密的，就跟你平常登入一模一樣。
+    程式只是<b>借用「你已經登入好的那個視窗」</b>去讀資料——
+    它從頭到尾看不到你的密碼，也不需要看到。<br>
+    這也是為什麼<b>每次重開都要再登入一次</b>：它沒有你的密碼，沒辦法幫你登。</span><br>
+
+    <span style="color:var(--warn)">⚠️ 一個實務提醒：那個視窗因為開著「讓程式操作」的開口，
+    <b>不要在裡面登入網路銀行、或任何你不希望被程式讀到的東西</b>。
+    它就拿來做今天這件事，用完關掉。</span>
+  </div>
+
   <div class="stuck">
     <b>順便講一件比技術更大的事</b><br>
     南台的 FlipClass <b>沒有 API</b>，所以講師那套是用 <b>debug Chrome</b> 逆向出來的——
@@ -1566,7 +1597,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v4.8';
+var PAGE_VER = 'v4.9';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
