@@ -209,6 +209,15 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 .utab.active .utab-n, .utab.active .utab-t{color:var(--card)}
 .utab-dot{position:absolute; top:.4rem; right:.5rem; width:.5rem; height:.5rem; border-radius:50%;
   background:transparent}
+/* 分組標籤（上午/下午/挑戰）*/
+.utab-grp{flex:0 0 auto; align-self:center; font-size:.72rem; font-weight:700; letter-spacing:.1em;
+  color:var(--ink-3); padding:0 .2rem 0 .4rem; white-space:nowrap}
+.utab-grp:first-child{padding-left:.1rem}
+/* 挑戰單元用暖色，跟核心單元區隔 */
+.utab-challenge{border-color:var(--bonus)}
+.utab-challenge .utab-n{color:var(--bonus)}
+.utab-challenge.active{background:var(--bonus); border-color:var(--bonus)}
+.utab-challenge.active .utab-n{color:var(--card)}
 .utab.done .utab-dot{background:var(--core)}
 .utab.active.done .utab-dot{background:var(--card)}
 /* 分頁內容：非當前頁隱藏 */
@@ -360,7 +369,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v2.9　·　2026-08-20 16:27 更新（單元分頁 · 目錄） </p>
+    <p class="ver" id="verStamp">v3.0　·　2026-08-20 16:35 更新（上午下午分組 · 單元4/5對調 · footer） </p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -423,11 +432,14 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 </div>
 
 <nav class="unittabs" id="unitTabs" role="tablist">
+  <span class="utab-grp">上午</span>
   <button type="button" class="utab" role="tab" data-goto="0"><span class="utab-n">單元 1</span><span class="utab-t">先讓工具會動</span><span class="utab-dot" aria-hidden="true"></span></button>
   <button type="button" class="utab" role="tab" data-goto="1"><span class="utab-n">單元 2</span><span class="utab-t">讓它讀到你的課</span><span class="utab-dot" aria-hidden="true"></span></button>
+  <span class="utab-grp">下午</span>
   <button type="button" class="utab" role="tab" data-goto="2"><span class="utab-n">單元 3</span><span class="utab-t">從頭看一遍課綱</span><span class="utab-dot" aria-hidden="true"></span></button>
-  <button type="button" class="utab" role="tab" data-goto="3"><span class="utab-n">單元 4</span><span class="utab-t">讓它能自己重跑</span><span class="utab-dot" aria-hidden="true"></span></button>
-  <button type="button" class="utab" role="tab" data-goto="4"><span class="utab-n">單元 5</span><span class="utab-t">收斂成送審成果</span><span class="utab-dot" aria-hidden="true"></span></button>
+  <button type="button" class="utab" role="tab" data-goto="3"><span class="utab-n">單元 4</span><span class="utab-t">收斂成送審成果</span><span class="utab-dot" aria-hidden="true"></span></button>
+  <span class="utab-grp">挑戰</span>
+  <button type="button" class="utab utab-challenge" role="tab" data-goto="4"><span class="utab-n">單元 5</span><span class="utab-t">給更快的人</span><span class="utab-dot" aria-hidden="true"></span></button>
 </nav>
 
 <!-- ══════════ U0 ══════════ -->
@@ -937,7 +949,42 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 
 <!-- ══════════ U4 ══════════ -->
 <article class="unit" data-u="3">
-  <div class="uhead"><span class="utag">單元 4</span><h2>讓它下次能自己重跑一遍</h2><span class="utime">13:30–15:00</span></div>
+  <div class="uhead"><span class="utag">單元 4</span><h2>收斂成一份可以送出去的成果</h2><span class="utime">13:30–15:00</span></div>
+  <p class="uwhy">這一段<b>不需要帳號</b>，人人都做得完。今天工具卡住的人，講師會發給你稽核報告，你一樣交得出完整的東西。</p>
+
+  <div class="tw"><table>
+    <tr><th>要寫的段落</th><th>材料在哪裡</th></tr>
+    <tr><td>題目（含問題意識）</td><td>單元 2 你打的那三句話</td></tr>
+    <tr><td><b>設計理念</b></td><td>照這個填：「這門課原本＿＿＿＿（貼你的<code>改版前快照</code>）→ 我改成＿＿＿＿ → 因為＿＿＿＿。這中間 AI 負責＿＿＿＿、我負責＿＿＿＿。」</td></tr>
+    <tr><td>操作方式</td><td>單元 2 的資料夾 + 單元 4 的流程，附截圖</td></tr>
+    <tr><td><b>驗證方式</b></td><td>兩項：<b>(a)</b> 稽核抓出幾條不一致、我認同幾條（硬數字）　<b>(b)</b>「這件事我原本一學期做 0 次，今天 N 分鐘做完，下學期打算每門課做一次」<br><span style="color:var(--warn)">不要寫「省了幾分鐘」。</span></td></tr>
+    <tr><td>綜合評估／未來發展</td><td>下學期打算延伸到哪、哪幾門課也能用</td></tr>
+    <tr><td><b>作品連結</b></td><td><b>只指向 送審產出 資料夾</b></td></tr>
+  </table></div>
+
+  <div class="stuck">
+    <b>送審前務必逐頁清一次：</b>你那份用了五年的舊資料，十之八九夾帶了教科書掃圖、出版社投影片或歷屆考卷。
+    <b>專業級的授權同意書會公開在 iLink 網站上。</b>作品連結<b>絕對不要</b>指向 <code>課程原料</code>。
+  </div>
+
+  <div class="drill core">
+    <p class="dlabel">練習 5</p>
+    <ol>
+      <li>上面六段裡，<b>至少完成「題目」和「驗證方式」兩段</b>——這兩段最難事後補，其他段回家寫得出來。</li>
+      <li>寫完請 Claude 看一遍：「這份稿子哪一段最弱？」</li>
+    </ol>
+    <p class="done"><b>做完長這樣：</b>至少兩段是完整的句子，不是條列關鍵字。</p>
+  </div>
+
+  <div class="stuck"><b>關於送件，請以總辦說的為準：</b><br>
+  ① 上面這六段是一個好用的<b>敘述骨架</b>，但官方把它寫在<b>基礎級</b>的繳交規格底下。專業級的硬要件是<b>「工具包＋自動化設計」</b>——就是你單元 4 做的那個。<br>
+  ② 課程可以<b>回溯前兩年</b>，你過去教過的可能已經算數。<br>
+  ③ 實際格式、必選科目、送審排程，<b>請跟總辦確認</b>，不要照這頁的說法送。</div>
+  <label class="check"><input type="checkbox"> 這個單元我做完了<span class="cnt" data-cnt></span></label>
+</article>
+
+<article class="unit" data-u="4">
+  <div class="uhead"><span class="utag">單元 5</span><h2>讓它下次能自己重跑一遍</h2><span class="utime">15:30–16:30</span></div>
   <p class="uwhy">上午做的是單次的，用完就沒了。這一段做「可以重複跑的東西」。<b>認證分初階和專業，分水嶺就在這裡</b>：交出一份成果是初階；<b>有一套可重跑的流程＋自動化，才是專業要的「工具包」。</b>今天最重要的一段。</p>
 
   <div class="drill core">
@@ -978,41 +1025,6 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 </article>
 
 <!-- ══════════ U5 ══════════ -->
-<article class="unit" data-u="4">
-  <div class="uhead"><span class="utag">單元 5</span><h2>收斂成一份可以送出去的成果</h2><span class="utime">15:30–16:30</span></div>
-  <p class="uwhy">這一段<b>不需要帳號</b>，人人都做得完。今天工具卡住的人，講師會發給你稽核報告，你一樣交得出完整的東西。</p>
-
-  <div class="tw"><table>
-    <tr><th>要寫的段落</th><th>材料在哪裡</th></tr>
-    <tr><td>題目（含問題意識）</td><td>單元 2 你打的那三句話</td></tr>
-    <tr><td><b>設計理念</b></td><td>照這個填：「這門課原本＿＿＿＿（貼你的<code>改版前快照</code>）→ 我改成＿＿＿＿ → 因為＿＿＿＿。這中間 AI 負責＿＿＿＿、我負責＿＿＿＿。」</td></tr>
-    <tr><td>操作方式</td><td>單元 2 的資料夾 + 單元 4 的流程，附截圖</td></tr>
-    <tr><td><b>驗證方式</b></td><td>兩項：<b>(a)</b> 稽核抓出幾條不一致、我認同幾條（硬數字）　<b>(b)</b>「這件事我原本一學期做 0 次，今天 N 分鐘做完，下學期打算每門課做一次」<br><span style="color:var(--warn)">不要寫「省了幾分鐘」。</span></td></tr>
-    <tr><td>綜合評估／未來發展</td><td>下學期打算延伸到哪、哪幾門課也能用</td></tr>
-    <tr><td><b>作品連結</b></td><td><b>只指向 送審產出 資料夾</b></td></tr>
-  </table></div>
-
-  <div class="stuck">
-    <b>送審前務必逐頁清一次：</b>你那份用了五年的舊資料，十之八九夾帶了教科書掃圖、出版社投影片或歷屆考卷。
-    <b>專業級的授權同意書會公開在 iLink 網站上。</b>作品連結<b>絕對不要</b>指向 <code>課程原料</code>。
-  </div>
-
-  <div class="drill core">
-    <p class="dlabel">練習 5</p>
-    <ol>
-      <li>上面六段裡，<b>至少完成「題目」和「驗證方式」兩段</b>——這兩段最難事後補，其他段回家寫得出來。</li>
-      <li>寫完請 Claude 看一遍：「這份稿子哪一段最弱？」</li>
-    </ol>
-    <p class="done"><b>做完長這樣：</b>至少兩段是完整的句子，不是條列關鍵字。</p>
-  </div>
-
-  <div class="stuck"><b>關於送件，請以總辦說的為準：</b><br>
-  ① 上面這六段是一個好用的<b>敘述骨架</b>，但官方把它寫在<b>基礎級</b>的繳交規格底下。專業級的硬要件是<b>「工具包＋自動化設計」</b>——就是你單元 4 做的那個。<br>
-  ② 課程可以<b>回溯前兩年</b>，你過去教過的可能已經算數。<br>
-  ③ 實際格式、必選科目、送審排程，<b>請跟總辦確認</b>，不要照這頁的說法送。</div>
-  <label class="check"><input type="checkbox"> 這個單元我做完了<span class="cnt" data-cnt></span></label>
-</article>
-
 <!-- ══════════ 自由探索 ══════════ -->
 <section class="blk epi">
   <h2>自由探索菜單</h2>
@@ -1079,8 +1091,9 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 </section>
 
 <footer>
-  <p>義守大學教師專業成長工作坊　·　2026-08-21　·　講師 楊智傑<br>
-  課後這頁保持開放，有問題寫信給我。</p>
+  <p>義守大學教師專業成長工作坊　·　2026-08-21　·　講師 楊智傑</p>
+  <p>這個網頁<b>開放到 2026-08-23</b>，這幾天你都可以回來把沒做完的做完、把連結收好。</p>
+  <p>有問題可以寫信給講師 <b>楊智傑</b>　<a href="mailto:scatjay@gmail.com">scatjay@gmail.com</a></p>
 </footer>
 </div>
 
@@ -1118,7 +1131,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v2.9';
+var PAGE_VER = 'v3.0';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
