@@ -44,6 +44,10 @@ a{color:var(--core)}
 /* ── header ── */
 header{padding:3.5rem 0 2rem; border-bottom:1px solid var(--line)}
 .eyebrow{font-size:.8rem; letter-spacing:.16em; color:var(--ink-3); margin:0 0 .6rem}
+/* 標題列：左邊單位、右邊改版戳記。窄螢幕自動換行，戳記掉到下一行不擠壓標題。 */
+.hrow{display:flex; align-items:baseline; justify-content:space-between; gap:.6rem 1.2rem; flex-wrap:wrap}
+.ver{margin:0 0 .6rem; font-size:.72rem; letter-spacing:.06em; color:var(--ink-3);
+     font-variant-numeric:tabular-nums; white-space:nowrap}
 h1{font-size:clamp(1.7rem,4.5vw,2.6rem); line-height:1.25; margin:0 0 .8rem; text-wrap:balance; font-weight:800}
 .sub{color:var(--ink-2); margin:0; max-width:38rem}
 .meta{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.4rem}
@@ -168,11 +172,16 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 .geyebrow{font-size:.78rem; letter-spacing:.14em; color:var(--ink-3); margin:0 0 .7rem}
 #gform h1{font-size:1.5rem; margin:0 0 1rem; font-weight:800}
 .ghint{font-size:.9rem; color:var(--ink-2); margin:0 0 1.4rem; line-height:1.7}
-#gname,#gpass,#gdept{width:100%; font:inherit; padding:.7rem .8rem; border:1px solid var(--line); border-radius:.45rem; background:var(--bg); color:var(--ink)}
+#gname,#gpass,#gdept,#gmail{width:100%; font:inherit; padding:.7rem .8rem; border:1px solid var(--line); border-radius:.45rem; background:var(--bg); color:var(--ink)}
 #gname{text-align:center; margin-bottom:.6rem}
 #gdept{margin-bottom:.6rem; text-align:center; text-align-last:center}
+#gmail{text-align:center; margin-bottom:.5rem}
 #gpass{font-size:1.15rem; text-align:center; letter-spacing:.22em}
-#gname:focus-visible,#gpass:focus-visible,#gdept:focus-visible{outline:2px solid var(--core); outline-offset:2px; border-color:var(--core)}
+#gname:focus-visible,#gpass:focus-visible,#gdept:focus-visible,#gmail:focus-visible{outline:2px solid var(--core); outline-offset:2px; border-color:var(--core)}
+/* 學校信箱的警告要在「還沒送出」時就看得到，不是等按下去才罵人 */
+.gwarn{font-size:.78rem; line-height:1.6; color:var(--ink-2); text-align:left; margin:0 0 .9rem; padding:.55rem .7rem; border-radius:.4rem; background:var(--bonus-soft); border-left:3px solid var(--warn)}
+.gwarn code{font-size:.95em}
+#gmail.bad{border-color:var(--warn); background:color-mix(in srgb, var(--warn) 8%, var(--bg))}
 .gnote{font-size:.78rem; color:var(--ink-3); line-height:1.65; margin:1.2rem 0 0; padding-top:1rem; border-top:1px solid var(--line)}
 /* 登入後的身分列 */
 .me{display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; font-size:.85rem; color:var(--ink-2)}
@@ -193,7 +202,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <form id="gform" autocomplete="off">
     <p class="geyebrow">義守大學 · 教師專業成長工作坊</p>
     <h1>用 AI 做出一門課</h1>
-    <p class="ghint">請填大名、選系所，並輸入通行碼。<br>通行碼由講師提供。</p>
+    <p class="ghint">請填大名、選系所、留下你的個人 Gmail，並輸入通行碼。<br>通行碼由講師提供。</p>
     <input id="gname" type="text" maxlength="20" placeholder="你的大名" aria-label="姓名" autocomplete="name">
     <select id="gdept" aria-label="系所">
       <option value="">請選擇系所</option>
@@ -232,16 +241,27 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
       </optgroup>
       <option value="其他單位">其他單位（校外、行政、講師）</option>
     </select>
-    <input id="gpass" type="password" inputmode="numeric" maxlength="8" placeholder="４ 位數字" aria-label="通行碼">
+    <input id="gmail" type="email" maxlength="60" placeholder="你的個人 Gmail" aria-label="個人 Gmail"
+           autocomplete="email" autocapitalize="off" spellcheck="false">
+    <p class="gwarn">請用<b>個人 Gmail</b>，不要用 <code>@isu.edu.tw</code> 學校信箱。<br>
+      學校的 Google Workspace 會擋掉第三方授權，等一下接雲端硬碟那段會卡住，<b>換 wifi 或開熱點都沒有用</b>。</p>
+    <!-- 不提示位數。位數本身就是線索，講師口頭給就好。 -->
+  <input id="gpass" type="password" inputmode="numeric" maxlength="8" placeholder="通行碼" aria-label="通行碼">
     <button type="submit">進入</button>
     <p id="gerr" role="alert"></p>
-    <p class="gnote">填大名是為了讓講師看得到大家的進度、知道要去幫誰。<br>這頁只會送出你的姓名和「哪幾個單元打勾了」，不會送出你寫的內容。</p>
+    <p class="gnote">填大名是為了讓講師看得到大家的進度、知道要去幫誰。<br>這頁只會送出你的姓名和「哪幾個單元打勾了」，<b>不會送出你的信箱，也不會送出你寫的內容</b>——信箱只留在你自己這台電腦，讓講師當場問你的時候你查得到。</p>
   </form>
 </div>
 
 <div class="wrap" id="site" hidden>
 <header>
-  <p class="eyebrow">義守大學 · 教師專業成長</p>
+  <div class="hrow">
+    <p class="eyebrow">義守大學 · 教師專業成長</p>
+    <!-- 改版戳記：每次改內容就更新這裡。
+         學員會在不同時間點開這頁，看到的版本可能不一樣——
+         標出來，他們才知道自己看的是不是最新的。 -->
+    <p class="ver" id="verStamp">v1.5　·　2026-08-20 12:35 更新（加入 Git 安裝步驟）</p>
+  </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
   <div class="meta">
@@ -301,6 +321,14 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
         <span style="color:var(--warn)">學校的 Google Workspace 常會擋掉第三方授權，而且訂閱是綁在個人帳號上的。用學校信箱註冊，等一下接雲端硬碟那段很可能會卡住，而換 wifi 或開熱點都沒有用。</span></li>
       <li><b>升級成 Pro。</b>左下角自己的名字 → 升級方案 → 選 Pro（月付約 20 美元，隨時可取消）。</li>
       <li>下載完成後<b>安裝、打開、用同一個帳號登入</b>。</li>
+      <li><b>再裝一個 Git——下午那段沒有它會卡住。</b><br>
+        👉 <a href="https://git-scm.com/download/win" target="_blank" rel="noopener"><b>git-scm.com/download/win</b></a>
+        　（選 <b>64-bit Git for Windows Setup</b>，約 62 MB）<br>
+        <span style="color:var(--ink-3)">一路按「下一步」到底就好，<b>所有選項都不用改</b>。它不會問你要不要註冊。<br>
+        現場網路慢的話，講師桌上有隨身碟，也可以從
+        <a href="https://github.com/git-for-windows/git/releases/latest" target="_blank" rel="noopener">GitHub 官方發布頁</a>抓。</span></li>
+      <li><b>裝完 Git 之後，把 Claude 桌面版關掉再重開。</b><br>
+        <span style="color:var(--warn)">這步很容易漏。Claude 是啟動的時候才去找 Git 的，不重開它會繼續說找不到。</span></li>
     </ol>
     <p class="done"><b>做完長這樣：</b>桌面版打得開，左下角顯示你的帳號，方案是 Pro。</p>
     <p style="font-size:.85rem;margin:.9rem 0 0;color:var(--ink-2)">
@@ -317,6 +345,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
       <li><b>隨便打一句話給它</b>——「你好」就可以。<b>看到它回話，就代表裝好了。</b><br>
         <span style="color:var(--ink-3)">這一步只是確認它會動。不用想要問什麼。</span></li>
       <li>再問它一句：<b>「你現在讀得到我電腦上的檔案嗎？」</b>不管它回什麼，把回答看完——你要知道它現在碰得到什麼、碰不到什麼。</li>
+    </ol>
     <p class="done"><b>做完長這樣：</b>你打了一句話，它回你了。<b>就這樣，勾起來往下走。</b></p>
   </div>
 
@@ -328,6 +357,17 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   </div>
 
   <div class="stuck"><b>卡住了：</b>裝不起來、登不進去，現在就舉手。<b>今天每個單元都有不需要帳號也交得出東西的路。</b>你不會因為這個而空手回去。</div>
+
+  <div class="stuck" style="background:var(--bonus-soft)">
+    <b style="color:var(--bonus)">如果你的電腦裝了 Norton、McAfee 這類防毒軟體，特別注意這一條</b><br>
+    它們會自己接管網路管制，而且<b>擋掉的時候通常不會跳任何訊息</b>——畫面上只會一直轉、
+    或是「連不上」，你完全看不出是被誰擋的。<br>
+    <b>症狀：</b>授權畫面打不開、或按了同意之後回不來、或連接器一直顯示連線中。<br>
+    <b>處置：</b>先舉手。不要自己關掉防毒軟體——那是公務機的話更不要。
+    講師會協助改成「允許」而不是「關閉」。<br>
+    <span style="color:var(--ink-3)">這是 8/19 課前實測踩到的：一台裝了 Norton 的筆電，所有設定都正確，
+    但連線就是不通，查了半小時才發現是防毒在擋。</span>
+  </div>
   <label class="check"><input type="checkbox"> 這個單元我做完了<span class="cnt" data-cnt></span></label>
 </article>
 
@@ -377,6 +417,20 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <div class="pr">看一下這個資料夾，列出裡面有哪些檔案，並用兩三句話告訴我這門課現在在教什麼。<button type="button">複製</button></div>
     <p style="font-size:.9rem;margin:.6rem 0 0;color:var(--ink-2)">它回答之後，請它把那段話存成 <code>改版前快照.md</code> 放進 <b>送審產出</b>。<b>下午寫「設計理念」要用。</b></p>
     <p class="done"><b>做完長這樣：</b>兩個資料夾都在，<code>送審產出</code> 裡有一個 <code>改版前快照.md</code>，內容講的是你真實的那門課。</p>
+  </div>
+
+  <div class="stuck" style="background:var(--bonus-soft)">
+    <b style="color:var(--bonus)">你把資料夾交出去的時候，它會連跳三個視窗——照這樣按就對了：</b><br>
+    ① <b>Select folder…</b>　挑你的 <code>課程原料</code> 資料夾。<br>
+    ② <b>Trust this workspace?</b>　按 <b>Trust Workspace</b>（意思是「這個資料夾我信得過，可以讀」）。<br>
+    ③ <b>Install Git</b>　—— 只有<b>沒裝 Git 的人</b>會看到這個。原文寫：
+    <span style="color:var(--ink-3)">Git for Windows is required to run local sessions.</span>
+    <b>翻成白話：要讀你電腦上的資料夾，就一定要有 Git。</b><br>
+    <span style="color:var(--ink-3)">看到第 ③ 個視窗，代表你早上那步漏了。按「Not now」關掉，去
+    <a href="https://git-scm.com/download/win" target="_blank" rel="noopener"><b>git-scm.com/download/win</b></a>
+    裝好，<b>然後把 Claude 關掉重開</b>，再回來重做一次。</span><br>
+    <b style="color:var(--warn)">為什麼有人沒跳這個視窗？</b>因為他開的是<b>雲端</b>工作階段，那個不需要 Git。
+    但雲端讀不到你電腦裡的課綱——今天下午要做的事，非本機不可。
   </div>
 
   <div class="stuck">
@@ -680,9 +734,14 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
   var gate=document.getElementById('gate'), site=document.getElementById('site');
   var form=document.getElementById('gform');
   var iname=document.getElementById('gname'), ipass=document.getElementById('gpass');
-  var idept=document.getElementById('gdept');
+  var idept=document.getElementById('gdept'), imail=document.getElementById('gmail');
   var err=document.getElementById('gerr');
   var me=null;
+
+  // 學校信箱擋第三方授權，是 8/21 最可能整批卡住的地方。
+  // 這裡只認網域，不認 gmail.com —— 老師用 yahoo / hotmail 也一樣能跑。
+  function schoolMail(v){ return /(\.edu(\.[a-z]{2,})?|isu\.edu)$/i.test(v.split('@')[1]||''); }
+  function okMail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 
   try{ me=JSON.parse(localStorage.getItem(MEKEY)||'null'); }catch(e){}
 
@@ -728,13 +787,32 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
       var n=iname.value.trim().slice(0,20);
       if(!n){ err.textContent='請先填大名。'; iname.focus(); return; }
       if(!idept.value){ err.textContent='請選一下系所。'; idept.focus(); return; }
+      var mail=imail.value.trim().slice(0,60);
+      if(!okMail(mail)){
+        err.textContent='請填一個完整的信箱，例如 yourname@gmail.com。';
+        imail.classList.add('bad'); imail.focus(); return;
+      }
+      if(schoolMail(mail)){
+        err.textContent='這是學校信箱。請改填個人 Gmail —— 學校帳號等一下授權會被擋，換 wifi 也沒有用。';
+        imail.classList.add('bad'); imail.select(); return;
+      }
       if(ipass.value.trim()!==PASS){
         err.textContent='通行碼不對，請再確認一次。';
         ipass.value=''; ipass.focus(); return;
       }
-      me={id:rid(), name:n, dept:idept.value.slice(0,40)};
+      // 🔴 gmail 只寫進 localStorage，**不進 push() 的 payload**。
+      //    這頁是公開網址、RTDB 規則還沒鎖，43 位老師的信箱不該躺在那裡。
+      me={id:rid(), name:n, dept:idept.value.slice(0,40), gmail:mail};
       try{ localStorage.setItem(MEKEY,JSON.stringify(me)); }catch(e){}
       enter();
+    });
+    // 邊打邊提醒，不要等按了「進入」才罵人
+    imail.addEventListener('input',function(){
+      imail.classList.remove('bad');
+      if(schoolMail(imail.value.trim())){
+        imail.classList.add('bad');
+        err.textContent='這看起來是學校信箱，等一下授權會被擋。建議改用個人 Gmail。';
+      } else if(err.textContent.indexOf('信箱')>-1){ err.textContent=''; }
     });
     iname.focus();
   }
