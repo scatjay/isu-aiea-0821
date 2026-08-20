@@ -184,6 +184,15 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 @media (max-width:520px){ .pr{padding-right:.9rem; padding-top:2.3rem} .pr button{top:.45rem; left:.5rem; right:auto} }
 [hidden]{display:none !important}
 
+/* 舊版提示：一定要蓋在最上層，而且不能被閘門的 flex 置中吃掉 */
+#verBanner{position:fixed; top:0; left:0; right:0; z-index:9999;
+  display:flex; align-items:center; justify-content:center; gap:1rem; flex-wrap:wrap;
+  background:var(--warn); color:#fff; padding:.7rem 1rem; font-size:.9rem; line-height:1.5;
+  box-shadow:0 2px 8px rgba(0,0,0,.18)}
+#verBanner button{font:inherit; font-weight:700; padding:.35rem .9rem; border:none;
+  border-radius:.35rem; background:#fff; color:var(--warn); cursor:pointer; white-space:nowrap}
+#verBanner button:hover{filter:brightness(.95)}
+
 /* ── 通行碼閘 ── */
 #gate{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem; background:var(--bg)}
 #gform{width:100%; max-width:24rem; background:var(--card); border:1px solid var(--line); border-radius:.8rem; padding:2.2rem 1.8rem; box-shadow:var(--shadow); text-align:center}
@@ -241,6 +250,11 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 </style>
 </head>
 <body>
+
+<div id="verBanner" hidden>
+  <span>這個頁面是舊版的。<b>講師已經更新過內容</b>，請重新載入。</span>
+  <button type="button" id="verReload">重新載入</button>
+</div>
 
 <div id="gate">
   <form id="gform" autocomplete="off">
@@ -309,7 +323,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v1.9　·　2026-08-20 13:35 更新（寄參考資料到學校信箱）</p>
+    <p class="ver" id="verStamp">v2.0　·　2026-08-20 15:00 更新（練習1 改寫 · 舊版偵測）</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -432,13 +446,31 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 
   <div class="drill core">
     <p class="dlabel">練習 1</p>
+    <p style="font-size:.9rem;margin:0 0 .6rem;color:var(--ink-2)">
+      <b>這一題不是「跟 AI 聊天」，是確認你等一下真的能動你電腦裡的檔案。</b>
+      所以要在 <b>Code</b> 那一邊、要挑好資料夾、要有 Git——三件事缺一件，下午就卡住。</p>
     <ol>
       <li>打開 Claude 桌面版，登入。</li>
-      <li><b>隨便打一句話給它</b>——「你好」就可以。<b>看到它回話，就代表裝好了。</b><br>
-        <span style="color:var(--ink-3)">這一步只是確認它會動。不用想要問什麼。</span></li>
-      <li>再問它一句：<b>「你現在讀得到我電腦上的檔案嗎？」</b>不管它回什麼，把回答看完——你要知道它現在碰得到什麼、碰不到什麼。</li>
+      <li><b>左上角切到 <code>&lt;/&gt; Code</code>，不要留在 Home（聊天）那一邊。</b><br>
+        <span style="color:var(--warn)">這是今天最容易錯的一步。Home 是聊天，它讀不到你的檔案；
+        Code 才能。兩邊長得很像，切錯的人到下午才會發現。</span></li>
+      <li><b>按 <code>+ New</code>，然後挑一個你電腦上的資料夾。</b><br>
+        <span style="color:var(--ink-3)">第一次用的人會看到 <code>Select folder…</code>；
+        挑好之後會問 <b>Trust this workspace?</b>，按 <b>Trust Workspace</b>。<br>
+        如果再跳出 <b>Install Git</b>，就是 Git 還沒裝——回上面那格裝好，
+        <b>然後把 Claude 關掉重開</b>。</span></li>
+      <li><b>確認輸入框上方出現兩個標記：</b>一個是 <code>Local</code>，一個是<b>你剛挑的資料夾名字</b>。<br>
+        <span style="color:var(--ink-3)">看到資料夾名字，才代表它真的接上你的電腦了。
+        如果那裡寫的是雲端環境的名字，它讀不到你的檔案。</span></li>
+      <li><b>隨便打一句話送出</b>——「你好」就可以。<b>要等到它真的回你</b>，不是送出去就算。<br>
+        <span style="color:var(--ink-3)">這一步只是確認這個 session 會動。不用想要問什麼。</span></li>
+      <li>再問它一句：<b>「你現在讀得到我這個資料夾裡的東西嗎？列給我看。」</b><br>
+        <span style="color:var(--ink-3)">它應該列得出檔案。列不出來，現在就舉手——
+        這代表資料夾沒接上，不是你問錯。</span></li>
     </ol>
-    <p class="done"><b>做完長這樣：</b>你打了一句話，它回你了。<b>就這樣，勾起來往下走。</b></p>
+    <p class="done"><b>做完長這樣：</b>你在 <b>Code</b> 這一邊，輸入框上方有
+      <code>Local</code> 和<b>你的資料夾名字</b>，你打了一句話、<b>它回你了</b>，
+      而且它列得出那個資料夾裡有什麼。<b>四件事都成立才勾起來。</b></p>
   </div>
 
   <div class="stuck" style="background:var(--bonus-soft)">
@@ -835,6 +867,27 @@ function fbDead(status){
   if(status===401 || status===403){ FB_LIVE=false; return true; }
   return false;
 }
+
+/* ── 舊版偵測 ─────────────────────────────────────────
+   瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
+   version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
+var PAGE_VER = 'v2.0';
+(function(){
+  fetch('version.json?_=' + Date.now(), {cache:'no-store'})
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(j){
+      if(!j || !j.v || j.v === PAGE_VER) return;
+      var b=document.getElementById('verBanner');
+      if(!b) return;
+      b.hidden=false;
+      document.body.style.paddingTop='3.2rem';
+      document.getElementById('verReload').addEventListener('click',function(){
+        // 加上時間戳再重載，避開連 reload 都吃快取的情況
+        location.replace(location.pathname + '?_=' + Date.now());
+      });
+    })
+    .catch(function(){});
+})();
 
 (function(){
   var PASS='1280', MEKEY='isu0821-me', PKEY='isu0821-progress';
