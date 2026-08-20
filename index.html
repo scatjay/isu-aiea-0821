@@ -383,7 +383,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v3.8　·　2026-08-20 17:30 更新（單元3 Flipclass 示範 · 單元4 改做教材） </p>
+    <p class="ver" id="verStamp">v4.0　·　2026-08-20 20:55 更新（單元3、4 對準貼文；修休息時間錯位與 footer 重複）</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。四個單元。<b>預設是拿你 115-1 真的要教的那門課</b>的官方課綱動手——因為手上有真材料，六小時才走得完。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。<br><span style="font-size:.94em">要<b>開一門全新的課</b>也完全走得通，同一套流程、同一份產出，只是起點不同——單元 1 會說明。</span></p>
@@ -1245,7 +1245,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 <footer>
   <p>義守大學教師專業成長工作坊　·　2026-08-21　·　講師 楊智傑</p>
   <p>這個網頁<b>開放到 2026-08-23</b>，這幾天你都可以回來把沒做完的做完、把連結收好。</p>
-  <p>有問題可以寫信給講師 <b>楊智傑</b>　<a href="mailto:scatjay@gmail.com">scatjay@gmail.com</a></p>
+  <p>有問題可以寫信給講師　<a href="mailto:scatjay@gmail.com">scatjay@gmail.com</a></p>
 </footer>
 </div>
 
@@ -1283,11 +1283,18 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v3.9';
+var PAGE_VER = 'v4.0';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
     .then(function(j){
+      // 戳記直接用 version.json 的內容填 —— 手打的那份一定會忘記更新，
+      // 8/20 已經因此錯了兩次。這裡讓「頁面顯示的時間」永遠等於「實際發布的時間」。
+      if(j && j.v){
+        var vs = document.getElementById('verStamp');
+        if(vs) vs.textContent = j.v + '　·　' + (j.t || '') + ' 更新'
+                 + (j.note ? '（' + j.note + '）' : '');
+      }
       if(!j || !j.v || j.v === PAGE_VER) return;
       var b=document.getElementById('verBanner');
       if(!b) return;
