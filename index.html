@@ -338,7 +338,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v2.2　·　2026-08-20 16:10 更新（Bypass 開關 · 資料夾統一 isu0821）</p>
+    <p class="ver" id="verStamp">v2.3　·　2026-08-20 16:15 更新</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -909,7 +909,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v2.2';
+var PAGE_VER = 'v2.3';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
@@ -1055,8 +1055,8 @@ var PAGE_VER = 'v2.2';
     if(!box || !FB_DB) return;
 
     function beat(){
-      if(FB_LIVE === false) return;
-      fetch(FB_DB.replace(/\/+$/,'') + '/isu0821/present/' + me.id + '.json', {
+      if(FB_LIVE === false) return Promise.resolve();
+      return fetch(FB_DB.replace(/\/+$/,'') + '/isu0821/present/' + me.id + '.json', {
         method:'PUT',
         headers:{'Content-Type':'application/json'},
         body: JSON.stringify({ d: (me.dept||'').slice(0,40), t: Date.now() })
@@ -1065,6 +1065,9 @@ var PAGE_VER = 'v2.2';
         if(r.ok) FB_LIVE = true;
       }).catch(function(){});
     }
+    // 🔴 beat() 是非同步的。第一次載入若直接接著 paintPresence()，
+    //    會在自己那筆寫進去之前就先讀，畫面上看不到自己 ——
+    //    老師會以為功能壞了。所以首次一定要等寫入完成再畫。
 
     function paintPresence(){
       if(FB_LIVE === false) return;
@@ -1103,8 +1106,7 @@ var PAGE_VER = 'v2.2';
         }).catch(function(){});
     }
 
-    beat();
-    paintPresence();
+    beat().then(paintPresence);
     clearInterval(_presTimer);
     // 每 60 秒回報一次自己、順便更新畫面
     _presTimer = setInterval(function(){ beat(); paintPresence(); }, 60000);
