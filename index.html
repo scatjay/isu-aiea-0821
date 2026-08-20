@@ -307,6 +307,27 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 #gform button:hover{filter:brightness(1.1)}
 #gform button:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
 #gerr{min-height:1.4rem; margin:.8rem 0 0; font-size:.88rem; color:var(--warn)}
+
+/* 單元1 的步驟軌跡：讓老師知道自己在第幾步、講師知道全班分布 */
+.track{margin:1rem 0;padding:.9rem 1rem;background:var(--card);
+  border:1px solid var(--line);border-radius:.6rem}
+.track h4{margin:0 0 .1rem;font-size:.95rem;color:var(--ink)}
+.track .tsub{margin:0 0 .7rem;font-size:.82rem;color:var(--ink-3)}
+.track ol{margin:0;padding:0;list-style:none;display:grid;gap:.35rem}
+.track li{display:flex;align-items:flex-start;gap:.55rem;
+  padding:.42rem .5rem;border-radius:.4rem;font-size:.9rem;line-height:1.45}
+.track li:hover{background:var(--warn-soft)}
+.track li.on{background:var(--core-soft)}
+.track input{margin:.24rem 0 0;flex:0 0 auto;width:1rem;height:1rem;cursor:pointer}
+.track label{cursor:pointer;flex:1}
+.track .who{flex:0 0 auto;font-size:.76rem;color:var(--ink-3);
+  white-space:nowrap;padding-top:.15rem}
+.track .who.has{color:var(--core);font-weight:600}
+.track .mine{margin:.75rem 0 0;padding-top:.6rem;border-top:1px dashed var(--line);
+  font-size:.86rem;color:var(--ink-2)}
+.track .mine b{color:var(--ink)}
+.tbar{height:5px;background:var(--line);border-radius:3px;overflow:hidden;margin:.4rem 0 0}
+.tbar i{display:block;height:100%;background:var(--core);width:0;transition:width .3s}
 </style>
 </head>
 <body>
@@ -383,7 +404,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v4.1　·　2026-08-20 21:06 更新（補上 repo clone 步驟與「MCP 怎麼補得更完整」的深挖引導）</p>
+    <p class="ver" id="verStamp">v4.2　·　2026-08-20 22:02 更新（單元1 加六步進度軌跡；修正 Firebase done 欄位長度）</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。四個單元。<b>預設是拿你 115-1 真的要教的那門課</b>的官方課綱動手——因為手上有真材料，六小時才走得完。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。<br><span style="font-size:.94em">要<b>開一門全新的課</b>也完全走得通，同一套流程、同一份產出，只是起點不同——單元 1 會說明。</span></p>
@@ -470,7 +491,24 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     流程一模一樣，你回去換成自己的就好。</span>
   </div>
 
-  <div class="drill bonus">
+  <div class="track" id="u1track">
+    <h4>跟著做：這六步做完，環境就通了</h4>
+    <p class="tsub">每做完一步就勾起來。<b>右邊的數字是全班做到這一步的人數</b>——
+    看得到自己在不在隊伍裡，講師也看得到要不要放慢。</p>
+    <ol>
+      <li data-step="u1s1"><input type="checkbox" id="u1s1"><label for="u1s1"><b>下載 Claude 桌面版</b><br><span style="color:var(--ink-3);font-size:.84rem">按下去就好，讓它在背景跑</span></label><span class="who" data-scnt="u1s1">—</span></li>
+      <li data-step="u1s2"><input type="checkbox" id="u1s2"><label for="u1s2"><b>註冊帳號（用個人 Gmail）</b><br><span style="color:var(--ink-3);font-size:.84rem">不要用學校信箱</span></label><span class="who" data-scnt="u1s2">—</span></li>
+      <li data-step="u1s3"><input type="checkbox" id="u1s3"><label for="u1s3"><b>升級成 Pro</b><br><span style="color:var(--ink-3);font-size:.84rem">左下角名字 → 升級方案</span></label><span class="who" data-scnt="u1s3">—</span></li>
+      <li data-step="u1s4"><input type="checkbox" id="u1s4"><label for="u1s4"><b>裝好並登入桌面版</b><br><span style="color:var(--ink-3);font-size:.84rem">左下角看得到你的帳號</span></label><span class="who" data-scnt="u1s4">—</span></li>
+      <li data-step="u1s5"><input type="checkbox" id="u1s5"><label for="u1s5"><b>安裝 Git</b><br><span style="color:var(--ink-3);font-size:.84rem">一路下一步到底</span></label><span class="who" data-scnt="u1s5">—</span></li>
+      <li data-step="u1s6"><input type="checkbox" id="u1s6"><label for="u1s6"><b>把 Claude 關掉重開</b><br><span style="color:var(--ink-3);font-size:.84rem">這步最多人漏</span></label><span class="who" data-scnt="u1s6">—</span></li>
+    </ol>
+    <div class="tbar"><i id="u1bar"></i></div>
+    <p class="mine">你完成了 <b id="u1mine">0</b> / 6 步。
+      <span id="u1hint" style="color:var(--ink-3)"></span></p>
+  </div>
+
+    <div class="drill bonus">
     <p class="dlabel">先做這個・把 Claude 桌面版裝起來（約 10 分鐘）</p>
     <p style="font-size:.9rem;margin:.2rem 0 .6rem;color:var(--ink-2)">
       <b>已經裝好也登入好的人</b>，直接跳到下面的練習 1。</p>
@@ -1338,7 +1376,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v4.1';
+var PAGE_VER = 'v4.2';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
@@ -1836,7 +1874,74 @@ var PAGE_VER = 'v4.1';
     });
     paint(); push();
     loadCounts();
-    setInterval(loadCounts, 30000);   // 每 30 秒更新，看得到全班在動
+    setInterval(loadCounts, 30000);
+
+  /* ── 單元1 步驟軌跡 ────────────────────────────────
+     寫到 /isu0821/done/u1sN/{姓名雜湊}，跟單元完成同一條匿名路徑。
+     $unit 是萬用字元，所以不用改資料庫規則。
+     用姓名雜湊當 key：同一個人手機＋筆電都勾，只算一個。        */
+  (function(){
+    var SKEY='isu0821_steps_v1';
+    var items=[].slice.call(document.querySelectorAll('#u1track li[data-step]'));
+    if(!items.length) return;
+    var mineEl=document.getElementById('u1mine');
+    var barEl=document.getElementById('u1bar');
+    var hintEl=document.getElementById('u1hint');
+    var saved={};
+    try{ saved=JSON.parse(localStorage.getItem(SKEY)||'{}'); }catch(e){}
+
+    function refreshMine(){
+      var n=items.filter(function(li){ return li.querySelector('input').checked; }).length;
+      mineEl.textContent=n;
+      barEl.style.width=(n/items.length*100)+'%';
+      hintEl.textContent = n===0 ? '還沒開始也沒關係，從第一步按下去就好。'
+        : (n<items.length ? '' : '六步都完成了——可以直接做下面的練習 1。');
+    }
+
+    function markStep(sid,on){
+      if(!FB_DB || FB_LIVE===false) return;
+      presKey().then(function(k){
+        var url=FB_DB.replace(/\/+$/,'')+'/isu0821/done/'+sid+'/'+k+'.json';
+        fetch(url, on ? {method:'PUT',headers:{'Content-Type':'application/json'},body:'true'}
+                     : {method:'DELETE'})
+          .then(function(){ loadStepCounts(); }).catch(function(){});
+      });
+    }
+
+    window.loadStepCounts=function(){
+      if(!FB_DB || FB_LIVE===false) return;
+      fetch(FB_DB.replace(/\/+$/,'')+'/isu0821/done.json')
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(d){
+          if(d===null) return;
+          items.forEach(function(li){
+            var sid=li.getAttribute('data-step');
+            var n=Object.keys((d||{})[sid]||{}).length;
+            var el=li.querySelector('[data-scnt]');
+            el.textContent = n ? (n+' 人') : '—';
+            el.className='who'+(n?' has':'');
+          });
+        }).catch(function(){});
+    };
+
+    items.forEach(function(li){
+      var sid=li.getAttribute('data-step');
+      var cb=li.querySelector('input');
+      cb.checked=!!saved[sid];
+      li.classList.toggle('on',cb.checked);
+      cb.addEventListener('change',function(){
+        saved[sid]=cb.checked;
+        try{ localStorage.setItem(SKEY,JSON.stringify(saved)); }catch(e){}
+        li.classList.toggle('on',cb.checked);
+        refreshMine();
+        markStep(sid,cb.checked);
+      });
+    });
+    refreshMine();
+    loadStepCounts();
+    setInterval(loadStepCounts,30000);
+  })();
+   // 每 30 秒更新，看得到全班在動
     initQA();
   }
 
