@@ -339,7 +339,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v2.7　·　2026-08-20 17:00 更新（在線顯示姓名 · 單元2 連接器四題）</p>
+    <p class="ver" id="verStamp">v2.8　·　2026-08-20 17:10 更新</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -639,7 +639,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
         <span style="color:var(--ink-3)">為什麼要建新的、而不是直接問它「我雲端有什麼」：
         ① 你<b>知道正確答案</b>，它答對答錯你一眼就看得出來，不會被唬過去。
         ② 不會讓它去翻你的私人檔案。這是驗證連線最乾淨的方式。</span></li>
-      <li>回到 Claude，<b>三個連接器各測一次</b>。三題都過才算真的接好。</li>
+      <li>回到 Claude，<b>三個連接器各問一句</b>。三題都答得出來就算接好了。</li>
     </ol>
 
     <p style="font-size:.92rem;margin:.8rem 0 .3rem"><b>測試一・雲端硬碟「讀得到」</b></p>
@@ -648,7 +648,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
       <b>過關：</b>它列得出你剛放進去的檔案。</p>
 
     <p style="font-size:.92rem;margin:1rem 0 .3rem"><b>測試二・雲端硬碟「寫得進去」</b>
-      <span style="font-weight:400;color:var(--warn)">← 這題才是重點</span></p>
+      <span style="font-weight:400;color:var(--ink-3)">← 加分題，做不完可以跳過</span></p>
     <div class="pr">請在我 Google 雲端硬碟的「義守AI課程」資料夾裡，建一個叫「改版筆記.md」的檔案，內容先寫三行：第一行是今天的日期，第二行是「這門課我最想改的一件事：」，第三行留空給我自己填。建好之後把連結給我。<button type="button">複製</button></div>
     <p style="font-size:.88rem;margin:.35rem 0 0;color:var(--ink-2)">
       <b>過關：</b>你回雲端硬碟重新整理，<b>真的看到那個檔案</b>。<br>
@@ -669,8 +669,14 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
       <span style="color:var(--warn)">這一題會讀到你的私人信件。<b>投影幕前不要做這題</b>，
       也可以直接跳過——今天不做這題完全不影響。</span></p>
 
+    <p class="done" style="margin-top:.9rem"><b>單元 2 做到這裡就可以勾完成了：</b>
+      三個連接器<b>各問一句、它答得出你認得的東西</b>，就算過。<br>
+      <span style="color:var(--ink-3)">「寫得進去」那題（測試二）跟行事曆建事件是<b>加分</b>，
+      有時間再做，做不完不影響下午——下午會再用到一次，那時候一起補。</span><br>
+      <b>中午前我們就停在這裡。</b>吃飯前確認：你的資料夾接上了、雲端也接上了，這兩件事成立就夠了。</p>
+
     <div class="stuck" style="margin-top:.9rem">
-      <b>四題都過 → 你已經把 AI 接上自己的工作環境了，這比改一份課綱重要得多。</b><br>
+      <b>三題都能讀到 → 你已經把 AI 接上自己的工作環境了，這比改一份課綱重要得多。</b><br>
       <span style="color:var(--warn)"><b>有哪一題卡住？</b>常見三個原因：
       ① 資料夾建在「<b>共用</b>雲端硬碟」而不是「<b>我的</b>雲端硬碟」
       ② 授權時選到<b>學校帳號</b>（<code>@isu.edu.tw</code> 不是 Google，一定要選個人 Gmail）
@@ -1083,7 +1089,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v2.7';
+var PAGE_VER = 'v2.8';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
