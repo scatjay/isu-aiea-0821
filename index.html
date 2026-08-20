@@ -420,7 +420,7 @@ details.peek summary:hover{color:var(--core)}
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v4.6　·　2026-08-20 23:39 更新</p>
+    <p class="ver" id="verStamp">v4.7　·　2026-08-20 23:47 更新</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。四個單元。<b>預設是拿你 115-1 真的要教的那門課</b>的官方課綱動手——因為手上有真材料，六小時才走得完。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。<br><span style="font-size:.94em">要<b>開一門全新的課</b>也完全走得通，同一套流程、同一份產出，只是起點不同——單元 1 會說明。</span></p>
@@ -524,7 +524,35 @@ details.peek summary:hover{color:var(--core)}
       <span id="u1hint" style="color:var(--ink-3)"></span></p>
   </div>
 
-    <div class="drill bonus">
+    <div class="dlbox" id="u1dl">
+    <h4>裝好之後，用這個檔確認環境真的通了</h4>
+    <p style="margin:0;font-size:.93rem;color:var(--ink-2)">六步做完不代表就通了。這個檔會叫 Claude <b>實際去查</b> Git、資料夾、寫入權限，每一項給你「✅ 通了」或「❌ 還沒、要做什麼」。</p>
+    <a class="dlbtn" href="task-unit1.md" download="任務-單元1.md">⬇ 下載 任務-單元1.md</a>
+    <ol>
+      <li><b>存進你的工作目錄</b>（開 Claude Code 時選的那個資料夾）</li>
+      <li><b>對 Claude 說</b>
+        <div class="pr">讀 任務-單元1.md 照做</div></li>
+    </ol>
+    <p style="margin:.7rem 0 0;font-size:.88rem;color:var(--warn)">⚠️ 這個檔要等 Claude 桌面版<b>裝好而且開得起來</b>之後才用得上。還在安裝階段的話，先照下面的步驟做完。</p>
+    <p style="margin:.5rem 0 0;font-size:.88rem;color:var(--ink-3)">四個單元的任務檔也全部放在雲端同一個資料夾：<a href="https://drive.google.com/drive/folders/16PogGubpyAsMng-01WmoBF5vDKYZagiL" target="_blank" rel="noopener"><b>學員任務檔（Google 雲端硬碟）</b></a>　不用登入、不用申請權限，點進去就能下載。</p>
+  </div>
+
+  <div class="stuck" style="border-left-color:var(--warn)">
+    <b style="color:var(--warn)">一個會讓你省很多時間的設定——以及它的另一面</b><br>
+    輸入框左下角有一個權限開關，預設每次它要動你的檔案都會先問你一次。
+    切成 <b>Bypass permissions</b>（略過詢問）之後，
+    <b>它會照著任務檔一路自己跑完，你完全不用按。</b><br>
+    <span style="color:var(--ink-3)">今天四份任務檔都是講師寫的，內容你點開就看得到，
+    而且全部只在你自己指定的資料夾裡動作——所以今天<b>可以放心開</b>。</span><br>
+    <b style="color:var(--warn)">但請把這件事記牢：</b><br>
+    <span style="color:var(--ink-3)"><b>「下載一個 .md ＋ 開 bypass」</b>——
+    這正好也是最容易出事的組合。同一招用在來路不明的檔案上，
+    等於把電腦交出去讓它自己動，而你不會看到任何確認視窗。</span><br>
+    <span style="color:var(--warn)">規則很簡單：<b>只對你看得懂、或你信得過來源的檔案開 bypass。</b>
+    不確定的時候就關掉，讓它一步一步問你。</span>
+  </div>
+
+  <div class="drill bonus">
     <p class="dlabel">先做這個・把 Claude 桌面版裝起來（約 10 分鐘）</p>
     <p style="font-size:.9rem;margin:.2rem 0 .6rem;color:var(--ink-2)">
       <b>已經裝好也登入好的人</b>，直接跳到下面的練習 1。</p>
@@ -662,6 +690,18 @@ details.peek summary:hover{color:var(--core)}
     <b>把力氣留在下午。</b></span><br>
     <span style="color:var(--ink-3)">省額度最有效的不是少用，是<b>一次講清楚</b>——
     反覆丟半句話讓它猜，是燒得最快的方式。完整說明在單元 3 後面那一段。</span>
+  </div>
+
+  <div class="dlbox" id="u2dl">
+    <h4>不想一步一步跟？下載這個檔，它會自己跑完</h4>
+    <p style="margin:0;font-size:.93rem;color:var(--ink-2)">建資料夾、讀課綱、產出「改版前快照」——<b>這一段的每一步都寫在裡面了。</b>跟不上的人可以直接用它追上進度。</p>
+    <a class="dlbtn" href="task-unit2.md" download="任務-單元2.md">⬇ 下載 任務-單元2.md</a>
+    <ol>
+      <li><b>存進你的工作目錄</b>（開 Claude Code 時選的那個資料夾）</li>
+      <li><b>對 Claude 說</b>
+        <div class="pr">讀 任務-單元2.md 照做</div></li>
+    </ol>
+    <p style="margin:.7rem 0 0;font-size:.88rem;color:var(--ink-3)">底下的步驟不用刪掉不看——<b>知道它在做什麼，出狀況時你才判斷得出卡在哪。</b></p>
   </div>
 
   <div class="drill core">
@@ -1318,6 +1358,18 @@ details.peek summary:hover{color:var(--core)}
     <b>不是它取代你，是它把你從「做工」裡拉出來，讓你去做「判斷」。</b></span>
   </div>
 
+  <div class="dlbox" id="u4dl">
+    <h4>這一段也有任務檔——但這次它會反過來逼你</h4>
+    <p style="margin:0;font-size:.93rem;color:var(--ink-2)">它會生草稿，然後<b>叫你把檔案真的打開看</b>，再逐一問你三個問題（內容對不對／例子是不是你的／有沒有夾帶不該有的東西），每答一題就改一輪。</p>
+    <a class="dlbtn" href="task-unit4.md" download="任務-單元4.md">⬇ 下載 任務-單元4.md</a>
+    <ol>
+      <li><b>存進你的工作目錄</b>（開 Claude Code 時選的那個資料夾）</li>
+      <li><b>對 Claude 說</b>
+        <div class="pr">讀 任務-單元4.md 照做</div></li>
+    </ol>
+    <p style="margin:.7rem 0 0;font-size:.88rem;color:var(--warn)"><b>那三輪才是你真正在備課。</b>生得多快不是重點，你改了哪三個地方才是。</p>
+  </div>
+
   <div class="drill core">
     <p class="dlabel">練習 4　挑一個做出來（60 分鐘）</p>
     <p style="font-size:.94rem;margin:0 0 .5rem">
@@ -1511,7 +1563,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v4.6';
+var PAGE_VER = 'v4.7';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
