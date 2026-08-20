@@ -383,7 +383,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v3.7　·　2026-08-20 17:20 更新（開新課路徑 · 環境能做什麼） </p>
+    <p class="ver" id="verStamp">v3.8　·　2026-08-20 17:30 更新（單元3 Flipclass 示範 · 單元4 改做教材） </p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>預設是拿你 115-1 真的要教的那門課</b>的官方課綱動手——因為手上有真材料，六小時才走得完。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。<br><span style="font-size:.94em">要<b>開一門全新的課</b>也完全走得通，同一套流程、同一份產出，只是起點不同——單元 1 會說明。</span></p>
@@ -889,7 +889,38 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 <article class="unit" data-u="2">
   <div class="uhead"><span class="utag">單元 3</span><h2>讓它把你的課綱從頭看一遍</h2><span class="utime">11:10–12:00</span></div>
   <p class="brk">☕　剛才 <b>10:50–11:10</b> 先休息十分鐘，回來再開始這一段。</p>
-  <p class="uwhy">下午要寫「驗證方式」，那一格不能用形容詞填。<b>但我們不量「省了多少時間」</b>——你那份簡報早就做好了，省不了。我們量的是另一件事：<b>有幾件你一直想做、卻從來沒時間做的事，今天第一次做完了。</b></p>
+  <p class="uwhy">你手上有的不只是這學期的課綱——還有<b>過去好幾年的授課紀錄</b>：教材、作業、學生繳交狀況。
+  那些資料一直躺在數位學習平台裡，沒人有時間翻。這一段先看講師示範<b>怎麼把它們整批撈出來分析</b>，再回頭處理你自己的課綱。</p>
+
+  <div class="stuck" style="background:var(--bonus-soft)">
+    <b style="color:var(--bonus)">先看示範：把一門課「過去五年」的完整狀況攤開來</b><br>
+    講師會現場接上南台的數位學習平台（FlipClass），讓 AI 直接去撈：<br>
+    　· <b>長時段</b>——不是這學期，是過去每一學期的同一門課<br>
+    　· <b>教材</b>——每個單元放了什麼、哪些從沒被打開過<br>
+    　· <b>作業與繳交</b>——哪一次作業繳交率掉下來、哪一週開始有人跟不上<br>
+    　· <b>學生反應</b>——從繳交時間、遲交、重繳次數看得出哪裡卡住<br>
+    <span style="color:var(--ink-3)">重點不是「AI 會爬網站」，是<b>你這輩子不可能有時間手動做這件事</b>——
+    五年、十幾個班、幾百份作業。但它做得到，而且做完會告訴你「第 9 週那個單元有問題」。</span><br>
+    <b style="color:var(--warn)">這就是代理人跟聊天機器人的差別：它能長時間、大範圍地去收集，最後歸納給你。</b>
+  </div>
+
+  <div class="stuck">
+    <b>「那是南台的系統，我登不進去啊」——沒錯，所以重點在後面這句</b><br>
+    講師示範用的是南台的 FlipClass。<b>你們用的是義守的 Moodle</b>
+    （<code>moodle.isu.edu.tw</code>），登入帳號不同、系統也不同。<br>
+    <b>但好消息是：義守的 Moodle 比南台那套好接。</b>
+    我們課前查過，義守 Moodle 的<b>官方 API 已經開著</b>——
+    這表示不用像南台那樣反向工程，照官方文件就能串。<br>
+    <span style="color:var(--ink-3)">講師會把 FlipClass 這套的<b>完整程式碼開成公開 repo</b>，
+    你回去 <code>git clone</code> 下來，把裡面「連哪個網站、抓哪些欄位」換成 Moodle 的，
+    架構完全不用改。<b>難的部分（登入、抓資料、整理格式）都已經寫好了。</b></span><br>
+    <span style="color:var(--warn)">今天不會帶你接 Moodle——那要你的帳號權限，也會吃掉太多時間。
+    <b>今天你要帶走的是「原來可以這樣」這個認知，以及那份程式碼。</b></span>
+  </div>
+
+  <p class="uwhy" style="margin-top:1rem">看完示範，回到<b>你手上真的有的東西</b>——你的課綱。
+  這一段要量的不是「省了多少時間」（你那份簡報早就做好了，省不了），
+  而是：<b>有幾件你一直想做、卻從來沒時間做的事，今天第一次做完了。</b></p>
 
   <div class="drill core">
     <p class="dlabel">練習 3</p>
@@ -997,11 +1028,85 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 
 <!-- ══════════ U4 ══════════ -->
 <article class="unit" data-u="3">
-  <div class="uhead"><span class="utag">單元 4</span><h2>收斂成一份可以送出去的成果</h2><span class="utime">13:30–15:00</span></div>
+  <div class="uhead"><span class="utag">單元 4</span><h2>做出一個可以直接帶進課堂的東西</h2><span class="utime">13:30–15:00</span></div>
   <p class="brk">🍱　<b>12:00–13:30 午休。</b>上午沒裝好的人，這個時間找講師補。</p>
-  <p class="uwhy">這一段<b>不需要帳號</b>，人人都做得完。今天工具卡住的人，講師會發給你稽核報告，你一樣交得出完整的東西。</p>
+  <p class="uwhy">上午你讓它<b>讀懂</b>你的課，這一段讓它<b>產出東西</b>。
+  下課時你手上會有一份可以直接開、直接用的教材——不是心得，不是報告，是成品。</p>
 
-  <div class="tw"><table>
+  <div class="stuck" style="background:var(--bonus-soft)">
+    <b style="color:var(--bonus)">為什麼這一段最值得投資時間</b><br>
+    做一份互動學習單、一套遊戲化的複習活動，你原本要花一個晚上。
+    今天你會看到它<b>幾分鐘生出草稿</b>，而你把時間花在真正該你做的事上——
+    判斷哪裡不對、哪裡要換成你的例子。<br>
+    <span style="color:var(--ink-3)">這就是今天最想讓你帶走的那個感覺：
+    <b>不是它取代你，是它把你從「做工」裡拉出來，讓你去做「判斷」。</b></span>
+  </div>
+
+  <div class="drill core">
+    <p class="dlabel">練習 4　挑一個做出來（60 分鐘）</p>
+    <p style="font-size:.94rem;margin:0 0 .5rem">
+      <b>從下面四個挑一個</b>，用你上午整理好的課綱當材料。挑你下學期真的會用到的那個。</p>
+
+    <div class="tw"><table>
+      <tr><th>做什麼</th><th>適合誰</th><th>產出</th></tr>
+      <tr><td><b>A. 一個單元的上課簡報</b></td><td>想先解決「投影片做不完」的人</td><td><code>.pptx</code>，可以直接開</td></tr>
+      <tr><td><b>B. 遊戲化的複習單元</b><br><span style="color:var(--bonus);font-size:.85em">最酷炫、學生最有感</span></td><td>想讓學生動起來的人</td><td>一個可以互動的網頁，開了就能玩</td></tr>
+      <tr><td><b>C. 學習單 ＋ 評分規準</b></td><td>要交作業設計的人</td><td><code>.docx</code>，格式排好</td></tr>
+      <tr><td><b>D. 一份課程網頁</b></td><td>想把整門課放上網的人</td><td>就像你現在看的這一頁</td></tr>
+    </table></div>
+
+    <p style="font-size:.94rem;margin:1rem 0 .3rem"><b>不管挑哪個，做法都一樣三步：</b></p>
+    <ol>
+      <li><b>先講清楚你要什麼</b>——用下面的指令，把 ＿＿ 換成你的內容。</li>
+      <li><b>它生出來之後，先開起來看。</b>不要只看它在對話框裡描述，<b>真的打開那個檔案</b>。</li>
+      <li><b>挑三個地方叫它改</b>——「這裡太難」「這個例子換成 ○○」「加一頁講 △△」。
+        <span style="color:var(--ink-3)">改三輪就會像樣。這三輪才是你真正在備課。</span></li>
+    </ol>
+
+    <p style="font-size:.92rem;margin:1rem 0 .3rem"><b>A・一個單元的上課簡報</b></p>
+    <div class="pr">用「課程原料」資料夾裡的課綱，幫我做第 ＿ 週「＿＿＿＿」這個單元的上課簡報，存成 pptx 放進「送審產出」。要求：12 到 15 頁；第一頁是這堂課要回答的一個問題，不是大綱；每頁只講一件事，字少一點；中間放一頁「這裡學生最常搞錯」；最後一頁是三題隨堂問答（附答案在備註）。用繁體中文、台灣用語。做完告訴我檔案在哪。<button type="button">複製</button></div>
+
+    <p style="font-size:.92rem;margin:1rem 0 .3rem"><b>B・遊戲化的複習單元</b>
+      <span style="font-weight:400;color:var(--bonus)">← 想看效果的挑這個</span></p>
+    <div class="pr">用「課程原料」裡的課綱，幫我做一個第 ＿ 週「＿＿＿＿」的遊戲化複習活動，做成一個單一 HTML 檔放進「送審產出」，我用瀏覽器打開就能玩。要求：不要連外部網路，所有東西寫在同一個檔案裡；題目從課綱的內容出，10 到 15 題，有選擇也有排序或配對；答錯要告訴學生為什麼錯，不是只說錯；有計分和進度條；手機打開也能用；畫面乾淨、不要花俏動畫。用繁體中文、台灣用語。做完告訴我怎麼打開。<button type="button">複製</button></div>
+    <p style="font-size:.88rem;margin:.35rem 0 0;color:var(--ink-2)">
+      <span style="color:var(--warn)"><b>做完一定要真的打開玩一次。</b></span>
+      題目可能會出得太簡單、或問到課綱沒教的東西——你玩過才知道，這就是你要下的判斷。</p>
+
+    <p style="font-size:.92rem;margin:1rem 0 .3rem"><b>C・學習單 ＋ 評分規準</b></p>
+    <div class="pr">用「課程原料」裡的課綱，幫我做第 ＿ 週「＿＿＿＿」的課堂學習單，存成 docx 放進「送審產出」。要求：A4 兩頁以內、學生課堂上寫得完；前面是三個引導問題，由淺到深；中間留一塊給學生畫或列點；最後一題是開放題，要學生指出自己還不確定的地方。另外附一份給我用的五級距評分規準，重點放在「有沒有具體證據」而不是文筆。用繁體中文、台灣用語。<button type="button">複製</button></div>
+
+    <p style="font-size:.92rem;margin:1rem 0 .3rem"><b>D・課程網頁</b></p>
+    <div class="pr">用「課程原料」裡的課綱，幫我做一個這門課的課程網頁，單一 HTML 檔放進「送審產出」。要求：不要連外部網路；上面有課程簡介、18 週進度、評分方式、參考書目；手機看也正常；學生可以勾選自己讀到第幾週（存在他自己的瀏覽器就好）。配色乾淨、像大學課程網站，不要太花。用繁體中文、台灣用語。做完告訴我怎麼打開。<button type="button">複製</button></div>
+
+    <p class="done"><b>做完長這樣：</b><code>送審產出</code> 裡多了一個<b>你真的打開看過、而且改過三輪</b>的檔案。
+    <b>重點不是它生得多快，是你改了哪三個地方</b>——那三個地方就是你的專業。</p>
+  </div>
+
+  <div class="drill bonus">
+    <p class="dlabel">加碼 4</p>
+    <ol>
+      <li><b class="bno">加碼 4-1</b> 做第二個。四種挑另一個，你會發現第二次快很多。</li>
+      <li><b class="bno">加碼 4-2</b> 把 B 的遊戲化單元改成「<b>期中考前總複習</b>」，題目橫跨前八週。</li>
+      <li><b class="bno">加碼 4-3</b> 叫它把這份教材<b>做出三個難度版本</b>（基礎／標準／挑戰），給程度不同的學生。</li>
+      <li><b class="bno">加碼 4-4</b> 問它：「這份教材如果要放進 Moodle，我要怎麼做？」</li>
+    </ol>
+  </div>
+
+  <div class="stuck">
+    <b>做出來之後，先確認這三件事再帶回去用：</b><br>
+    ① <b>內容對不對</b>——它可能寫出你課綱沒教的東西，或把難度抓錯。你是那門課的專家，你說了算。<br>
+    ② <b>例子是不是你的</b>——AI 給的例子通常很通用。換成你上課真的會講的那個例子，效果差很多。<br>
+    ③ <b>有沒有夾帶不能公開的東西</b>——如果你把教科書掃圖丟進課程原料，它可能引用進去。
+    <span style="color:var(--warn)">要放到網路上或給學生之前，逐頁看一次。</span>
+  </div>
+
+  <details style="margin:1rem 0 0;font-size:.88rem">
+    <summary style="cursor:pointer;font-weight:700">附錄：如果你要拿今天的成果去送 AIEA 認證</summary>
+    <div style="margin:.6rem 0 0;line-height:1.7;color:var(--ink-2)">
+      <p style="margin:0 0 .6rem"><b>今天的重點是把工具用起來，認證的文書作業請以總辦說的為準。</b>
+      這裡只提供一個骨架，讓你回去比較好寫——<b>不是官方規定的格式</b>。</p>
+      <div class="tw"><table>
     <tr><th>要寫的段落</th><th>材料在哪裡</th></tr>
     <tr><td>題目（含問題意識）</td><td>單元 2 你打的那三句話</td></tr>
     <tr><td><b>設計理念</b></td><td>照這個填：「這門課原本＿＿＿＿（貼你的<code>改版前快照</code>）→ 我改成＿＿＿＿ → 因為＿＿＿＿。這中間 AI 負責＿＿＿＿、我負責＿＿＿＿。」</td></tr>
@@ -1010,51 +1115,15 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <tr><td>綜合評估／未來發展</td><td>下學期打算延伸到哪、哪幾門課也能用</td></tr>
     <tr><td><b>作品連結</b></td><td><b>只指向 送審產出 資料夾</b></td></tr>
   </table></div>
-
-  <div class="stuck">
-    <b>送審前務必逐頁清一次：</b>你那份用了五年的舊資料，十之八九夾帶了教科書掃圖、出版社投影片或歷屆考卷。
-    <b>專業級的授權同意書會公開在 iLink 網站上。</b>作品連結<b>絕對不要</b>指向 <code>課程原料</code>。
-  </div>
-
-  <div class="drill core">
-    <p class="dlabel">練習 4</p>
-    <ol>
-      <li>上面六段裡，<b>至少完成「題目」和「驗證方式」兩段</b>——這兩段最難事後補，其他段回家寫得出來。</li>
-      <li>寫完請 Claude 看一遍：「這份稿子哪一段最弱？」</li>
-    </ol>
-    <p class="done"><b>做完長這樣：</b>至少兩段是完整的句子，不是條列關鍵字。</p>
-  </div>
-
-  <div class="drill bonus">
-    <p class="dlabel">送審前自我檢核 —— 六段你缺哪段，勾一勾就知道</p>
-    <p style="font-size:.88rem;margin:0 0 .6rem;color:var(--ink-2)">
-      iLink 的作品規格要這六段。<b>今天下午做完，自然就有四段；</b>
-      另外兩段是反思、不用動工具，收尾這 15 分鐘寫一寫就補齊。
-      <b>缺一段就會被退件</b>——所以現在逐段勾。</p>
-    <div class="checklist" id="ilinkCheck">
-      <label><input type="checkbox"><span><b>① 題目</b>　我寫了「這門課、我教第幾年、最想改什麼」
-        <em>← 單元 2 那三句話</em></span></label>
-      <label><input type="checkbox"><span><b>② 設計理念</b>　我寫了「原本怎樣 → 改成怎樣 → 為什麼、AI 做什麼我做什麼」
-        <em>← 送審產出的 改版前快照.md</em></span></label>
-      <label><input type="checkbox"><span><b>③ 操作方式</b>　我有流程說明＋截圖（MCP → 雲端 → 本機）
-        <em>← 單元 2、4 的流程</em></span></label>
-      <label><input type="checkbox"><span><b>④ 驗證方式</b>　我寫了硬數字（稽核抓幾條、原本一學期做幾次）
-        <em class="warn">← 最容易漏，現在就寫</em></span></label>
-      <label><input type="checkbox"><span><b>⑤ 綜合評估／未來發展</b>　我寫了「下學期延伸到哪、哪幾門課也能用」
-        <em class="warn">← 最容易漏，現在就寫</em></span></label>
-      <label><input type="checkbox"><span><b>⑥ 作品連結</b>　連結<b>只指向 送審產出</b>，我逐頁確認過裡面沒有教科書掃圖、考卷、學生個資
-        <em class="warn">← 專業級會公開在 iLink 網站</em></span></label>
+      <p style="margin:.6rem 0 0"><b>三件實務上要知道的：</b><br>
+      ① 專業級的授權同意書會<b>公開在 iLink 網站</b>，作品連結<b>只指向 <code>送審產出</code></b>，
+      絕不要指向 <code>課程原料</code>（那裡可能有教科書掃圖、考卷）。<br>
+      ② <b>做完一件就能先送</b>，不必等湊滿 12 門。<br>
+      ③ 課程可<b>回溯前兩年</b>，你過去上過的可能已經算數。<br>
+      <span style="color:var(--warn)">實際格式、必修科目、送審排程，一律以總辦為準。</span></p>
     </div>
-    <p class="ilink-tally" id="ilinkTally">已完成 0 / 6 段</p>
-    <p style="font-size:.85rem;margin:.5rem 0 0;color:var(--ink-3)">
-      六段都勾滿＝你手上這份可以直接送審。<b>做完一件就能先送，不必等湊滿 12 門。</b>
-      實際格式與排程以總辦為準。</p>
-  </div>
+  </details>
 
-  <div class="stuck"><b>關於送件，請以總辦說的為準：</b><br>
-  ① 上面這六段是一個好用的<b>敘述骨架</b>，但官方把它寫在<b>基礎級</b>的繳交規格底下。專業級的硬要件是<b>「工具包＋自動化設計」</b>——自動化那段是<b>單元 5</b>（挑戰題）在做的，有做到會更完整。<br>
-  ② 課程可以<b>回溯前兩年</b>，你過去教過的可能已經算數。<br>
-  ③ 實際格式、必選科目、送審排程，<b>請跟總辦確認</b>，不要照這頁的說法送。</div>
   <label class="check"><input type="checkbox"> 這個單元我做完了<span class="cnt" data-cnt></span></label>
 </article>
 
@@ -1207,7 +1276,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v3.7';
+var PAGE_VER = 'v3.8';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
