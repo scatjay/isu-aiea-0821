@@ -193,6 +193,27 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   border-radius:.35rem; background:#fff; color:var(--warn); cursor:pointer; white-space:nowrap}
 #verBanner button:hover{filter:brightness(.95)}
 
+/* ── 單元分頁 ── */
+.unittabs{position:sticky; top:0; z-index:50; display:flex; gap:.4rem; flex-wrap:nowrap;
+  overflow-x:auto; padding:.6rem .2rem; margin:1.2rem 0 .4rem;
+  background:var(--bg); border-bottom:1px solid var(--line);
+  -webkit-overflow-scrolling:touch; scrollbar-width:thin}
+.utab{flex:0 0 auto; display:flex; flex-direction:column; align-items:flex-start; gap:.1rem;
+  font:inherit; text-align:left; cursor:pointer; white-space:nowrap;
+  padding:.5rem .85rem; border:1px solid var(--line); border-radius:.5rem;
+  background:var(--card); color:var(--ink-2); position:relative}
+.utab:hover{border-color:var(--core)}
+.utab-n{font-weight:700; font-size:.9rem; color:var(--ink)}
+.utab-t{font-size:.76rem; color:var(--ink-3)}
+.utab.active{background:var(--core); border-color:var(--core)}
+.utab.active .utab-n, .utab.active .utab-t{color:var(--card)}
+.utab-dot{position:absolute; top:.4rem; right:.5rem; width:.5rem; height:.5rem; border-radius:50%;
+  background:transparent}
+.utab.done .utab-dot{background:var(--core)}
+.utab.active.done .utab-dot{background:var(--card)}
+/* 分頁內容：非當前頁隱藏 */
+.unit[hidden], .blk.epi[hidden]{display:none}
+
 /* ── 通行碼閘 ── */
 #gate{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem; background:var(--bg)}
 #gform{width:100%; max-width:24rem; background:var(--card); border:1px solid var(--line); border-radius:.8rem; padding:2.2rem 1.8rem; box-shadow:var(--shadow); text-align:center}
@@ -339,7 +360,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v2.8　·　2026-08-20 17:10 更新</p>
+    <p class="ver" id="verStamp">v2.9　·　2026-08-20 16:27 更新（單元分頁 · 目錄） </p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -400,6 +421,14 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <span id="ptxt" style="font-variant-numeric:tabular-nums;white-space:nowrap">0 / 5 個單元</span>
   </div>
 </div>
+
+<nav class="unittabs" id="unitTabs" role="tablist">
+  <button type="button" class="utab" role="tab" data-goto="0"><span class="utab-n">單元 1</span><span class="utab-t">先讓工具會動</span><span class="utab-dot" aria-hidden="true"></span></button>
+  <button type="button" class="utab" role="tab" data-goto="1"><span class="utab-n">單元 2</span><span class="utab-t">讓它讀到你的課</span><span class="utab-dot" aria-hidden="true"></span></button>
+  <button type="button" class="utab" role="tab" data-goto="2"><span class="utab-n">單元 3</span><span class="utab-t">從頭看一遍課綱</span><span class="utab-dot" aria-hidden="true"></span></button>
+  <button type="button" class="utab" role="tab" data-goto="3"><span class="utab-n">單元 4</span><span class="utab-t">讓它能自己重跑</span><span class="utab-dot" aria-hidden="true"></span></button>
+  <button type="button" class="utab" role="tab" data-goto="4"><span class="utab-n">單元 5</span><span class="utab-t">收斂成送審成果</span><span class="utab-dot" aria-hidden="true"></span></button>
+</nav>
 
 <!-- ══════════ U0 ══════════ -->
 <article class="unit" data-u="0">
@@ -985,7 +1014,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 </article>
 
 <!-- ══════════ 自由探索 ══════════ -->
-<section class="blk">
+<section class="blk epi">
   <h2>自由探索菜單</h2>
   <p class="lede">五個練習都做完了、還有時間的人，從這裡挑。這些不會在台上講，但講師會走動，挑到哪一題都可以直接問。<b>前三題是分流用的，先看有沒有你。</b></p>
   <div class="tw"><table>
@@ -1004,7 +1033,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 </section>
 
 <!-- ══════════ 這頁本身 ══════════ -->
-<section class="blk">
+<section class="blk epi">
   <h2>順帶一提：這頁是怎麼來的</h2>
   <p class="lede">你現在看的這一頁，就是用今天要教的東西做出來的。講完不藏。</p>
 
@@ -1035,7 +1064,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 </section>
 
 <!-- ══════════ 帶走 ══════════ -->
-<section class="blk">
+<section class="blk epi">
   <h2>不管今天跑不跑得順，你一定帶得走</h2>
   <ol>
     <li>安裝與申請帳號的逐步說明卡</li>
@@ -1089,7 +1118,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v2.8';
+var PAGE_VER = 'v2.9';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
@@ -1453,7 +1482,41 @@ var PAGE_VER = 'v2.8';
       bar.style.width=(n/boxes.length*100)+'%';
       txt.textContent=n+' / '+boxes.length+' 個單元';
       idDone.textContent=n;
+      // tab 上顯示每個單元完成了沒（綠點）
+      tabs.forEach(function(tb,i){
+        tb.classList.toggle('done', !!(boxes[i] && boxes[i].checked));
+      });
     }
+
+    /* ── 單元分頁：只是切換顯示哪一個 article，不碰資料層 ──────── */
+    var articles=[].slice.call(document.querySelectorAll('article.unit'));
+    var epis=[].slice.call(document.querySelectorAll('section.blk.epi'));  // 結尾三段，掛在單元 5
+    var tabs=[].slice.call(document.querySelectorAll('.utab'));
+    var TKEY='isu0821-tab';
+    function showUnit(idx){
+      idx=Math.max(0,Math.min(articles.length-1,idx|0));
+      articles.forEach(function(a,i){ a.hidden = (i!==idx); });
+      epis.forEach(function(s){ s.hidden = (idx!==articles.length-1); });  // 只有最後一頁顯示結尾
+      tabs.forEach(function(tb,i){ tb.classList.toggle('active', i===idx); });
+      try{ localStorage.setItem(TKEY,String(idx)); }catch(e){}
+      // 切頁後捲到內容頂端（tab 是 sticky，會停在最上面）
+      var tabsEl=document.getElementById('unitTabs');
+      if(tabsEl){ var y=tabsEl.getBoundingClientRect().top+window.pageYOffset-8; window.scrollTo(0,y); }
+      // 把選中的 tab 捲進視野（手機上 tab 列會橫向捲動）
+      if(tabs[idx]) tabs[idx].scrollIntoView({inline:'center',block:'nearest'});
+    }
+    tabs.forEach(function(tb,i){
+      tb.addEventListener('click',function(){ showUnit(i); });
+    });
+    // 一進來停在「第一個還沒做完的單元」，若都做完就停第一個
+    (function(){
+      var start=0;
+      try{ var s=localStorage.getItem(TKEY); if(s!==null) start=+s; }catch(e){}
+      if(start===0){
+        for(var i=0;i<boxes.length;i++){ if(!boxes[i].checked){ start=i; break; } }
+      }
+      showUnit(start);
+    })();
 
     /* ── 完成人數：全班看得到 ─────────────────────────────
        🔴 走 /isu0821/done/ 這條路徑，裡面**只有隨機 id，沒有姓名**，
