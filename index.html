@@ -222,6 +222,10 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 .utab.active.done .utab-dot{background:var(--card)}
 /* 分頁內容：非當前頁隱藏 */
 .unit[hidden], .blk.epi[hidden]{display:none}
+/* 單元開頭的休息提示 */
+.brk{display:flex; align-items:center; gap:.5rem; font-size:.85rem; color:var(--ink-2);
+  background:var(--bonus-soft); border-radius:.45rem; padding:.5rem .8rem; margin:0 0 1rem}
+.brk b{color:var(--ink)}
 
 /* ── 通行碼閘 ── */
 #gate{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem; background:var(--bg)}
@@ -369,7 +373,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v3.1　·　2026-08-20 16:40 更新（完成人數同一人只算一次） </p>
+    <p class="ver" id="verStamp">v3.2　·　2026-08-20 16:45 更新（休息時間放進各單元） </p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -840,6 +844,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 <!-- ══════════ U3 ══════════ -->
 <article class="unit" data-u="2">
   <div class="uhead"><span class="utag">單元 3</span><h2>讓它把你的課綱從頭看一遍</h2><span class="utime">11:10–12:00</span></div>
+  <p class="brk">☕　剛才 <b>10:50–11:10</b> 先休息十分鐘，回來再開始這一段。</p>
   <p class="uwhy">下午要寫「驗證方式」，那一格不能用形容詞填。<b>但我們不量「省了多少時間」</b>——你那份簡報早就做好了，省不了。我們量的是另一件事：<b>有幾件你一直想做、卻從來沒時間做的事，今天第一次做完了。</b></p>
 
   <div class="drill core">
@@ -945,11 +950,11 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <label class="check"><input type="checkbox"> 這個單元我做完了<span class="cnt" data-cnt></span></label>
 </article>
 
-<p style="text-align:center;color:var(--ink-3);font-size:.9rem;margin:2rem 0">🍱　12:00–13:30 午休　·　上午沒裝好的人這時候補　|　10:50–11:10 與 15:00–15:30 各休息一次</p>
 
 <!-- ══════════ U4 ══════════ -->
 <article class="unit" data-u="3">
   <div class="uhead"><span class="utag">單元 4</span><h2>收斂成一份可以送出去的成果</h2><span class="utime">13:30–15:00</span></div>
+  <p class="brk">🍱　<b>12:00–13:30 午休。</b>上午沒裝好的人，這個時間找講師補。</p>
   <p class="uwhy">這一段<b>不需要帳號</b>，人人都做得完。今天工具卡住的人，講師會發給你稽核報告，你一樣交得出完整的東西。</p>
 
   <div class="tw"><table>
@@ -985,6 +990,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 
 <article class="unit" data-u="4">
   <div class="uhead"><span class="utag">單元 5</span><h2>讓它下次能自己重跑一遍</h2><span class="utime">15:30–16:30</span></div>
+  <p class="brk">☕　<b>15:00–15:30</b> 休息一下。這一段是挑戰題，做不完很正常。</p>
   <p class="uwhy">上午做的是單次的，用完就沒了。這一段做「可以重複跑的東西」。<b>認證分初階和專業，分水嶺就在這裡</b>：交出一份成果是初階；<b>有一套可重跑的流程＋自動化，才是專業要的「工具包」。</b>今天最重要的一段。</p>
 
   <div class="drill core">
@@ -1131,7 +1137,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v3.1';
+var PAGE_VER = 'v3.2';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
