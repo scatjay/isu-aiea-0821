@@ -210,6 +210,23 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 .qrcap{font-size:.76rem; color:var(--ink-3); margin:.55rem 0 0; line-height:1.6}
 .qrcap code{font-size:.95em; overflow-wrap:anywhere}
 .gnote{font-size:.78rem; color:var(--ink-3); line-height:1.65; margin:1.2rem 0 0; padding-top:1rem; border-top:1px solid var(--line)}
+/* 寄參考資料 */
+.sendbox{display:flex; align-items:center; gap:1rem 1.4rem; flex-wrap:wrap;
+  background:var(--bonus-soft); border:1px solid var(--line);
+  border-left:4px solid var(--bonus); border-radius:.6rem;
+  padding:1rem 1.2rem; margin:.8rem 0 0}
+.sendtxt{flex:1 1 18rem; min-width:0; font-size:.9rem; line-height:1.7}
+.sendtxt span{color:var(--ink-2); font-size:.85rem}
+#sendBtn{font:inherit; font-weight:700; font-size:.92rem; white-space:nowrap;
+  padding:.65rem 1.3rem; border:none; border-radius:.45rem;
+  background:var(--bonus); color:var(--card); cursor:pointer}
+#sendBtn:hover:not(:disabled){filter:brightness(1.1)}
+#sendBtn:disabled{opacity:.5; cursor:default}
+#sendBtn:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.sendmsg{flex-basis:100%; margin:0; font-size:.85rem; color:var(--ink-2); min-height:1.2em}
+.sendmsg.ok{color:var(--core); font-weight:600}
+.sendmsg.bad{color:var(--warn)}
+
 /* 登入後的身分列 */
 .me{display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; font-size:.85rem; color:var(--ink-2)}
 .me b{color:var(--ink)}
@@ -292,7 +309,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v1.8　·　2026-08-20 13:20 更新（職級與校內信箱自動帶出）</p>
+    <p class="ver" id="verStamp">v1.9　·　2026-08-20 13:35 更新（寄參考資料到學校信箱）</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -322,6 +339,16 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <span class="sync" id="msync" data-s="off" hidden></span>
   </div>
   <button type="button" id="idSwitch">登出</button>
+</div>
+
+<div class="sendbox" id="sendBox" hidden>
+  <div class="sendtxt">
+    <b>你的個人課程參考資料已經整理好了。</b><br>
+    <span>依你自己的 115-1 開課資料整理的——包含今天最適合動的那一門課，
+    以及三個可以直接複製貼上的指令。<b>會寄到你的校內信箱，別人看不到你這一份。</b></span>
+  </div>
+  <button type="button" id="sendBtn">寄到我的學校信箱</button>
+  <p class="sendmsg" id="sendMsg"></p>
 </div>
 
 <div class="lanes">
@@ -792,6 +819,10 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
    ⚠ 送出的只有「姓名 + 哪幾格打勾 + 時間」。
      學員在單元裡寫的內容一律留在自己電腦，不上傳。
    ───────────────────────────────────────────────────────────── */
+// 「寄參考資料到學校信箱」的後端（Google Apps Script 網頁應用程式）。
+// 部署方式見 _mailer/Code.gs 檔頭。留空 = 按鈕顯示為「講師還沒開啟」。
+var MAILER_URL = "";
+
 var FB_DB = "https://gen-lang-client-0929530380-default-rtdb.asia-southeast1.firebasedatabase.app";
                   //   留空＝完全離線模式，網頁照常運作，只是講師看不到進度
 
@@ -915,7 +946,54 @@ function fbDead(status){
       location.reload();
     });
 
+    wireSend();
     boot();
+  }
+
+  /* ── 寄參考資料到學校信箱 ─────────────────────────────
+     🔴 只把「姓名」送出去，**不送信箱**。收件者由後端自己查名冊決定。
+        讓前端指定收件者，這個公開網址就變成一台開放轉發伺服器：
+        任何人看原始碼拿到端點，就能用講師的 Gmail 寄信給任何人。   */
+  function wireSend(){
+    var box=document.getElementById('sendBox');
+    var btn=document.getElementById('sendBtn');
+    var msg=document.getElementById('sendMsg');
+    if(!box) return;
+
+    // 名冊裡沒查到這個人 -> 沒有校內信箱可寄，整塊不顯示
+    if(!me.smail){ box.hidden=true; return; }
+    box.hidden=false;
+
+    if(!MAILER_URL){
+      btn.disabled=true;
+      msg.textContent='講師還沒開啟寄送功能，現場會再說明。';
+      return;
+    }
+
+    btn.addEventListener('click',function(){
+      btn.disabled=true;
+      msg.className='sendmsg';
+      msg.textContent='寄送中…';
+      fetch(MAILER_URL,{
+        method:'POST',
+        // text/plain 是為了避開 CORS 預檢：Apps Script 的網頁應用程式
+        // 不回 preflight，送 application/json 會直接被瀏覽器擋掉。
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:JSON.stringify({name:me.name, pass:PASS})
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        msg.className='sendmsg ' + (d && d.ok ? 'ok' : 'bad');
+        msg.textContent=(d && d.msg) || '寄不出去，請跟講師說一聲。';
+        // 成功就讓按鈕留在停用狀態，避免一直重按
+        btn.disabled = !!(d && d.ok);
+      })
+      .catch(function(){
+        msg.className='sendmsg bad';
+        msg.textContent='連不上寄送服務，請跟講師說一聲。';
+        btn.disabled=false;
+      });
+    });
   }
   if(me && me.id && me.name){ enter(); }
   else{
