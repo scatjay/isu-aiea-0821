@@ -404,7 +404,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v4.4　·　2026-08-20 23:24 更新</p>
+    <p class="ver" id="verStamp">v4.5　·　2026-08-20 23:33 更新</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。四個單元。<b>預設是拿你 115-1 真的要教的那門課</b>的官方課綱動手——因為手上有真材料，六小時才走得完。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。<br><span style="font-size:.94em">要<b>開一門全新的課</b>也完全走得通，同一套流程、同一份產出，只是起點不同——單元 1 會說明。</span></p>
@@ -1050,6 +1050,59 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     對使用者（和 AI）來說完全一樣。<b>那才是這套東西真正的樣子。</b></span>
   </div>
 
+  <div class="drill" id="u3howto">
+    <p class="dlabel">動手做・你實際要按的順序（六步）</p>
+
+    <p style="margin:.2rem 0 .8rem;color:var(--ink-2)">
+      前面講的是「為什麼」，這裡是「按哪裡」。<b>跟不上就看著，這一段不強迫動手。</b>
+    </p>
+
+    <ol style="margin:0;padding-left:1.3rem;line-height:1.75">
+      <li><b>開新的 Claude Code 工作階段，位置選「Local」</b><br>
+        <span style="color:var(--ink-3)">選單裡還有 Cloud / Remote Control / SSH——
+        <b>今天一律選 Local</b>。那三個是給「東西不在自己電腦上」的情況用的。</span></li>
+
+      <li><b>工作目錄：在桌面開一個新資料夾，選它</b><br>
+        <span style="color:var(--ink-3)">例如 <code>桌面\moodle-mcp</code>。空的就好。</span></li>
+
+      <li><b>把這句話貼給 Claude</b><br>
+        <div class="pr">幫我把 https://github.com/scatjay/isu-moodle-mcp
+        clone 下來，裝好相依套件，然後照 README 說的設定好</div>
+        <span style="color:var(--ink-3)">它會自己 clone、跑 <code>pip install</code>、
+        把 <code>.mcp.json.範例</code> 改成 <code>.mcp.json</code>。<b>你不用自己打指令。</b></span></li>
+
+      <li><b>拿你自己的 token —— 這一步請在你自己的終端機跑</b><br>
+        <code>python get_token.py https://moodle.isu.edu.tw</code><br>
+        <span style="color:var(--warn)"><b>不要把帳號密碼打進 Claude 的對話框。</b>
+        對話紀錄會被保存，密碼一旦出現在裡面就等於外洩。</span></li>
+
+      <li><b>重開 Claude Code，它會問要不要啟用這個 MCP，按同意</b></li>
+
+      <li><b>第一句先問這個</b><br>
+        <div class="pr">跑 diagnose()</div>
+        <span style="color:var(--ink-3)">它會告訴你 token 有沒有效、你實際能呼叫哪些函式。
+        <b>接不上的時候第一個該跑的就是這支。</b></span></li>
+    </ol>
+  </div>
+
+  <div class="stuck" style="background:var(--bonus-soft)">
+    <b style="color:var(--bonus)">如果第 4 步失敗——別停下來，還有第二條路</b><br>
+    如果 <code>get_token.py</code> 回 <code>cannotcreatetoken</code>，
+    代表學校改過預設權限，你不能自己領 token。<br>
+    <span style="color:var(--ink-3)">這件事<b>從外面探測不出來</b>，只有實際去領才知道，
+    所以現場一定有人會遇到。</span><br>
+    <b style="color:var(--warn)">遇到就改走這條，它不需要任何權限：</b>
+    <ol style="margin:.4rem 0 0;padding-left:1.3rem;line-height:1.7">
+      <li>跑 <code>python start_debug_chrome_moodle.py</code></li>
+      <li><b>在跳出來的那個瀏覽器視窗，用你自己的帳號登入 Moodle</b></li>
+      <li>回來問 Claude：<div class="pr">我在義守 Moodle 有哪些課？</div></li>
+    </ol>
+    <span style="color:var(--ink-3)">原理：那些工具是<b>借用你已經登入的瀏覽器</b>去讀，
+    它沒有你的密碼、也不需要。所以<b>只要你自己登得進去，它就讀得到</b>——
+    不管學校開不開 API。</span><br>
+    <span style="color:var(--warn)">講師昨晚就是走這條路，把義守正式站的課程與教材整批讀出來的。</span>
+  </div>
+
   <div class="stuck" style="border-left-color:var(--warn)">
     <b style="color:var(--warn)">⚠ pull 下來之後，還有一步很多人會漏</b><br>
     程式碼拉下來只是第一步。<b>你還要在 debug Chrome 那個視窗裡，用你自己的帳號登入一次 Moodle。</b><br>
@@ -1388,7 +1441,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v4.4';
+var PAGE_VER = 'v4.5';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
