@@ -1,2 +1,7 @@
 .DS_Store
 Thumbs.db
+
+# 編輯前的備份，不進版控
+index.html.bak*
+*.bak
+*.bak-*

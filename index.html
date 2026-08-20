@@ -386,9 +386,9 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <p class="ver" id="verStamp">v3.8　·　2026-08-20 17:30 更新（單元3 Flipclass 示範 · 單元4 改做教材） </p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
-  <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>預設是拿你 115-1 真的要教的那門課</b>的官方課綱動手——因為手上有真材料，六小時才走得完。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。<br><span style="font-size:.94em">要<b>開一門全新的課</b>也完全走得通，同一套流程、同一份產出，只是起點不同——單元 1 會說明。</span></p>
+  <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。四個單元。<b>預設是拿你 115-1 真的要教的那門課</b>的官方課綱動手——因為手上有真材料，六小時才走得完。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。<br><span style="font-size:.94em">要<b>開一門全新的課</b>也完全走得通，同一套流程、同一份產出，只是起點不同——單元 1 會說明。</span></p>
   <div class="meta">
-    <span class="chip">6 小時 · 5 個單元</span>
+    <span class="chip">6 小時 · 4 個單元</span>
     <span class="chip">依個人進度，不分組</span>
     <span class="chip">產出：一份課綱改版包</span>
     <span class="chip">課後可複習</span>
@@ -409,7 +409,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <p class="idlast" id="idLast"></p>
   </div>
   <div class="idprog">
-    <b id="idDone">0</b><span>／5 個單元完成</span>
+    <b id="idDone">0</b><span>／4 個單元完成</span>
     <span class="sync" id="msync" data-s="off" hidden></span>
   </div>
   <button type="button" id="idSwitch">登出</button>
@@ -441,24 +441,22 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <span class="me"><b id="mename">　</b></span>
     <span style="white-space:nowrap;color:var(--ink-3)">今天進度</span>
     <span class="bar"><i id="pbar"></i></span>
-    <span id="ptxt" style="font-variant-numeric:tabular-nums;white-space:nowrap">0 / 5 個單元</span>
+    <span id="ptxt" style="font-variant-numeric:tabular-nums;white-space:nowrap">0 / 4 個單元</span>
   </div>
 </div>
 
 <nav class="unittabs" id="unitTabs" role="tablist">
   <span class="utab-grp">上午</span>
-  <button type="button" class="utab" role="tab" data-goto="0"><span class="utab-n">單元 1</span><span class="utab-t">先讓工具會動</span><span class="utab-dot" aria-hidden="true"></span></button>
-  <button type="button" class="utab" role="tab" data-goto="1"><span class="utab-n">單元 2</span><span class="utab-t">讓它讀到你的課</span><span class="utab-dot" aria-hidden="true"></span></button>
+  <button type="button" class="utab" role="tab" data-goto="0"><span class="utab-n">單元 1</span><span class="utab-t">桌面代理人環境</span><span class="utab-dot" aria-hidden="true"></span></button>
+  <button type="button" class="utab" role="tab" data-goto="1"><span class="utab-n">單元 2</span><span class="utab-t">MCP 工具整合</span><span class="utab-dot" aria-hidden="true"></span></button>
   <span class="utab-grp">下午</span>
-  <button type="button" class="utab" role="tab" data-goto="2"><span class="utab-n">單元 3</span><span class="utab-t">從頭看一遍課綱</span><span class="utab-dot" aria-hidden="true"></span></button>
-  <button type="button" class="utab" role="tab" data-goto="3"><span class="utab-n">單元 4</span><span class="utab-t">收斂成送審成果</span><span class="utab-dot" aria-hidden="true"></span></button>
-  <span class="utab-grp">挑戰</span>
-  <button type="button" class="utab utab-challenge" role="tab" data-goto="4"><span class="utab-n">單元 5</span><span class="utab-t">給更快的人</span><span class="utab-dot" aria-hidden="true"></span></button>
+  <button type="button" class="utab" role="tab" data-goto="2"><span class="utab-n">單元 3</span><span class="utab-t">Flipclass 實例</span><span class="utab-dot" aria-hidden="true"></span></button>
+  <button type="button" class="utab utab-challenge" role="tab" data-goto="3"><span class="utab-n">單元 4</span><span class="utab-t">教學 Dashboard</span><span class="utab-dot" aria-hidden="true"></span></button>
 </nav>
 
 <!-- ══════════ U0 ══════════ -->
 <article class="unit" data-u="0">
-  <div class="uhead"><span class="utag">單元 1</span><h2>先確認工具會動，然後挑一門課</h2><span class="utime">09:00–09:30</span></div>
+  <div class="uhead"><span class="utag">單元 1</span><h2>Claude 桌面代理人環境</h2><span class="utime">09:00–10:20</span></div>
   <p class="uwhy">這半小時不教東西，只做兩件事：確認你按下去會有反應，以及挑定今天要動的那門課。裝不起來的人在這裡就要舉手，不要撐到十一點。</p>
 
   <div class="stuck" style="background:var(--bonus-soft)">
@@ -589,7 +587,8 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 
 <!-- ══════════ U2 ══════════ -->
 <article class="unit" data-u="1">
-  <div class="uhead"><span class="utag">單元 2</span><h2>讓 AI 讀得到你這門課</h2><span class="utime">09:30–10:50</span></div>
+  <div class="uhead"><span class="utag">單元 2</span><h2>Claude Code 的 MCP 工具整合</h2><span class="utime">10:40–12:00</span></div>
+  <p class="brk">☕　剛才 <b>10:20–10:40</b> 休息過了。<b>目標：中午前把環境弄好</b>——做到這件事，今天就值回票價。</p>
   <p class="uwhy">到目前為止它只是個聊天視窗。這一段之後，它才真的碰得到你的東西。<b>沒帶教材也做得完</b>——講師會發給你自己的課綱。</p>
 
   <div class="stuck" style="background:var(--bonus-soft)">
@@ -771,7 +770,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
       </table></div>
       <span style="color:var(--warn)"><b>今天先不要做這些</b>——時間不夠，而且會岔開主線。
       但你要知道<b>今天裝的東西不是「課綱專用」</b>，回去之後這些都做得到。</span><br>
-      <span style="color:var(--ink-3)">下午單元 5（挑戰題）會示範其中一種：讓它把整套流程記下來，下次自己重跑。</span>
+      <span style="color:var(--ink-3)">下午單元 4 就會用到其中好幾種——你會把它們整合成一個 Dashboard。</span>
     </div>
 
     <details style="margin:.9rem 0 0;font-size:.88rem">
@@ -887,10 +886,23 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 
 <!-- ══════════ U3 ══════════ -->
 <article class="unit" data-u="2">
-  <div class="uhead"><span class="utag">單元 3</span><h2>讓它把你的課綱從頭看一遍</h2><span class="utime">11:10–12:00</span></div>
-  <p class="brk">☕　剛才 <b>10:50–11:10</b> 先休息十分鐘，回來再開始這一段。</p>
+  <div class="uhead"><span class="utag">單元 3</span><h2>南台 Flipclass MCP 實例</h2><span class="utime">13:30–14:30</span></div>
+  <p class="brk">🍱　<b>12:00–13:30 午休。</b>上午沒裝好的人這時候找講師補——下午整段建立在「環境有裝好」的前提上。</p>
   <p class="uwhy">你手上有的不只是這學期的課綱——還有<b>過去好幾年的授課紀錄</b>：教材、作業、學生繳交狀況。
   那些資料一直躺在數位學習平台裡，沒人有時間翻。這一段先看講師示範<b>怎麼把它們整批撈出來分析</b>，再回頭處理你自己的課綱。</p>
+
+  <div class="stuck" style="background:var(--bonus-soft)">
+    <b style="color:var(--bonus)">先說這一段對你有什麼實際用處</b><br>
+    高教這十幾年，校內校外、上上下下，<b>幾乎每件事最後都變成一場作文比賽</b>——
+    教學實踐計畫、教卓、系所評鑑、升等、各種成果報告。<br>
+    <span style="color:var(--ink-3)">而「能從自己過往的教學系統裡把資料挖出來、做長時段的分析」這件事，
+    放進<b>任何一份那樣的文件都是高度加分</b>。</span><br>
+    原因不在於分析結果一定好看——<b>教學成效好壞不見得</b>——而在於：
+    <b>你有資料可以談</b>，而且可以用量化的方式呈現自己過去的教學軌跡。
+    這在文學研究裡有個名字叫「<b>遠讀</b>」（distant reading）：
+    不逐份細看，而是把整批資料拉遠了看趨勢。<br>
+    <span style="color:var(--warn)">今天這一段，就是把「遠讀」這個方法搬到你自己的授課紀錄上。</span>
+  </div>
 
   <div class="stuck" style="background:var(--bonus-soft)">
     <b style="color:var(--bonus)">先看示範：把一門課「過去五年」的完整狀況攤開來</b><br>
@@ -905,17 +917,56 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   </div>
 
   <div class="stuck">
-    <b>「那是南台的系統，我登不進去啊」——沒錯，所以重點在後面這句</b><br>
-    講師示範用的是南台的 FlipClass。<b>你們用的是義守的 Moodle</b>
-    （<code>moodle.isu.edu.tw</code>），登入帳號不同、系統也不同。<br>
-    <b>但好消息是：義守的 Moodle 比南台那套好接。</b>
-    我們課前查過，義守 Moodle 的<b>官方 API 已經開著</b>——
-    這表示不用像南台那樣反向工程，照官方文件就能串。<br>
-    <span style="color:var(--ink-3)">講師會把 FlipClass 這套的<b>完整程式碼開成公開 repo</b>，
-    你回去 <code>git clone</code> 下來，把裡面「連哪個網站、抓哪些欄位」換成 Moodle 的，
-    架構完全不用改。<b>難的部分（登入、抓資料、整理格式）都已經寫好了。</b></span><br>
-    <span style="color:var(--warn)">今天不會帶你接 Moodle——那要你的帳號權限，也會吃掉太多時間。
-    <b>今天你要帶走的是「原來可以這樣」這個認知，以及那份程式碼。</b></span>
+    <b>「那是南台的系統，我登不進去啊」——所以講師昨晚做了一件事</b><br>
+    講師沒有義守 Moodle 的帳號。<b>解法是：在自己的筆電上裝一台跟你們同版本的 Moodle。</b><br>
+    <span style="color:var(--ink-3)">我們查到義守跑的是 <b>Moodle 4.1.18</b>
+    （用官方原始碼比對出來的：義守站上的 <code>lib/upgrade.txt</code> 最新一段停在 4.1.18，
+    而官方 4.1 分支已經到 4.1.22）。所以講師在本機裝了一台 4.1.18，
+    <b>把整個 Web Service 介面逆向完</b>，再把結果做成公開 repo。</span><br>
+    <b style="color:var(--warn)">今天你可以直接 pull 那份 repo，換上你自己的網址就能跑。</b>
+  </div>
+
+  <div class="stuck" style="background:var(--bonus-soft)">
+    <b style="color:var(--bonus)">逆向出來的三件事（都是實際跑出來的，不是猜的）</b><br>
+    <b>① 你「很可能」可以自己拿到 token，不用去拜託系統管理員。</b><br>
+    <span style="color:var(--ink-3)">Moodle 有兩條發 token 的路，權限預設值差很多：
+    從個人設定頁自建需要 <code>createtoken</code>（<b>預設只有管理員有</b>）；
+    但走行動裝置服務那條只需要 <code>createmobiletoken</code>，
+    <b>預設給所有已登入使用者</b>。義守站台的行動裝置服務是開著的
+    （<code>enablemobilewebservice=1</code>，我們用它的公開設定端點查到的）。</span><br>
+    <span style="color:var(--warn)">這裡要老實說一件事：<b>以上是在講師本機那台同版 Moodle 上實際跑出來的</b>，
+    至於義守<b>有沒有改過這個權限預設值，從外面探測不到</b>。
+    所以「老師能不能自助換 token」，<b>要等你用自己的帳號實際試一次才算數</b>——
+    這正是今天最值得你親手做的一件事。若失敗（錯誤碼是 <code>cannotcreatetoken</code>），
+    就得請學校系統管理員發給你。</span><br>
+    <b>② 你只看得到自己的課</b>——這是 Moodle 內建的保證，不是我們加的限制。
+    token 完全繼承你本人的權限，每次呼叫都做權限檢查。<br>
+    <b>③ 有幾個坑會安靜地害你</b>，最重要的一個：
+    <code>core_course_get_courses</code> 這支函式對老師會<b>整個丟例外</b>，
+    而且 <b>HTTP 狀態碼還是 200</b>——看起來像成功，其實什麼都沒拿到。
+    正確要用的是 <code>core_enrol_get_users_courses</code>。<br>
+    <span style="color:var(--ink-3)">這些坑 repo 的 <code>REVERSE_ENGINEERING.md</code> 裡都寫了，
+    每一條都附上我們實際跑出來的證據。</span>
+  </div>
+
+  <div class="stuck">
+    <b>順便講一件比技術更大的事</b><br>
+    南台的 FlipClass <b>沒有 API</b>，所以講師那套是用 <b>debug Chrome</b> 逆向出來的——
+    開一個帶遠端偵錯的瀏覽器，讓 AI 直接驅動它，把頁面一頁一頁讀回來。<br>
+    <span style="color:var(--ink-3)">重點是：<b>只要你有帳密進得去，整個系統的功能都爬得下來。</b>
+    不管它是不是開源、有沒有提供 API、甚至只是試用期。</span><br>
+    <b style="color:var(--warn)">現在的數位產品如果不開源，遲早會被這種技術逼到開源。</b>
+    <span style="color:var(--ink-3)">今天你會看到同一件事的兩種做法並排：
+    <b>Moodle 有 API</b>（一行呼叫就拿到）、<b>FlipClass 沒有</b>（要開瀏覽器逆向）。
+    看過這個對照，你回去面對任何一個學校系統，就知道該先問哪個問題。</span>
+  </div>
+
+  <div class="stuck" style="border-left-color:var(--warn)">
+    <b style="color:var(--warn)">這一段的節奏會看現場調整</b><br>
+    如果上午環境還沒弄好的人多，<b>這一段就縮成半小時的示範</b>，你看著就好，不用跟。<br>
+    如果進度順、想深挖的人夠多，就直接把 repo pull 下來動手接自己的課。<br>
+    <span style="color:var(--ink-3)">兩種都可以——<b>單元 4 不需要單元 3 的產出</b>，
+    直接接上午的單元 1、2 一樣走得通。</span>
   </div>
 
   <p class="uwhy" style="margin-top:1rem">看完示範，回到<b>你手上真的有的東西</b>——你的課綱。
@@ -1028,9 +1079,10 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 
 <!-- ══════════ U4 ══════════ -->
 <article class="unit" data-u="3">
-  <div class="uhead"><span class="utag">單元 4</span><h2>做出一個可以直接帶進課堂的東西</h2><span class="utime">13:30–15:00</span></div>
-  <p class="brk">🍱　<b>12:00–13:30 午休。</b>上午沒裝好的人，這個時間找講師補。</p>
-  <p class="uwhy">上午你讓它<b>讀懂</b>你的課，這一段讓它<b>產出東西</b>。
+  <div class="uhead"><span class="utag">單元 4</span><h2>教學單元 Dashboard 設計</h2><span class="utime">14:45–16:00</span></div>
+  <p class="brk">☕　<b>14:30–14:45</b> 休息一下。<b>這是今天最長也最好玩的一段</b>，做不完的部分 16:00 之後還有時間。</p>
+  <p class="uwhy"><span style="color:var(--ink-3)">（<b>剛才單元 3 沒跟上也完全沒關係</b>——這一段只需要上午單元 1、2 的環境，不需要單元 3 的產出。）</span><br>
+  上午你讓它<b>讀懂</b>你的課，這一段讓它<b>產出東西</b>。
   下課時你手上會有一份可以直接開、直接用的教材——不是心得，不是報告，是成品。</p>
 
   <div class="stuck" style="background:var(--bonus-soft)">
@@ -1089,7 +1141,9 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
       <li><b class="bno">加碼 4-1</b> 做第二個。四種挑另一個，你會發現第二次快很多。</li>
       <li><b class="bno">加碼 4-2</b> 把 B 的遊戲化單元改成「<b>期中考前總複習</b>」，題目橫跨前八週。</li>
       <li><b class="bno">加碼 4-3</b> 叫它把這份教材<b>做出三個難度版本</b>（基礎／標準／挑戰），給程度不同的學生。</li>
-      <li><b class="bno">加碼 4-4</b> 問它：「這份教材如果要放進 Moodle，我要怎麼做？」</li>
+      <li><b class="bno">加碼 4-4</b> 把單元 3 那份 repo pull 下來，問它：「幫我把這份教材放進我自己的 Moodle。」
+      <span style="color:var(--ink-3)">（repo 裡有一支 <code>get_token.py</code>，跑一次就拿到你自己的 token。
+      請在你自己的終端機跑，不要在對話框裡跑——帳密會留在逐字稿裡。）</span></li>
     </ol>
   </div>
 
@@ -1127,49 +1181,6 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <label class="check"><input type="checkbox"> 這個單元我做完了<span class="cnt" data-cnt></span></label>
 </article>
 
-<article class="unit" data-u="4">
-  <div class="uhead"><span class="utag">單元 5</span><h2>讓它下次能自己重跑一遍</h2><span class="utime">15:30–16:30</span></div>
-  <p class="brk">☕　<b>15:00–15:30</b> 休息一下。這一段是挑戰題，做不完很正常。</p>
-  <p class="uwhy">上午做的是單次的，用完就沒了。這一段做「可以重複跑的東西」。<b>認證分初階和專業，分水嶺就在這裡</b>：交出一份成果是初階；<b>有一套可重跑的流程＋自動化，才是專業要的「工具包」。</b>今天最重要的一段。</p>
-
-  <div class="drill core">
-    <p class="dlabel">練習 5</p>
-    <ol>
-      <li><b>先花 30 秒選題</b>——這學期你會重複做三次以上的動作是哪一個？
-        <div style="margin:.5rem 0 .2rem;font-size:.94rem">
-        （a）<b>每門課、每年跑一次課綱稽核與改版</b>　←　預設，接上午做的<br>
-        （b）每章教材健檢：哪幾頁的軟體截圖、法規、統計數字、網址過期了<br>
-        （c）每章出 5 題，並標難度與對應的能力指標<br>
-        （d）每次上完課，錄音轉成教學反思
-        </div>
-      </li>
-      <li>用單元 2 建好的 <b>課程原料</b>，<b>不要新建資料夾</b>。</li>
-      <li>請它把你選的那件事寫成一份可以重跑的說明書：</li>
-    </ol>
-    <div class="pr">請把我們剛才做的這件事，寫成一份下次可以直接重跑的步驟說明，存成 SKILL.md 放進這個資料夾。要寫到「換一門課、或是交給助教，照著做也做得出來」的程度。<button type="button">複製</button></div>
-    <ol start="4">
-      <li><b>驗它</b>：開一個<b>全新對話</b>，只給它那份 <code>SKILL.md</code>，加一句「換成我另一門課，課號 ＿＿＿＿」，看它能不能自己從頭跑完。</li>
-    </ol>
-    <p class="done"><b>做完長這樣：</b>資料夾裡有 <code>SKILL.md</code>，<b>而且有它照著跑出來的輸出檔</b>。<br>
-    <span style="color:var(--warn)">收件標準是「有跑出來的輸出檔」，不是「有一份腳本」。</span></p>
-  </div>
-
-  <div class="drill bonus">
-    <p class="dlabel">加碼 4</p>
-    <ul>
-      <li><b class="bno">加碼 4-1</b> 跑不動就回去把說明書寫清楚，再試一次。<b>這個來回本身就是最好的練習</b>——你會發現「哪裡沒講清楚」就是它做不出來的地方。</li>
-      <li><b class="bno">加碼 4-2</b> 把 <code>SKILL.md</code> 改成可以套用在你<b>所有課</b>的通用版。</li>
-    </ul>
-  </div>
-
-  <div class="stuck">
-    <b>卡住了：</b>跟講師拿現成的骨架，改參數讓它動起來就好。<b>會改比會寫重要。</b><br>
-    但請至少換成你自己的課跑出一份真的輸出——<b>四十三份一模一樣的講師檔，外審看得出來。</b>
-  </div>
-  <label class="check"><input type="checkbox"> 這個單元我做完了<span class="cnt" data-cnt></span></label>
-</article>
-
-<!-- ══════════ U5 ══════════ -->
 <!-- ══════════ 自由探索 ══════════ -->
 <section class="blk epi">
   <h2>自由探索菜單</h2>
@@ -1276,7 +1287,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v3.8';
+var PAGE_VER = 'v3.9';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
@@ -1694,7 +1705,7 @@ var PAGE_VER = 'v3.8';
 
     /* ── 單元分頁：只是切換顯示哪一個 article，不碰資料層 ──────── */
     var articles=[].slice.call(document.querySelectorAll('article.unit'));
-    var epis=[].slice.call(document.querySelectorAll('section.blk.epi'));  // 結尾三段，掛在單元 5
+    var epis=[].slice.call(document.querySelectorAll('section.blk.epi'));  // 結尾三段，掛在最後一個單元
     var tabs=[].slice.call(document.querySelectorAll('.utab'));
     var TKEY='isu0821-tab';
     function showUnit(idx){
