@@ -230,7 +230,8 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 .presdept{flex:1 1 16rem; min-width:0; display:flex; flex-wrap:wrap; gap:.4rem}
 .pchip{font-size:.8rem; padding:.2rem .6rem; border-radius:999px;
   border:1px solid var(--line); background:var(--bg); color:var(--ink-2); white-space:nowrap}
-.pchip b{color:var(--ink); font-variant-numeric:tabular-nums}
+.pchip b{color:var(--ink-3); font-weight:400; font-size:.9em; margin-left:.35rem}
+.pchip.me b{color:var(--core)}
 .pchip.me{border-color:var(--core); color:var(--core)}
 .presnote{flex-basis:100%; margin:0; font-size:.76rem; color:var(--ink-3); line-height:1.6}
 
@@ -338,7 +339,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v2.6　·　2026-08-20 16:50 更新（連接器操作 · MCP 說明）</p>
+    <p class="ver" id="verStamp">v2.7　·　2026-08-20 17:00 更新（在線顯示姓名 · 單元2 連接器四題）</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -373,7 +374,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 <div class="presbox" id="presBox" hidden>
   <div class="presnum"><b id="presN">—</b><span>位老師<br>正在線上</span></div>
   <div class="presdept" id="presDept"></div>
-  <p class="presnote">只顯示人數與系所，<b>不會顯示是誰</b>。10 分鐘沒動作就不算在線。</p>
+  <p class="presnote">10 分鐘沒動作就不算在線。<b>你自己</b>會標成綠色。</p>
 </div>
 
 <div class="sendbox" id="sendBox" hidden>
@@ -638,17 +639,45 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
         <span style="color:var(--ink-3)">為什麼要建新的、而不是直接問它「我雲端有什麼」：
         ① 你<b>知道正確答案</b>，它答對答錯你一眼就看得出來，不會被唬過去。
         ② 不會讓它去翻你的私人檔案。這是驗證連線最乾淨的方式。</span></li>
-      <li>回到 Claude，貼這句：</li>
+      <li>回到 Claude，<b>三個連接器各測一次</b>。三題都過才算真的接好。</li>
     </ol>
+
+    <p style="font-size:.92rem;margin:.8rem 0 .3rem"><b>測試一・雲端硬碟「讀得到」</b></p>
     <div class="pr">我的 Google 雲端硬碟根目錄有一個叫「義守AI課程」的資料夾，請列出裡面有哪些檔案，並告訴我每個檔案大概是什麼內容。<button type="button">複製</button></div>
-    <p style="font-size:.9rem;margin:.6rem 0 0;color:var(--ink-2)">
-      <b>它列得出你剛放進去的檔案 → 連線成功。</b><br>
-      <span style="color:var(--warn)">它說找不到 → 通常是三個原因：
-      ① 建在「共用雲端硬碟」而不是「我的雲端硬碟」
-      ② 授權時選到<b>學校帳號</b>（要選個人 Gmail）
-      ③ 剛建好還沒同步完，等 30 秒再問一次。</span><br>
-      <span style="color:var(--ink-3)">通了之後，這個資料夾就是你課後放教材的地方——
-      下次不用再傳檔案，直接叫它去那裡拿。</span></p>
+    <p style="font-size:.88rem;margin:.35rem 0 0;color:var(--ink-2)">
+      <b>過關：</b>它列得出你剛放進去的檔案。</p>
+
+    <p style="font-size:.92rem;margin:1rem 0 .3rem"><b>測試二・雲端硬碟「寫得進去」</b>
+      <span style="font-weight:400;color:var(--warn)">← 這題才是重點</span></p>
+    <div class="pr">請在我 Google 雲端硬碟的「義守AI課程」資料夾裡，建一個叫「改版筆記.md」的檔案，內容先寫三行：第一行是今天的日期，第二行是「這門課我最想改的一件事：」，第三行留空給我自己填。建好之後把連結給我。<button type="button">複製</button></div>
+    <p style="font-size:.88rem;margin:.35rem 0 0;color:var(--ink-2)">
+      <b>過關：</b>你回雲端硬碟重新整理，<b>真的看到那個檔案</b>。<br>
+      <span style="color:var(--ink-3)">讀得到可能只是它猜的、或是舊快取；<b>寫得進去才證明權限真的通了</b>。
+      這也是今天下午的關鍵能力——它要能把改好的課綱寫回你的資料夾，不是只在對話框裡講。</span></p>
+
+    <p style="font-size:.92rem;margin:1rem 0 .3rem"><b>測試三・行事曆</b></p>
+    <div class="pr">看一下我這週的行事曆，有哪些時段是空的？我想找一個至少兩小時的完整空檔來改課綱，幫我挑三個建議時段。<button type="button">複製</button></div>
+    <p style="font-size:.88rem;margin:.35rem 0 0;color:var(--ink-2)">
+      <b>過關：</b>它講得出你真實的行程（你自己知道對不對）。<br>
+      <span style="color:var(--ink-3)">想更進一步：叫它<b>把你挑的那個時段建成一個行事曆事件</b>，
+      標題寫「改課綱」。這樣寫入也一起驗了。</span></p>
+
+    <p style="font-size:.92rem;margin:1rem 0 .3rem"><b>測試四・Gmail</b></p>
+    <div class="pr">掃一下我最近一個月的 Gmail，有沒有跟教學、課程、研習、系上公文有關的信？列出五封，每封寫一句話說是什麼事，不用寫寄件人。<button type="button">複製</button></div>
+    <p style="font-size:.88rem;margin:.35rem 0 0;color:var(--ink-2)">
+      <b>過關：</b>它列得出你認得的信。<br>
+      <span style="color:var(--warn)">這一題會讀到你的私人信件。<b>投影幕前不要做這題</b>，
+      也可以直接跳過——今天不做這題完全不影響。</span></p>
+
+    <div class="stuck" style="margin-top:.9rem">
+      <b>四題都過 → 你已經把 AI 接上自己的工作環境了，這比改一份課綱重要得多。</b><br>
+      <span style="color:var(--warn)"><b>有哪一題卡住？</b>常見三個原因：
+      ① 資料夾建在「<b>共用</b>雲端硬碟」而不是「<b>我的</b>雲端硬碟」
+      ② 授權時選到<b>學校帳號</b>（<code>@isu.edu.tw</code> 不是 Google，一定要選個人 Gmail）
+      ③ 剛建好還沒同步，等 30 秒再問一次。</span><br>
+      <span style="color:var(--ink-3)">通了之後，「義守AI課程」這個資料夾就是你課後放教材的地方——
+      下次不用再傳檔案，直接叫它去那裡拿、也叫它寫回那裡。</span>
+    </div>
 
     <details style="margin:.9rem 0 0;font-size:.88rem">
       <summary style="cursor:pointer;font-weight:700">這幾個「連接器」背後是什麼？——順便認識一個字：MCP</summary>
@@ -1054,7 +1083,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v2.6';
+var PAGE_VER = 'v2.7';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
@@ -1199,16 +1228,29 @@ var PAGE_VER = 'v2.6';
     var box = document.getElementById('presBox');
     if(!box || !FB_DB) return;
 
+    // 🔴 用「姓名雜湊」當 key，不要用隨機 id：
+    //    老師清瀏覽器資料或換分頁重登會生新 id，舊的還留在資料庫裡，
+    //    一個人就被算成好幾個人（2026-08-20 實測 4 筆裡有 3 筆是同一人）。
+    var _presKey = null;
+    function presKey(){
+      if(_presKey) return Promise.resolve(_presKey);
+      if(!window.crypto || !crypto.subtle) return Promise.resolve(me.id);
+      return crypto.subtle.digest('SHA-256', u8('isu0821-pres:' + normName(me.name)))
+        .then(function(d){ _presKey = hex(d).slice(0,16); return _presKey; });
+    }
+
     function beat(){
       if(FB_LIVE === false) return Promise.resolve();
-      return fetch(FB_DB.replace(/\/+$/,'') + '/isu0821/present/' + me.id + '.json', {
+      return presKey().then(function(k){
+      return fetch(FB_DB.replace(/\/+$/,'') + '/isu0821/present/' + k + '.json', {
         method:'PUT',
         headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ d: (me.dept||'').slice(0,40), t: Date.now() })
+        body: JSON.stringify({ n: (me.name||'').slice(0,20), d: (me.dept||'').slice(0,40), t: Date.now() })
       }).then(function(r){
         if(fbDead(r.status)) return;
         if(r.ok) FB_LIVE = true;
       }).catch(function(){});
+      });
     }
     // 🔴 beat() 是非同步的。第一次載入若直接接著 paintPresence()，
     //    會在自己那筆寫進去之前就先讀，畫面上看不到自己 ——
@@ -1220,32 +1262,35 @@ var PAGE_VER = 'v2.6';
         .then(function(r){ return r.ok ? r.json() : null; })
         .then(function(d){
           if(d === null){ box.hidden = true; return; }
-          var now = Date.now(), byDept = {}, n = 0;
+          var now = Date.now(), people = [];
           for(var k in d){
             var v = d[k];
             if(!v || !v.t || (now - v.t) > PRESENCE_WINDOW) continue;   // 太久沒動作，不算在線
-            n++;
-            var dep = v.d || '其他單位';
-            byDept[dep] = (byDept[dep] || 0) + 1;
+            people.push({ n: v.n || '（未具名）', d: v.d || '其他單位', t: v.t });
           }
           box.hidden = false;
-          document.getElementById('presN').textContent = n;
-          var mine = me.dept || '';
-          var list = Object.keys(byDept).sort(function(a,b){
-            return byDept[b] - byDept[a] || a.localeCompare(b, 'zh-Hant');
+          document.getElementById('presN').textContent = people.length;
+
+          // 同系所的排在一起，自己排最前面
+          var mine = normName(me.name || '');
+          people.sort(function(a, b){
+            var am = normName(a.n) === mine, bm = normName(b.n) === mine;
+            if(am !== bm) return am ? -1 : 1;
+            return a.d.localeCompare(b.d, 'zh-Hant') || a.n.localeCompare(b.n, 'zh-Hant');
           });
+
           var wrap = document.getElementById('presDept');
           wrap.textContent = '';
-          list.forEach(function(dep){
+          people.forEach(function(p){
             var s = document.createElement('span');
-            s.className = 'pchip' + (dep === mine ? ' me' : '');
-            // 系所名太長會把版面撐爆，縮短顯示
-            var label = dep.length > 12 ? dep.slice(0,11) + '…' : dep;
-            s.textContent = label + ' ';
+            s.className = 'pchip' + (normName(p.n) === mine ? ' me' : '');
+            // 系所名太長會把版面撐爆，只取前幾個字當標籤
+            var dep = p.d.length > 6 ? p.d.slice(0,5) + '…' : p.d;
+            s.textContent = p.n;
             var b = document.createElement('b');
-            b.textContent = byDept[dep];
+            b.textContent = dep;
             s.appendChild(b);
-            s.title = dep + ' ' + byDept[dep] + ' 人';
+            s.title = p.n + '　' + p.d;
             wrap.appendChild(s);
           });
         }).catch(function(){});
@@ -1260,9 +1305,10 @@ var PAGE_VER = 'v2.6';
     window.addEventListener('pagehide', function(){
       if(FB_LIVE === false || !navigator.sendBeacon) return;
       try{
+        if(!_presKey) return;   // 還沒算出 key 就不送，key 錯了會留一筆幽靈
         navigator.sendBeacon(
-          FB_DB.replace(/\/+$/,'') + '/isu0821/present/' + me.id + '.json?x-http-method-override=PUT',
-          new Blob([JSON.stringify({ d:(me.dept||'').slice(0,40), t: 0 })], {type:'text/plain'})
+          FB_DB.replace(/\/+$/,'') + '/isu0821/present/' + _presKey + '.json?x-http-method-override=PUT',
+          new Blob([JSON.stringify({ n:(me.name||'').slice(0,20), d:(me.dept||'').slice(0,40), t: 0 })], {type:'text/plain'})
         );
       }catch(e){}
     });
