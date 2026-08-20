@@ -181,13 +181,23 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 #gname,#gpass,#gdept,#gmail{width:100%; font:inherit; padding:.7rem .8rem; border:1px solid var(--line); border-radius:.45rem; background:var(--bg); color:var(--ink)}
 #gname{text-align:center; margin-bottom:.6rem}
 #gdept{margin-bottom:.6rem; text-align:center; text-align-last:center}
-#gmail{text-align:center; margin-bottom:.5rem}
+#gmail,#gsmail{text-align:center; margin-bottom:.5rem}
+/* 兩欄用途相反（一個要私人、一個要學校），底色不同才不會填反 */
+.gwarn-b{border-left-color:var(--core)}
 #gpass{font-size:1.15rem; text-align:center; letter-spacing:.22em}
-#gname:focus-visible,#gpass:focus-visible,#gdept:focus-visible,#gmail:focus-visible{outline:2px solid var(--core); outline-offset:2px; border-color:var(--core)}
+#gname:focus-visible,#gpass:focus-visible,#gdept:focus-visible,#gmail:focus-visible,#gsmail:focus-visible{outline:2px solid var(--core); outline-offset:2px; border-color:var(--core)}
 /* 學校信箱的警告要在「還沒送出」時就看得到，不是等按下去才罵人 */
 .gwarn{font-size:.78rem; line-height:1.6; color:var(--ink-2); text-align:left; margin:0 0 .9rem; padding:.55rem .7rem; border-radius:.4rem; background:var(--bonus-soft); border-left:3px solid var(--warn)}
 .gwarn code{font-size:.95em}
-#gmail.bad{border-color:var(--warn); background:color-mix(in srgb, var(--warn) 8%, var(--bg))}
+#gmail.bad,#gsmail.bad{border-color:var(--warn); background:color-mix(in srgb, var(--warn) 8%, var(--bg))}
+/* QR：給旁邊還沒打開網頁的老師掃。
+   底色一定要自己畫白的（在 make_qr.py 裡），不能靠頁面背景——
+   深色模式下沒有白底就掃不出來。 */
+.qrbox{margin:1.3rem 0 0; padding-top:1.1rem; border-top:1px solid var(--line)}
+.qrbox svg{width:8.5rem; height:8.5rem; display:block; margin:0 auto;
+  border-radius:.4rem; padding:.35rem; background:#fff}
+.qrcap{font-size:.76rem; color:var(--ink-3); margin:.55rem 0 0; line-height:1.6}
+.qrcap code{font-size:.95em; overflow-wrap:anywhere}
 .gnote{font-size:.78rem; color:var(--ink-3); line-height:1.65; margin:1.2rem 0 0; padding-top:1rem; border-top:1px solid var(--line)}
 /* 登入後的身分列 */
 .me{display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; font-size:.85rem; color:var(--ink-2)}
@@ -247,14 +257,24 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
       </optgroup>
       <option value="其他單位">其他單位（校外、行政、講師）</option>
     </select>
-    <input id="gmail" type="email" maxlength="60" placeholder="你的個人 Gmail" aria-label="個人 Gmail"
+    <input id="gmail" type="email" maxlength="60" placeholder="你的個人 Gmail（登入 Claude 用）" aria-label="個人 Gmail"
            autocomplete="email" autocapitalize="off" spellcheck="false">
-    <p class="gwarn">請用<b>個人 Gmail</b>，不要用 <code>@isu.edu.tw</code> 學校信箱。<br>
+    <p class="gwarn">這欄請用<b>個人 Gmail</b>，不要填學校信箱。<br>
       學校的 Google Workspace 會擋掉第三方授權，等一下接雲端硬碟那段會卡住，<b>換 wifi 或開熱點都沒有用</b>。</p>
+
+    <input id="gsmail" type="email" maxlength="60" placeholder="你的學校信箱（收課綱用）" aria-label="學校信箱"
+           autocomplete="off" autocapitalize="off" spellcheck="false">
+    <p class="gwarn gwarn-b">這欄相反，請填 <b><code>@isu.edu.tw</code> 學校信箱</b>。<br>
+      講師事先幫你整理好的<b>課綱檔案連結</b>，會寄到這個信箱——
+      是<b>你自己那一份</b>，所以不會顯示在這個網頁上，別人看不到。</p>
     <!-- 不提示位數。位數本身就是線索，講師口頭給就好。 -->
   <input id="gpass" type="password" inputmode="numeric" maxlength="8" placeholder="通行碼" aria-label="通行碼">
     <button type="submit">進入</button>
     <p id="gerr" role="alert"></p>
+    <div class="qrbox">
+      <svg class="qr" viewBox="0 0 33 33" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="工作坊網址 QR Code" shape-rendering="crispEdges"><rect width="33" height="33" fill="#fff"/><path d="M2 2h7v1h-7zM10 2h3v1h-3zM14 2h1v1h-1zM17 2h1v1h-1zM19 2h2v1h-2zM22 2h1v1h-1zM24 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM14 3h3v1h-3zM19 3h1v1h-1zM21 3h2v1h-2zM24 3h1v1h-1zM30 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM11 4h1v1h-1zM14 4h1v1h-1zM17 4h3v1h-3zM21 4h1v1h-1zM24 4h1v1h-1zM26 4h3v1h-3zM30 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM10 5h1v1h-1zM14 5h2v1h-2zM17 5h1v1h-1zM20 5h1v1h-1zM24 5h1v1h-1zM26 5h3v1h-3zM30 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM15 6h1v1h-1zM17 6h1v1h-1zM19 6h2v1h-2zM24 6h1v1h-1zM26 6h3v1h-3zM30 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM12 7h3v1h-3zM16 7h1v1h-1zM18 7h1v1h-1zM20 7h2v1h-2zM24 7h1v1h-1zM30 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h7v1h-7zM10 9h2v1h-2zM17 9h1v1h-1zM19 9h2v1h-2zM22 9h1v1h-1zM2 10h1v1h-1zM6 10h1v1h-1zM8 10h3v1h-3zM14 10h1v1h-1zM16 10h2v1h-2zM19 10h1v1h-1zM21 10h1v1h-1zM23 10h5v1h-5zM30 10h1v1h-1zM4 11h3v1h-3zM9 11h2v1h-2zM12 11h2v1h-2zM15 11h1v1h-1zM17 11h1v1h-1zM19 11h2v1h-2zM24 11h7v1h-7zM3 12h2v1h-2zM8 12h1v1h-1zM10 12h3v1h-3zM17 12h1v1h-1zM20 12h1v1h-1zM23 12h1v1h-1zM25 12h1v1h-1zM30 12h1v1h-1zM3 13h1v1h-1zM5 13h2v1h-2zM11 13h3v1h-3zM16 13h5v1h-5zM23 13h1v1h-1zM27 13h1v1h-1zM29 13h2v1h-2zM2 14h2v1h-2zM6 14h1v1h-1zM8 14h2v1h-2zM16 14h1v1h-1zM19 14h2v1h-2zM22 14h2v1h-2zM25 14h1v1h-1zM29 14h1v1h-1zM3 15h1v1h-1zM7 15h1v1h-1zM10 15h1v1h-1zM12 15h3v1h-3zM16 15h5v1h-5zM24 15h7v1h-7zM2 16h1v1h-1zM8 16h3v1h-3zM12 16h6v1h-6zM20 16h1v1h-1zM23 16h2v1h-2zM27 16h2v1h-2zM30 16h1v1h-1zM3 17h5v1h-5zM11 17h2v1h-2zM16 17h2v1h-2zM19 17h2v1h-2zM22 17h1v1h-1zM24 17h2v1h-2zM29 17h2v1h-2zM2 18h1v1h-1zM6 18h1v1h-1zM8 18h1v1h-1zM11 18h1v1h-1zM13 18h4v1h-4zM19 18h1v1h-1zM21 18h1v1h-1zM23 18h1v1h-1zM29 18h1v1h-1zM2 19h3v1h-3zM7 19h1v1h-1zM11 19h1v1h-1zM16 19h5v1h-5zM23 19h5v1h-5zM29 19h2v1h-2zM4 20h2v1h-2zM7 20h2v1h-2zM11 20h2v1h-2zM14 20h4v1h-4zM19 20h1v1h-1zM22 20h2v1h-2zM26 20h1v1h-1zM28 20h1v1h-1zM30 20h1v1h-1zM4 21h4v1h-4zM9 21h1v1h-1zM13 21h1v1h-1zM15 21h1v1h-1zM17 21h4v1h-4zM24 21h2v1h-2zM29 21h2v1h-2zM2 22h2v1h-2zM5 22h5v1h-5zM11 22h3v1h-3zM15 22h1v1h-1zM17 22h1v1h-1zM19 22h1v1h-1zM22 22h6v1h-6zM30 22h1v1h-1zM10 23h1v1h-1zM14 23h5v1h-5zM21 23h2v1h-2zM26 23h1v1h-1zM30 23h1v1h-1zM2 24h7v1h-7zM10 24h1v1h-1zM13 24h1v1h-1zM17 24h1v1h-1zM21 24h2v1h-2zM24 24h1v1h-1zM26 24h3v1h-3zM30 24h1v1h-1zM2 25h1v1h-1zM8 25h1v1h-1zM14 25h1v1h-1zM16 25h7v1h-7zM26 25h1v1h-1zM29 25h2v1h-2zM2 26h1v1h-1zM4 26h3v1h-3zM8 26h1v1h-1zM10 26h1v1h-1zM12 26h5v1h-5zM19 26h1v1h-1zM21 26h7v1h-7zM30 26h1v1h-1zM2 27h1v1h-1zM4 27h3v1h-3zM8 27h1v1h-1zM17 27h2v1h-2zM30 27h1v1h-1zM2 28h1v1h-1zM4 28h3v1h-3zM8 28h1v1h-1zM11 28h1v1h-1zM13 28h5v1h-5zM19 28h3v1h-3zM23 28h1v1h-1zM27 28h4v1h-4zM2 29h1v1h-1zM8 29h1v1h-1zM12 29h1v1h-1zM17 29h1v1h-1zM19 29h2v1h-2zM22 29h1v1h-1zM26 29h2v1h-2zM29 29h2v1h-2zM2 30h7v1h-7zM10 30h1v1h-1zM13 30h1v1h-1zM15 30h1v1h-1zM17 30h1v1h-1zM19 30h2v1h-2zM22 30h1v1h-1zM24 30h1v1h-1zM26 30h1v1h-1zM29 30h1v1h-1z" fill="#111"/></svg>
+      <p class="qrcap">旁邊的老師還沒打開這頁？<b>叫他掃這個。</b><br><code>scatjay.github.io/isu-aiea-0821</code></p>
+    </div>
     <p class="gnote">填大名是為了讓講師看得到大家的進度、知道要去幫誰。<br>這頁只會送出你的姓名和「哪幾個單元打勾了」，<b>不會送出你的信箱，也不會送出你寫的內容</b>——信箱只留在你自己這台電腦，讓講師當場問你的時候你查得到。</p>
   </form>
 </div>
@@ -266,7 +286,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v1.6　·　2026-08-20 13:05 更新（Git 說明 · Mac 版 · 帳號顯示）</p>
+    <p class="ver" id="verStamp">v1.7　·　2026-08-20 13:25 更新（QR · 學校信箱欄）</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -286,7 +306,8 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <div class="idmain">
     <p class="idhi">已登入</p>
     <p class="idname"><b id="idName">—</b><span id="idDept"></span></p>
-    <p class="idmail" id="idMail" hidden><b>帳號</b><span id="idMailV"></span></p>
+    <p class="idmail" id="idMail" hidden><b>Claude 帳號</b><span id="idMailV"></span></p>
+    <p class="idmail" id="idSMail" hidden><b>學校信箱</b><span id="idSMailV"></span></p>
     <p class="idlast" id="idLast"></p>
   </div>
   <div class="idprog">
@@ -783,6 +804,7 @@ function fbDead(status){
   var form=document.getElementById('gform');
   var iname=document.getElementById('gname'), ipass=document.getElementById('gpass');
   var idept=document.getElementById('gdept'), imail=document.getElementById('gmail');
+  var ismail=document.getElementById('gsmail');
   var err=document.getElementById('gerr');
   var me=null;
 
@@ -815,6 +837,9 @@ function fbDead(status){
     var im = document.getElementById('idMail');
     document.getElementById('idMailV').textContent = me.gmail || '';
     im.hidden = !me.gmail;
+    var ism = document.getElementById('idSMail');
+    document.getElementById('idSMailV').textContent = me.smail || '';
+    ism.hidden = !me.smail;
     document.getElementById('mename').textContent =
       me.name + (me.dept ? '（' + me.dept + '）' : '');
     var last=document.getElementById('idLast');
@@ -849,13 +874,30 @@ function fbDead(status){
         err.textContent='這是學校信箱。請改填個人 Gmail —— 學校帳號等一下授權會被擋，換 wifi 也沒有用。';
         imail.classList.add('bad'); imail.select(); return;
       }
+      // 學校信箱：規則跟上面那欄剛好相反，一定要是學校網域。
+      // 因為它是用來收「你自己那一份課綱連結」的——
+      // 學校信箱只有本人進得去，等於一道現成的身分驗證。
+      var smail=ismail.value.trim().slice(0,60);
+      if(!okMail(smail)){
+        err.textContent='請填學校信箱，例如 yourname@isu.edu.tw。';
+        ismail.classList.add('bad'); ismail.focus(); return;
+      }
+      if(!schoolMail(smail)){
+        err.textContent='這欄要填學校信箱（@isu.edu.tw）。你的課綱連結會寄到這裡，只有你本人收得到。';
+        ismail.classList.add('bad'); ismail.select(); return;
+      }
+      if(mail.toLowerCase()===smail.toLowerCase()){
+        err.textContent='兩欄不能填同一個信箱——上面要個人的，下面要學校的。';
+        ismail.classList.add('bad'); ismail.select(); return;
+      }
       if(ipass.value.trim()!==PASS){
         err.textContent='通行碼不對，請再確認一次。';
         ipass.value=''; ipass.focus(); return;
       }
-      // 🔴 gmail 只寫進 localStorage，**不進 push() 的 payload**。
+      // 🔴 兩個信箱都**只寫進 localStorage**，不進 push() 的 payload。
       //    這頁是公開網址、RTDB 規則還沒鎖，43 位老師的信箱不該躺在那裡。
-      me={id:rid(), name:n, dept:idept.value.slice(0,40), gmail:mail};
+      //    要寄課綱連結的時候，是講師端拿名冊去寄，不是從這頁送出去。
+      me={id:rid(), name:n, dept:idept.value.slice(0,40), gmail:mail, smail:smail};
       try{ localStorage.setItem(MEKEY,JSON.stringify(me)); }catch(e){}
       enter();
     });
@@ -866,6 +908,14 @@ function fbDead(status){
         imail.classList.add('bad');
         err.textContent='這看起來是學校信箱，等一下授權會被擋。建議改用個人 Gmail。';
       } else if(err.textContent.indexOf('信箱')>-1){ err.textContent=''; }
+    });
+    ismail.addEventListener('input',function(){
+      ismail.classList.remove('bad');
+      var v=ismail.value.trim();
+      if(v && okMail(v) && !schoolMail(v)){
+        ismail.classList.add('bad');
+        err.textContent='這欄要填學校信箱（@isu.edu.tw）。';
+      } else if(err.textContent.indexOf('學校信箱')>-1){ err.textContent=''; }
     });
     iname.focus();
   }
