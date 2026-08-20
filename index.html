@@ -383,7 +383,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v4.0　·　2026-08-20 20:55 更新（單元3、4 對準貼文；修休息時間錯位與 footer 重複）</p>
+    <p class="ver" id="verStamp">v4.1　·　2026-08-20 21:06 更新（補上 repo clone 步驟與「MCP 怎麼補得更完整」的深挖引導）</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。四個單元。<b>預設是拿你 115-1 真的要教的那門課</b>的官方課綱動手——因為手上有真材料，六小時才走得完。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。<br><span style="font-size:.94em">要<b>開一門全新的課</b>也完全走得通，同一套流程、同一份產出，只是起點不同——單元 1 會說明。</span></p>
@@ -957,6 +957,61 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     看過這個對照，你回去面對任何一個學校系統，就知道該先問哪個問題。</span>
   </div>
 
+  <div class="stuck" style="background:var(--bonus-soft)">
+    <b style="color:var(--bonus)">怎麼拿到（不需要 GitHub 帳號）</b><br>
+    <div class="pr" style="margin:.5rem 0">git clone https://github.com/scatjay/isu-moodle-mcp.git<button type="button">複製</button></div>
+    <span style="color:var(--ink-3)">不想用指令的話，開
+    <code>github.com/scatjay/isu-moodle-mcp</code> 按綠色的
+    <b>Code → Download ZIP</b> 也一樣。<b>只讀不寫，所以不需要帳號、不需要權限。</b></span><br>
+    進去之後三步：<code>pip install -r requirements.txt</code> →
+    <code>python get_token.py https://moodle.isu.edu.tw</code> →
+    把 <code>.mcp.json.範例</code> 的內容貼進 Claude 桌面版的設定。<br>
+    <span style="color:var(--warn)">換 token 那一步<b>請在你自己的終端機跑，不要在對話框裡跑</b>——
+    帳密會留在逐字稿裡。</span>
+  </div>
+
+  <div class="stuck">
+    <b>想深挖的人看這裡：兩邊對照之後，MCP 還可以怎麼補？</b><br>
+    <span style="color:var(--ink-3)">這才是這一段最值得帶走的東西。不是「原來有兩種做法」，
+    而是<b>「這個對照告訴我下一步該做什麼」</b>。</span><br><br>
+
+    <b>① 真正的資產是 tool 契約，不是那些程式碼。</b><br>
+    <span style="color:var(--ink-3)">FlipClass 版和 Moodle 版的<b>後端完全不同</b>——
+    一個爬 HTML、一個打 REST，認證方式也不一樣。但兩邊的
+    <b>tool 名稱和說明文字（docstring）一模一樣</b>。<br>
+    因為那才是 AI 看到的東西。後端可以整個換掉，契約不用動。
+    <b>所以設計 MCP 的順序是：先想清楚要提供哪幾個 tool、每個 tool 怎麼描述，最後才寫怎麼拿資料。</b></span><br><br>
+
+    <b>② 兩邊各有對方沒有的，互相就是待辦清單。</b>
+    <div class="tw"><table>
+      <thead><tr><th>能力</th><th>FlipClass 版</th><th>Moodle 版</th><th>該補什麼</th></tr></thead>
+      <tbody>
+      <tr><td>單一學生的完整繳交（含附件）</td><td>有</td><td><b>沒有</b></td><td>Moodle 版可以用 <code>mod_assign_get_submissions</code> 的 plugins 欄位補出來</td></tr>
+      <tr><td>討論區、課程留言</td><td>有（走 CDP）</td><td><b>沒有</b></td><td>Moodle 有 <code>mod_forum_*</code> 系列，還沒包進去</td></tr>
+      <tr><td>學生 email</td><td>用學號<b>拼字串推導</b></td><td>名單直接給</td><td>FlipClass 版該改成不要猜</td></tr>
+      <tr><td>把錯誤翻成人話</td><td>沒有</td><td>有（<code>diagnose()</code>）</td><td><b>兩邊都該有</b>——見下面第 ③ 點</td></tr>
+      </tbody>
+    </table></div>
+
+    <b>③ 最值得補的，是「把錯誤翻成人話」那種工具。</b><br>
+    <span style="color:var(--ink-3)">Moodle 回一個 <code>accessexception</code>，官方文件列出的可能原因有七八種，
+    而且<b>不會告訴你是哪一種</b>。對不寫程式的人來說，那等於完全沒有線索。<br>
+    這份 repo 裡的 <code>diagnose()</code> 就是在解這個：它會去問「我這把 token 到底能用哪些函式」，
+    然後用中文告訴你缺了什麼。<b>做 MCP 給非工程師用的時候，這種工具的價值高於再多包十個功能。</b></span><br><br>
+
+    <b>④ 這份 repo 只用了 395 支函式裡的 11 支。</b><br>
+    <span style="color:var(--ink-3)">你的 token 拿得到的遠不只這些。想繼續挖的話，
+    最有價值的四個方向：<code>mod_quiz_*</code>（測驗的答題分布——看得出哪一題全班都錯）、
+    <code>core_group_*</code>（分組）、<code>mod_feedback_*</code>（課程問卷）、
+    <code>core_calendar_*</code>（行事曆）。<br>
+    repo 裡有一支 <code>raw_call()</code>，可以直接叫任何一支函式來試，不用先寫程式。</span><br><br>
+
+    <b style="color:var(--warn)">⑤ 如果你想做到底：一個 MCP 同時接兩種後端。</b><br>
+    <span style="color:var(--ink-3)">既然契約一樣，那就可以寫成「同一組 tool，依設定決定要打 REST 還是開瀏覽器爬」。
+    這樣一來，你回去接<b>任何一個學校系統</b>——有 API 就走 API，沒有就退回瀏覽器——
+    對使用者（和 AI）來說完全一樣。<b>那才是這套東西真正的樣子。</b></span>
+  </div>
+
   <div class="stuck" style="border-left-color:var(--warn)">
     <b style="color:var(--warn)">這一段的節奏會看現場調整</b><br>
     如果上午環境還沒弄好的人多，<b>這一段就縮成半小時的示範</b>，你看著就好，不用跟。<br>
@@ -1283,7 +1338,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v4.0';
+var PAGE_VER = 'v4.1';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
