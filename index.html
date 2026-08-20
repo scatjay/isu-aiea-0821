@@ -338,7 +338,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v2.5　·　2026-08-20 16:40 更新（單元2：收信 · 連接器 · 雲端驗證）</p>
+    <p class="ver" id="verStamp">v2.6　·　2026-08-20 16:50 更新（連接器操作 · MCP 說明）</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -617,8 +617,19 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
       剛才是把「電腦裡的資料夾」給它。還可以把你的<b>雲端</b>也接上——
       這樣它就讀得到你放在 Google 雲端硬碟的教材、看得到你的課表時段。</p>
     <ol>
-      <li>左下角你的名字 → <b>Settings（設定）</b> → <b>Connectors（連接器）</b></li>
-      <li>把 <b>Google Drive</b>、<b>Google Calendar</b>、<b>Gmail</b> 各按一次連接，照著授權畫面同意</li>
+      <li><b>打開設定：</b>左下角<b>你的名字</b> → <b>Settings</b>
+        <span style="color:var(--ink-3)">（也可以直接按 <code>Ctrl</code>+<code>,</code>）</span>
+        → 左邊選 <b>Connectors</b>／<b>連接器</b></li>
+      <li><b>清單裡找這三個，一個一個按「Connect／連接」：</b>
+        <div class="tw" style="margin:.5rem 0"><table>
+          <tr><th>連接器</th><th>接了之後它能做什麼</th><th>今天會用到嗎</th></tr>
+          <tr><td><b>Google Drive</b></td><td>讀得到你雲端硬碟的檔案，也能把產出存回去</td><td><b>會</b>——等一下就驗證</td></tr>
+          <tr><td><b>Google Calendar</b></td><td>看得到你的課表與行程，可以幫你把進度排進去</td><td>下午排改版時程時用得到</td></tr>
+          <tr><td><b>Gmail</b></td><td>讀信、擬草稿</td><td>今天不一定用到，接起來看效果</td></tr>
+        </table></div>
+        <span style="color:var(--ink-3)">按下去會跳出 Google 的授權畫面，
+        <b>確認上面顯示的是你的個人 Gmail</b>，然後一路按「繼續／允許」。
+        接好的會變成「已連接」。</span></li>
       <li><b>用一個乾淨的方式驗證它真的讀得到——自己建一個新資料夾。</b><br>
         打開 <a href="https://drive.google.com" target="_blank" rel="noopener">Google 雲端硬碟</a>
         （用<b>同一個個人 Gmail</b>登入），在<b>「我的雲端硬碟」根目錄</b>建一個資料夾，
@@ -639,6 +650,36 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
       <span style="color:var(--ink-3)">通了之後，這個資料夾就是你課後放教材的地方——
       下次不用再傳檔案，直接叫它去那裡拿。</span></p>
 
+    <details style="margin:.9rem 0 0;font-size:.88rem">
+      <summary style="cursor:pointer;font-weight:700">這幾個「連接器」背後是什麼？——順便認識一個字：MCP</summary>
+      <div style="margin:.6rem 0 0;line-height:1.75;color:var(--ink-2)">
+        <p style="margin:0 0 .6rem">你剛才按的那三個按鈕，背後是同一套東西在運作，叫 <b>MCP</b>
+        （Model Context Protocol，模型脈絡協定）。<b>你不需要記這個縮寫</b>，
+        但值得知道它在做什麼，因為這決定了 AI 能力的上限。</p>
+
+        <p style="margin:0 0 .6rem"><b>用一個比喻：MCP 是「AI 的萬用轉接頭規格」。</b><br>
+        以前每個軟體要跟 AI 串接，都得各寫各的接法——你想讓它讀雲端硬碟，
+        得有人專門為「AI × 雲端硬碟」寫一套；想讀行事曆，再寫一套。
+        MCP 是把這件事標準化：<b>只要照這個規格做一個轉接頭，任何 AI 都插得上。</b></p>
+
+        <p style="margin:0 0 .6rem"><b>所以「連接器」= 別人已經幫你做好的轉接頭。</b>
+        Google Drive、Gmail、行事曆這三個是 Anthropic 官方做的，按一下就能用。
+        除此之外還有幾百個現成的（Notion、Slack、GitHub、資料庫…），
+        <b>而且任何人都能自己做一個</b>——這才是重點。</p>
+
+        <p style="margin:0 0 .6rem"><b>為什麼這對你重要？</b>
+        今天你把「一個資料夾」給它，它就能改你的課綱。
+        如果哪天有人做出「義守授課計畫系統」的轉接頭，
+        它就能<b>直接讀你在校務系統裡的課綱、甚至幫你填回去</b>，不用你下載上傳。
+        <span style="color:var(--ink-3)">講師今天發給你的那份課綱，就是用自己寫的轉接頭從系統抓下來的——
+        43 位老師、346 門課，一次抓完。</span></p>
+
+        <p style="margin:0"><b>你今天不用學怎麼做轉接頭。</b>
+        知道「AI 的能力可以被擴充，而且擴充的方式是標準化的」就夠了。
+        下次你想「要是它能直接看到 ○○ 就好了」，那件事很可能已經有人做好了。</p>
+      </div>
+    </details>
+
     <div class="stuck" style="background:var(--bonus-soft)">
       <b style="color:var(--bonus)">🔴 這裡接的是你的<u>個人 Gmail 帳號</u>，不是學校信箱——這點很重要</b><br>
       我們課前查過義守的信箱設定：<br>
@@ -657,6 +698,16 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
       個人 Gmail 裡如果有跟工作無關的私人信件，它也讀得到。
       <b>不想接就不要接</b>——今天所有需要用到的東西，本機資料夾都做得完。<br>
       <span style="color:var(--ink-3)">要收回很簡單：同一個 Connectors 頁面按中斷連接就好。</span>
+    </div>
+
+    <div class="stuck">
+      <b>接好之後會發生一件你該知道的事：這個授權<u>跟著帳號走，不是跟著這台電腦</u>。</b><br>
+      你在教室這台筆電接好，<b>回研究室、回家開自己的電腦，一樣是接好的狀態</b>——
+      不用再接一次。因為授權存在你的 Claude 帳號上，不是存在這台機器裡。<br>
+      <span style="color:var(--core)"><b>好處：</b>今天做的設定帶得回去，明天在自己電腦上就能直接接著用。</span><br>
+      <span style="color:var(--warn)"><b>要小心的：</b>如果你用<b>公用電腦</b>或<b>借來的機器</b>登入過，
+      記得<b>登出</b>——不然下一個用那台電腦的人，用你的帳號就讀得到你的雲端硬碟和信箱。
+      <b>登出的地方：</b>左下角你的名字 → <b>Log out</b>。</span>
     </div>
     <p class="done"><b>做完長這樣：</b><code>isu0821</code> 底下兩個資料夾都在，
     <code>送審產出</code> 裡有一個 <code>改版前快照.md</code>，內容講的是你真實的那門課。</p>
@@ -1003,7 +1054,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v2.5';
+var PAGE_VER = 'v2.6';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
