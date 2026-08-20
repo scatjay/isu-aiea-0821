@@ -219,6 +219,21 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 .qrcap{font-size:.76rem; color:var(--ink-3); margin:.55rem 0 0; line-height:1.6}
 .qrcap code{font-size:.95em; overflow-wrap:anywhere}
 .gnote{font-size:.78rem; color:var(--ink-3); line-height:1.65; margin:1.2rem 0 0; padding-top:1rem; border-top:1px solid var(--line)}
+/* 現在誰在線上 */
+.presbox{display:flex; align-items:center; gap:1rem 1.4rem; flex-wrap:wrap;
+  background:var(--card); border:1px solid var(--line); border-left:4px solid var(--core);
+  border-radius:.6rem; padding:1rem 1.2rem; margin:.8rem 0 0; box-shadow:var(--shadow)}
+.presnum{display:flex; align-items:baseline; gap:.5rem; white-space:nowrap}
+.presnum b{font-size:2.1rem; font-weight:800; color:var(--core); line-height:1;
+  font-variant-numeric:tabular-nums}
+.presnum span{font-size:.8rem; color:var(--ink-2); line-height:1.35}
+.presdept{flex:1 1 16rem; min-width:0; display:flex; flex-wrap:wrap; gap:.4rem}
+.pchip{font-size:.8rem; padding:.2rem .6rem; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); color:var(--ink-2); white-space:nowrap}
+.pchip b{color:var(--ink); font-variant-numeric:tabular-nums}
+.pchip.me{border-color:var(--core); color:var(--core)}
+.presnote{flex-basis:100%; margin:0; font-size:.76rem; color:var(--ink-3); line-height:1.6}
+
 /* 寄參考資料 */
 .sendbox{display:flex; align-items:center; gap:1rem 1.4rem; flex-wrap:wrap;
   background:var(--bonus-soft); border:1px solid var(--line);
@@ -323,7 +338,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v2.0　·　2026-08-20 15:00 更新（練習1 改寫 · 舊版偵測）</p>
+    <p class="ver" id="verStamp">v2.1　·　2026-08-20 16:00 更新（在線人數）</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -353,6 +368,12 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <span class="sync" id="msync" data-s="off" hidden></span>
   </div>
   <button type="button" id="idSwitch">登出</button>
+</div>
+
+<div class="presbox" id="presBox" hidden>
+  <div class="presnum"><b id="presN">—</b><span>位老師<br>正在線上</span></div>
+  <div class="presdept" id="presDept"></div>
+  <p class="presnote">只顯示人數與系所，<b>不會顯示是誰</b>。10 分鐘沒動作就不算在線。</p>
 </div>
 
 <div class="sendbox" id="sendBox" hidden>
@@ -871,7 +892,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v2.0';
+var PAGE_VER = 'v2.1';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
@@ -999,8 +1020,88 @@ var PAGE_VER = 'v2.0';
       location.reload();
     });
 
+    wirePresence();
     wireSend();
     boot();
+  }
+
+  /* ── 現在誰在線上 ───────────────────────────────────────
+     🔴 送出去的只有「系所」與「時間戳」，**沒有姓名**。
+        這頁是公開的 GitHub Pages，要讓學員讀得到就得公開那個節點；
+        所以節點裡連姓名欄位都不存在，被爬也只是統計數字。
+     心跳 10 分鐘：只上一天，課後大家關頁面，數字自然歸零。          */
+  var PRESENCE_WINDOW = 10 * 60 * 1000;   // 10 分鐘內有動作才算在線
+  var _presTimer = null;
+
+  function wirePresence(){
+    var box = document.getElementById('presBox');
+    if(!box || !FB_DB) return;
+
+    function beat(){
+      if(FB_LIVE === false) return;
+      fetch(FB_DB.replace(/\/+$/,'') + '/isu0821/present/' + me.id + '.json', {
+        method:'PUT',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ d: (me.dept||'').slice(0,40), t: Date.now() })
+      }).then(function(r){
+        if(fbDead(r.status)) return;
+        if(r.ok) FB_LIVE = true;
+      }).catch(function(){});
+    }
+
+    function paintPresence(){
+      if(FB_LIVE === false) return;
+      fetch(FB_DB.replace(/\/+$/,'') + '/isu0821/present.json')
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(d){
+          if(d === null){ box.hidden = true; return; }
+          var now = Date.now(), byDept = {}, n = 0;
+          for(var k in d){
+            var v = d[k];
+            if(!v || !v.t || (now - v.t) > PRESENCE_WINDOW) continue;   // 太久沒動作，不算在線
+            n++;
+            var dep = v.d || '其他單位';
+            byDept[dep] = (byDept[dep] || 0) + 1;
+          }
+          box.hidden = false;
+          document.getElementById('presN').textContent = n;
+          var mine = me.dept || '';
+          var list = Object.keys(byDept).sort(function(a,b){
+            return byDept[b] - byDept[a] || a.localeCompare(b, 'zh-Hant');
+          });
+          var wrap = document.getElementById('presDept');
+          wrap.textContent = '';
+          list.forEach(function(dep){
+            var s = document.createElement('span');
+            s.className = 'pchip' + (dep === mine ? ' me' : '');
+            // 系所名太長會把版面撐爆，縮短顯示
+            var label = dep.length > 12 ? dep.slice(0,11) + '…' : dep;
+            s.textContent = label + ' ';
+            var b = document.createElement('b');
+            b.textContent = byDept[dep];
+            s.appendChild(b);
+            s.title = dep + ' ' + byDept[dep] + ' 人';
+            wrap.appendChild(s);
+          });
+        }).catch(function(){});
+    }
+
+    beat();
+    paintPresence();
+    clearInterval(_presTimer);
+    // 每 60 秒回報一次自己、順便更新畫面
+    _presTimer = setInterval(function(){ beat(); paintPresence(); }, 60000);
+
+    // 關掉分頁前把自己標成離線（時間戳歸零），畫面才不會留著幽靈
+    window.addEventListener('pagehide', function(){
+      if(FB_LIVE === false || !navigator.sendBeacon) return;
+      try{
+        navigator.sendBeacon(
+          FB_DB.replace(/\/+$/,'') + '/isu0821/present/' + me.id + '.json?x-http-method-override=PUT',
+          new Blob([JSON.stringify({ d:(me.dept||'').slice(0,40), t: 0 })], {type:'text/plain'})
+        );
+      }catch(e){}
+    });
   }
 
   /* ── 寄參考資料到學校信箱 ─────────────────────────────
