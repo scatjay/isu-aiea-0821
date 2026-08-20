@@ -62,6 +62,12 @@ h1{font-size:clamp(1.7rem,4.5vw,2.6rem); line-height:1.25; margin:0 0 .8rem; tex
 .idname{margin:.15rem 0 0; font-size:1.05rem; line-height:1.4}
 .idname b{font-weight:700}
 .idname span{color:var(--ink-2); font-size:.9rem; margin-left:.5rem}
+/* 信箱要能一眼認出是「哪個帳號」——所以給它等寬字，跟中文姓名區隔開。
+   長信箱在窄螢幕要能斷行，不能把身分卡撐爆。 */
+.idmail{margin:.25rem 0 0; font-size:.8rem; color:var(--ink-2);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  overflow-wrap:anywhere}
+.idmail b{color:var(--ink-3); font-family:inherit; font-weight:400; margin-right:.35rem}
 .idlast{margin:.2rem 0 0; font-size:.78rem; color:var(--ink-3)}
 .idprog{display:flex; align-items:baseline; gap:.4rem; flex-wrap:wrap; color:var(--ink-2); font-size:.85rem}
 .idprog b{font-size:1.8rem; font-weight:800; color:var(--core); line-height:1; font-variant-numeric:tabular-nums}
@@ -260,7 +266,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v1.5　·　2026-08-20 12:35 更新（加入 Git 安裝步驟）</p>
+    <p class="ver" id="verStamp">v1.6　·　2026-08-20 13:05 更新（Git 說明 · Mac 版 · 帳號顯示）</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -280,6 +286,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <div class="idmain">
     <p class="idhi">已登入</p>
     <p class="idname"><b id="idName">—</b><span id="idDept"></span></p>
+    <p class="idmail" id="idMail" hidden><b>帳號</b><span id="idMailV"></span></p>
     <p class="idlast" id="idLast"></p>
   </div>
   <div class="idprog">
@@ -326,11 +333,41 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
         　（選 <b>64-bit Git for Windows Setup</b>，約 62 MB）<br>
         <span style="color:var(--ink-3)">一路按「下一步」到底就好，<b>所有選項都不用改</b>。它不會問你要不要註冊。<br>
         現場網路慢的話，講師桌上有隨身碟，也可以從
-        <a href="https://github.com/git-for-windows/git/releases/latest" target="_blank" rel="noopener">GitHub 官方發布頁</a>抓。</span></li>
+        <a href="https://github.com/git-for-windows/git/releases/latest" target="_blank" rel="noopener">GitHub 官方發布頁</a>抓。</span><br>
+        <span style="color:var(--ink-2)"><b>🍎 用 Mac 的老師：</b>
+        上面兩個網址都會自己認出你的系統、給你 Mac 版，不用另外找
+        （Claude 給 <code>.dmg</code>，Git 走
+        <a href="https://git-scm.com/download/mac" target="_blank" rel="noopener">git-scm.com/download/mac</a>）。<br>
+        <b>而且你很可能已經有 Git 了</b>——裝過 Xcode 或用過終端機的話通常就有。
+        先跳過這步，等它真的跳出來要你裝再說。</span></li>
       <li><b>裝完 Git 之後，把 Claude 桌面版關掉再重開。</b><br>
         <span style="color:var(--warn)">這步很容易漏。Claude 是啟動的時候才去找 Git 的，不重開它會繼續說找不到。</span></li>
     </ol>
     <p class="done"><b>做完長這樣：</b>桌面版打得開，左下角顯示你的帳號，方案是 Pro。</p>
+    <details style="margin:.9rem 0 0;font-size:.88rem">
+      <summary style="cursor:pointer;font-weight:700">Git 是什麼？我又不寫程式，為什麼非裝不可？</summary>
+      <div style="margin:.6rem 0 0;line-height:1.75;color:var(--ink-2)">
+        <p style="margin:0 0 .6rem"><b>Git 是一套「檔案的版本記錄器」。</b>
+        你可以把它想成 Word 的「追蹤修訂」，但管的是<b>整個資料夾</b>：
+        誰在哪一刻改了哪個檔、改成什麼樣，全部留底，而且<b>隨時可以退回去</b>。</p>
+
+        <p style="margin:0 0 .6rem"><b>那 Claude 為什麼需要它？</b>
+        因為你等一下要做的事，是<b>把整個資料夾交給它、讓它直接改你的檔案</b>——
+        不是貼一段字進聊天室而已。這件事的風險是顯而易見的：它可能改壞、可能改多。<br>
+        所以 Claude 在動你的檔案之前，會先用 Git 把資料夾當下的樣子記下來。
+        <b>改壞了，一句「還原」就回得去。</b>沒有 Git，它就沒有這張安全網——
+        所以它乾脆不讓你開始。</p>
+
+        <p style="margin:0 0 .6rem"><b>裝了會怎樣？</b>不會怎樣。
+        它裝好之後就<b>安靜待在背景</b>，不會跳出來、不會佔你桌面、也不用註冊帳號。
+        你完全不需要學它怎麼用——今天全程<b>不會叫你打任何一行 Git 指令</b>，
+        都是 Claude 在背後自己用。</p>
+
+        <p style="margin:0"><b>順帶一提，</b>你今天在用的這個網站、還有等一下要下載的教材，
+        本身就是放在 Git 上管理的。這也是為什麼講師改一句話、你重新整理就看得到新版。</p>
+      </div>
+    </details>
+
     <p style="font-size:.85rem;margin:.9rem 0 0;color:var(--ink-2)">
       <b>桌面版和網頁版差在哪？</b>桌面版<b>讀得到你電腦上的資料夾、也寫得回去</b>。今天下午要做的事非它不可，網頁版做不到。<br>
       <b>不想付錢、或刷卡卡住？</b>先舉手，然後照樣往下做——今天每個單元都設計成「沒有帳號也交得出東西」。
@@ -428,6 +465,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <b>翻成白話：要讀你電腦上的資料夾，就一定要有 Git。</b><br>
     <span style="color:var(--ink-3)">看到第 ③ 個視窗，代表你早上那步漏了。按「Not now」關掉，去
     <a href="https://git-scm.com/download/win" target="_blank" rel="noopener"><b>git-scm.com/download/win</b></a>
+    （Mac 是 <a href="https://git-scm.com/download/mac" target="_blank" rel="noopener">git-scm.com/download/mac</a>）
     裝好，<b>然後把 Claude 關掉重開</b>，再回來重做一次。</span><br>
     <b style="color:var(--warn)">為什麼有人沒跳這個視窗？</b>因為他開的是<b>雲端</b>工作階段，那個不需要 Git。
     但雲端讀不到你電腦裡的課綱——今天下午要做的事，非本機不可。
@@ -726,8 +764,18 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
    ⚠ 送出的只有「姓名 + 哪幾格打勾 + 時間」。
      學員在單元裡寫的內容一律留在自己電腦，不上傳。
    ───────────────────────────────────────────────────────────── */
-var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebasedatabase.app
+var FB_DB = "https://gen-lang-client-0929530380-default-rtdb.asia-southeast1.firebasedatabase.app";
                   //   留空＝完全離線模式，網頁照常運作，只是講師看不到進度
+
+// 🔴 接著資料庫、但規則還沒生效時，**不可以在 43 位老師面前亮紅燈**。
+//    第一次寫入拿到 401/403 就把同步整個靜音（跟沒接一樣），
+//    等規則貼上去以後，下一次重新整理就會自己接上，不用改程式。
+//    （2026-08-20 實測：舊規則寫的到期日是 2026-07-28，讀寫都回 401。）
+var FB_LIVE = null;   // null=還不知道　true=通了　false=規則沒開，靜音
+function fbDead(status){
+  if(status===401 || status===403){ FB_LIVE=false; return true; }
+  return false;
+}
 
 (function(){
   var PASS='1280', MEKEY='isu0821-me', PKEY='isu0821-progress';
@@ -762,6 +810,11 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
     document.getElementById('idName').textContent = me.name;
     // 系所前面一定要有標籤。沒有的話，名字旁邊浮一個「其他單位」看不出是什麼。
     document.getElementById('idDept').textContent = me.dept ? ('系所：' + me.dept) : '';
+    // 信箱只顯示給本人看（它只存在這台電腦的 localStorage，沒有上傳）。
+    // 用意是：同一個人在兩台機器上登入時，看得出來現在是哪個帳號。
+    var im = document.getElementById('idMail');
+    document.getElementById('idMailV').textContent = me.gmail || '';
+    im.hidden = !me.gmail;
     document.getElementById('mename').textContent =
       me.name + (me.dept ? '（' + me.dept + '）' : '');
     var last=document.getElementById('idLast');
@@ -831,7 +884,7 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
     function push(){
       // 沒接資料庫時**什麼都不顯示**。
       // 原本寫「離線模式」，那是開發用語，老師看到只會以為自己網路壞了。
-      if(!FB_DB){ badge.hidden=true; return; }
+      if(!FB_DB || FB_LIVE===false){ badge.hidden=true; return; }
       badge.hidden=false;
       clearTimeout(timer);
       timer=setTimeout(function(){
@@ -841,8 +894,9 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
           headers:{'Content-Type':'application/json'},
           body:JSON.stringify({name:me.name, dept:me.dept||'', done:mask(), t:Date.now()})
         }).then(function(r){
-          if(r.ok){ badge.dataset.s='ok'; badge.textContent='進度已回報'; }
-          else{ badge.dataset.s='err'; badge.textContent='進度存在這台電腦'; }
+          if(r.ok){ FB_LIVE=true; badge.dataset.s='ok'; badge.textContent='進度已回報'; return; }
+          if(fbDead(r.status)){ badge.hidden=true; return; }   // 規則沒開＝安靜退回離線
+          badge.dataset.s='err'; badge.textContent='進度存在這台電腦';
         }).catch(function(){
           badge.dataset.s='err'; badge.textContent='進度存在這台電腦';
         });
@@ -864,7 +918,7 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
     var cnts=[].slice.call(document.querySelectorAll('[data-cnt]'));
 
     function markDone(i, on){
-      if(!FB_DB) return;
+      if(!FB_DB || FB_LIVE===false) return;
       var url=FB_DB.replace(/\/+$/,'')+'/isu0821/done/u'+(i+1)+'/'+me.id+'.json';
       fetch(url, on ? {method:'PUT', headers:{'Content-Type':'application/json'}, body:'true'}
                    : {method:'DELETE'})
@@ -872,7 +926,7 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
     }
 
     function loadCounts(){
-      if(!FB_DB) return;
+      if(!FB_DB || FB_LIVE===false) return;
       fetch(FB_DB.replace(/\/+$/,'')+'/isu0821/done.json')
         .then(function(r){ return r.ok ? r.json() : null; })
         .then(function(d){
@@ -951,7 +1005,7 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
     }
 
     function load(){
-      if(!FB_DB){ return; }
+      if(!FB_DB || FB_LIVE===false){ return; }
       fetch(FB_DB.replace(/\/+$/,'')+'/isu0821/answers.json')
         .then(function(r){ return r.ok ? r.json() : null; })
         .then(function(d){ if(d!==null){ board.hidden=false; draw(d); } })
@@ -975,7 +1029,7 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
       var a2=(document.getElementById('q2').value||'').trim().slice(0,200);
       var a3=(document.getElementById('q3').value||'').trim().slice(0,200);
       if(!a1 && !a2 && !a3){ msg.textContent='三題至少寫一題再送出。'; return; }
-      if(!FB_DB){
+      if(!FB_DB || FB_LIVE===false){
         msg.textContent='已存在你自己的電腦裡。（互看功能還沒開，所以看不到別人的。）';
         return;
       }
@@ -990,6 +1044,10 @@ var FB_DB = "";   // ← 例：https://xxx-default-rtdb.asia-southeast1.firebase
         method:'PUT', headers:{'Content-Type':'application/json'},
         body:JSON.stringify({a1:a1,a2:a2,a3:a3,col:college(me.dept||''),t:Date.now()})
       }).then(function(r){
+        if(fbDead(r.status)){
+          msg.textContent='已存在你自己的電腦裡。（互看功能還沒開，所以看不到別人的。）';
+          return;
+        }
         msg.textContent = r.ok ? '送出了。再按一次可以更新你的答案。' : '送不出去，但你打的字已存在你自己的電腦裡。';
         if(r.ok) load();
       }).catch(function(){
