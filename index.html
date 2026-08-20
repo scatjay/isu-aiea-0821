@@ -328,6 +328,22 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 .track .mine b{color:var(--ink)}
 .tbar{height:5px;background:var(--line);border-radius:3px;overflow:hidden;margin:.4rem 0 0}
 .tbar i{display:block;height:100%;background:var(--core);width:0;transition:width .3s}
+
+/* 單元3 的任務檔下載：這是整個單元的入口，要一眼看到 */
+.dlbox{margin:1rem 0;padding:1rem 1.1rem;border:2px solid var(--core);
+  border-radius:.6rem;background:var(--core-soft)}
+.dlbox h4{margin:0 0 .35rem;font-size:1rem;color:var(--core)}
+.dlbtn{display:inline-flex;align-items:center;gap:.5rem;margin:.5rem 0 .2rem;
+  padding:.6rem 1.1rem;background:var(--core);color:#fff;border-radius:.45rem;
+  font-size:.95rem;font-weight:600;text-decoration:none}
+.dlbtn:hover{opacity:.88}
+.dlbox ol{margin:.7rem 0 0;padding-left:1.3rem;line-height:1.8;font-size:.93rem}
+.dlbox .fname{font-family:ui-monospace,Consolas,monospace;font-size:.88rem;
+  background:var(--card);padding:.1rem .35rem;border-radius:.25rem}
+details.peek{margin:.9rem 0 0}
+details.peek summary{cursor:pointer;font-size:.88rem;color:var(--ink-3);
+  padding:.35rem 0;user-select:none}
+details.peek summary:hover{color:var(--core)}
 </style>
 </head>
 <body>
@@ -404,7 +420,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v4.5　·　2026-08-20 23:33 更新</p>
+    <p class="ver" id="verStamp">v4.6　·　2026-08-20 23:39 更新</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。四個單元。<b>預設是拿你 115-1 真的要教的那門課</b>的官方課綱動手——因為手上有真材料，六小時才走得完。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。<br><span style="font-size:.94em">要<b>開一門全新的課</b>也完全走得通，同一套流程、同一份產出，只是起點不同——單元 1 會說明。</span></p>
@@ -711,6 +727,23 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
         那些是下午最容易出事的地雷，單元 2 的地雷區會再講一次。</span><br>
         <span style="color:var(--ink-3)">格式不用轉，<code>.pdf</code> <code>.docx</code> <code>.pptx</code>
         <code>.txt</code> <code>.md</code> 它都讀得動。<b>不用改檔名。</b></span>
+      </li>
+
+      <li id="mdnote"><b>順便說一下 <code>.md</code> 是什麼</b>——今天下午你會用到<br>
+        <span style="color:var(--ink-3)"><code>.md</code>（Markdown）<b>就是純文字</b>，
+        只是多了幾個標記符號讓標題、清單看起來有層次。
+        <b>記事本就打得開，不需要裝任何東西。</b></span><br>
+        <span style="color:var(--ink-3)">為什麼 AI 特別愛這個格式：它<b>看得懂結構</b>——
+        哪裡是標題、哪裡是清單、哪裡是重點，一目了然。
+        Word 檔它也讀，但要先拆掉一層包裝。</span><br>
+        <span style="color:var(--core)"><b>想更好用的話（選配，不裝也完全不影響今天）：</b>
+        可以裝 <a href="https://cursor.com" target="_blank" rel="noopener"><b>Cursor</b></a>
+        ——它是專業的程式編輯器，開 <code>.md</code> 會直接排版好，
+        比記事本清楚很多，也能同時管一整個資料夾的檔案。</span><br>
+        <span style="color:var(--ink-3)">下載：<a href="https://cursor.com" target="_blank" rel="noopener">cursor.com</a>
+        → 首頁的 Download 按鈕。<b>免費版就夠用。</b>
+        <span style="color:var(--warn)">但今天不用急著裝</span>——
+        現在裝會佔掉你跟上進度的時間，回去再弄就好。</span>
       </li>
       <li>把 <b>課程原料</b> 整個資料夾給 Claude，貼這句：</li>
     </ol>
@@ -1050,11 +1083,48 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     對使用者（和 AI）來說完全一樣。<b>那才是這套東西真正的樣子。</b></span>
   </div>
 
+  <div class="dlbox" id="u3dl">
+    <h4>先下載這個檔，這一單元你只要做兩件事</h4>
+    <p style="margin:0;font-size:.93rem;color:var(--ink-2)">
+      底下那六步不用你自己照著按——<b>都寫在這個檔裡了，讓 Claude 自己照做。</b></p>
+
+    <a class="dlbtn" href="task-unit3.md" download="任務-單元3.md">⬇ 下載 任務-單元3.md</a>
+
+    <ol>
+      <li><b>存到你的「工作目錄」</b><br>
+        <span style="color:var(--ink-3)">工作目錄就是你開 Claude Code 時選的那個資料夾。
+        <b>存進去就好，不用管路徑。</b></span></li>
+      <li><b>對 Claude 說這一句</b>
+        <div class="pr">讀 任務-單元3.md 照做</div>
+        <span style="color:var(--ink-3)">就這樣。<b>不用打完整路徑</b>——
+        Claude 已經站在那個資料夾裡了，檔名講出來它就找得到。</span></li>
+    </ol>
+
+    <p style="margin:.8rem 0 0;font-size:.88rem;color:var(--ink-3)">
+      <b>不需要另外裝任何軟體來讀它。</b>那個檔是寫給 Claude 看的，你從頭到尾不必打開。
+      真想自己看的話，記事本就打得開——它就是純文字。<br>
+      （<a href="#mdnote">上午單元 2 提過的 <b>Cursor</b></a> 開起來會漂亮很多，
+      但那是選配，跟今天的進度無關。）</p>
+  </div>
+
+  <div class="stuck" style="background:var(--bonus-soft)">
+    <b style="color:var(--bonus)">這個做法本身，比 Moodle 更值得帶回去</b><br>
+    把要交代的事寫成一個檔、再叫 AI「讀這個檔照做」——<b>這招什麼場合都能用。</b><br>
+    <span style="color:var(--ink-3)">因為它把提示詞從<b>「講過的話」變成「留得住的東西」</b>：
+    改一次就好、下學期同一件事再跑一次、要給同事就是一個檔案的事。</span><br>
+    <span style="color:var(--warn)">今天你會用到三次這個模式——單元 3 一次、單元 4 兩次。
+    <b>注意它，不要只注意 Moodle。</b></span><br>
+    <span style="color:var(--ink-3)">一個實務提醒：<b>檔名盡量用英文</b>。
+    內容寫中文完全沒問題，但檔名帶中文在跨系統搬動時容易變亂碼——
+    講師昨晚才踩到一次。</span>
+  </div>
+
   <div class="drill" id="u3howto">
-    <p class="dlabel">動手做・你實際要按的順序（六步）</p>
+    <p class="dlabel">那個檔裡面到底寫了什麼（六步）</p>
 
     <p style="margin:.2rem 0 .8rem;color:var(--ink-2)">
-      前面講的是「為什麼」，這裡是「按哪裡」。<b>跟不上就看著，這一段不強迫動手。</b>
+      上面那個檔會叫 Claude 照這六步做。<b>你不用自己按</b>——
+      但知道它在做什麼，出狀況時你才判斷得出卡在哪一步。
     </p>
 
     <ol style="margin:0;padding-left:1.3rem;line-height:1.75">
@@ -1441,7 +1511,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v4.5';
+var PAGE_VER = 'v4.6';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
