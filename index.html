@@ -62,12 +62,24 @@ h1{font-size:clamp(1.7rem,4.5vw,2.6rem); line-height:1.25; margin:0 0 .8rem; tex
 .idname{margin:.15rem 0 0; font-size:1.05rem; line-height:1.4}
 .idname b{font-weight:700}
 .idname span{color:var(--ink-2); font-size:.9rem; margin-left:.5rem}
+/* 職級緊貼姓名，像名片。空的時候整個不佔位（:empty） */
+.idrank{font-style:normal; font-size:.82rem; font-weight:600; color:var(--core);
+  border:1px solid var(--core); border-radius:999px; padding:.05rem .45rem; margin-left:.45rem;
+  vertical-align:.1em; white-space:nowrap}
+.idrank:empty{display:none}
 /* 信箱要能一眼認出是「哪個帳號」——所以給它等寬字，跟中文姓名區隔開。
    長信箱在窄螢幕要能斷行，不能把身分卡撐爆。 */
 .idmail{margin:.25rem 0 0; font-size:.8rem; color:var(--ink-2);
   font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   overflow-wrap:anywhere}
 .idmail b{color:var(--ink-3); font-family:inherit; font-weight:400; margin-right:.35rem}
+/* 「查到的」小標：這欄不是老師自己填的，是系統去義守師資頁查出來的。
+   標出來，老師才會意識到那是被查出來的，而不是他剛剛打的。 */
+.idmail.found span{color:var(--core); font-weight:600}
+.fbadge{font-style:normal; font-family:system-ui,sans-serif; font-size:.68rem;
+  letter-spacing:.05em; color:var(--core); border:1px solid var(--core);
+  border-radius:999px; padding:.02rem .38rem; margin-left:.45rem; vertical-align:.08em}
+.idnote{margin:.3rem 0 0; font-size:.78rem; color:var(--warn); line-height:1.6}
 .idlast{margin:.2rem 0 0; font-size:.78rem; color:var(--ink-3)}
 .idprog{display:flex; align-items:baseline; gap:.4rem; flex-wrap:wrap; color:var(--ink-2); font-size:.85rem}
 .idprog b{font-size:1.8rem; font-weight:800; color:var(--core); line-height:1; font-variant-numeric:tabular-nums}
@@ -181,15 +193,14 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 #gname,#gpass,#gdept,#gmail{width:100%; font:inherit; padding:.7rem .8rem; border:1px solid var(--line); border-radius:.45rem; background:var(--bg); color:var(--ink)}
 #gname{text-align:center; margin-bottom:.6rem}
 #gdept{margin-bottom:.6rem; text-align:center; text-align-last:center}
-#gmail,#gsmail{text-align:center; margin-bottom:.5rem}
-/* 兩欄用途相反（一個要私人、一個要學校），底色不同才不會填反 */
-.gwarn-b{border-left-color:var(--core)}
+#gmail{text-align:center; margin-bottom:.5rem}
+
 #gpass{font-size:1.15rem; text-align:center; letter-spacing:.22em}
-#gname:focus-visible,#gpass:focus-visible,#gdept:focus-visible,#gmail:focus-visible,#gsmail:focus-visible{outline:2px solid var(--core); outline-offset:2px; border-color:var(--core)}
+#gname:focus-visible,#gpass:focus-visible,#gdept:focus-visible,#gmail:focus-visible{outline:2px solid var(--core); outline-offset:2px; border-color:var(--core)}
 /* 學校信箱的警告要在「還沒送出」時就看得到，不是等按下去才罵人 */
 .gwarn{font-size:.78rem; line-height:1.6; color:var(--ink-2); text-align:left; margin:0 0 .9rem; padding:.55rem .7rem; border-radius:.4rem; background:var(--bonus-soft); border-left:3px solid var(--warn)}
 .gwarn code{font-size:.95em}
-#gmail.bad,#gsmail.bad{border-color:var(--warn); background:color-mix(in srgb, var(--warn) 8%, var(--bg))}
+#gmail.bad{border-color:var(--warn); background:color-mix(in srgb, var(--warn) 8%, var(--bg))}
 /* QR：給旁邊還沒打開網頁的老師掃。
    底色一定要自己畫白的（在 make_qr.py 裡），不能靠頁面背景——
    深色模式下沒有白底就掃不出來。 */
@@ -262,11 +273,6 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <p class="gwarn">這欄請用<b>個人 Gmail</b>，不要填學校信箱。<br>
       學校的 Google Workspace 會擋掉第三方授權，等一下接雲端硬碟那段會卡住，<b>換 wifi 或開熱點都沒有用</b>。</p>
 
-    <input id="gsmail" type="email" maxlength="60" placeholder="你的學校信箱（收課綱用）" aria-label="學校信箱"
-           autocomplete="off" autocapitalize="off" spellcheck="false">
-    <p class="gwarn gwarn-b">這欄相反，請填 <b><code>@isu.edu.tw</code> 學校信箱</b>。<br>
-      講師事先幫你整理好的<b>課綱檔案連結</b>，會寄到這個信箱——
-      是<b>你自己那一份</b>，所以不會顯示在這個網頁上，別人看不到。</p>
     <!-- 不提示位數。位數本身就是線索，講師口頭給就好。 -->
   <input id="gpass" type="password" inputmode="numeric" maxlength="8" placeholder="通行碼" aria-label="通行碼">
     <button type="submit">進入</button>
@@ -286,7 +292,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v1.7　·　2026-08-20 13:25 更新（QR · 學校信箱欄）</p>
+    <p class="ver" id="verStamp">v1.8　·　2026-08-20 13:20 更新（職級與校內信箱自動帶出）</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -305,9 +311,10 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 <div class="idcard">
   <div class="idmain">
     <p class="idhi">已登入</p>
-    <p class="idname"><b id="idName">—</b><span id="idDept"></span></p>
+    <p class="idname"><b id="idName">—</b><em id="idRank" class="idrank"></em><span id="idDept"></span></p>
     <p class="idmail" id="idMail" hidden><b>Claude 帳號</b><span id="idMailV"></span></p>
-    <p class="idmail" id="idSMail" hidden><b>學校信箱</b><span id="idSMailV"></span></p>
+    <p class="idmail found" id="idSMail" hidden><b>學校信箱</b><span id="idSMailV"></span><i class="fbadge">查到的</i></p>
+    <p class="idnote" id="idMiss" hidden>名冊裡沒有查到你的職級與校內信箱。<b>不影響今天的課</b>，請跟講師說一聲。</p>
     <p class="idlast" id="idLast"></p>
   </div>
   <div class="idprog">
@@ -804,7 +811,7 @@ function fbDead(status){
   var form=document.getElementById('gform');
   var iname=document.getElementById('gname'), ipass=document.getElementById('gpass');
   var idept=document.getElementById('gdept'), imail=document.getElementById('gmail');
-  var ismail=document.getElementById('gsmail');
+
   var err=document.getElementById('gerr');
   var me=null;
 
@@ -812,6 +819,54 @@ function fbDead(status){
   // 這裡只認網域，不認 gmail.com —— 老師用 yahoo / hotmail 也一樣能跑。
   function schoolMail(v){ return /(\.edu(\.[a-z]{2,})?|isu\.edu)$/i.test(v.split('@')[1]||''); }
   function okMail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  /* ── 姓名 -> 職級 / 校內信箱 ───────────────────────────────
+     🔴 roster.json 裡**沒有任何明文姓名或信箱**，全部是 AES-GCM 密文，
+        金鑰由老師自己的姓名 PBKDF2 導出。
+        理由：這頁是公開的 GitHub Pages，43 位老師的信箱擺成一份明文 JSON，
+        等於幫垃圾信爬蟲整理好名單。
+        它擋得住「打開原始碼複製整份名單」與自動爬蟲；
+        擋不住拿全校教師名單逐一試——但那種人本來就已經有名單了。         */
+  var SALT_ID='isu0821-id-v1', SALT_KEY='isu0821-key-v1';
+  var _roster=null;
+
+  function u8(s){ return new TextEncoder().encode(s); }
+  function hex(buf){
+    return [].map.call(new Uint8Array(buf),function(b){
+      return ('0'+b.toString(16)).slice(-2); }).join('');
+  }
+  // 正規化要跟產檔的 Python 端一致：NFKC + 去所有空白 + 轉小寫。
+  // 老師多打一個空格（或全形空白）不能就查不到。
+  function normName(s){
+    return (s||'').normalize('NFKC').replace(/\s+/g,'').toLowerCase();
+  }
+
+  function lookup(name){
+    if(!window.crypto || !crypto.subtle) return Promise.resolve(null);
+    var nm=normName(name);
+    return (_roster ? Promise.resolve(_roster)
+                    : fetch('roster.json').then(function(r){ return r.ok?r.json():null; })
+                        .then(function(j){ _roster=j; return j; }))
+      .then(function(j){
+        if(!j || !j.t) return null;
+        return crypto.subtle.digest('SHA-256', u8(SALT_ID+nm)).then(function(d){
+          var blob=j.t[hex(d).slice(0,16)];
+          if(!blob) return null;          // 名單裡沒有這個人
+          var raw=Uint8Array.from(atob(blob),function(c){ return c.charCodeAt(0); });
+          return crypto.subtle.importKey('raw',u8(nm),'PBKDF2',false,['deriveKey'])
+            .then(function(km){
+              return crypto.subtle.deriveKey(
+                {name:'PBKDF2', salt:u8(SALT_KEY), iterations:j.iters||200000, hash:'SHA-256'},
+                km, {name:'AES-GCM', length:256}, false, ['decrypt']);
+            })
+            .then(function(k){
+              return crypto.subtle.decrypt({name:'AES-GCM', iv:raw.slice(0,12)}, k, raw.slice(12));
+            })
+            .then(function(pt){ return JSON.parse(new TextDecoder().decode(pt)); });
+        });
+      })
+      .catch(function(){ return null; });   // 查不到就當作沒查到，不擋人進站
+  }
 
   try{ me=JSON.parse(localStorage.getItem(MEKEY)||'null'); }catch(e){}
 
@@ -831,6 +886,7 @@ function fbDead(status){
     gate.remove(); site.hidden=false;
     document.getElementById('idName').textContent = me.name;
     // 系所前面一定要有標籤。沒有的話，名字旁邊浮一個「其他單位」看不出是什麼。
+    document.getElementById('idRank').textContent = me.rank || '';
     document.getElementById('idDept').textContent = me.dept ? ('系所：' + me.dept) : '';
     // 信箱只顯示給本人看（它只存在這台電腦的 localStorage，沒有上傳）。
     // 用意是：同一個人在兩台機器上登入時，看得出來現在是哪個帳號。
@@ -840,8 +896,11 @@ function fbDead(status){
     var ism = document.getElementById('idSMail');
     document.getElementById('idSMailV').textContent = me.smail || '';
     ism.hidden = !me.smail;
+    // 名冊裡查不到的人要明講。空白比錯誤好，但「不解釋的空白」最糟——
+    // 老師會以為是自己哪裡填錯了。
+    document.getElementById('idMiss').hidden = !!(me.smail || me.rank);
     document.getElementById('mename').textContent =
-      me.name + (me.dept ? '（' + me.dept + '）' : '');
+      me.name + (me.rank ? ' ' + me.rank : '') + (me.dept ? '（' + me.dept + '）' : '');
     var last=document.getElementById('idLast');
     last.textContent = me.seen ? ('上次來是 ' + ago(me.seen)) : '這是你第一次進來';
     me.seen = Date.now();
@@ -874,32 +933,27 @@ function fbDead(status){
         err.textContent='這是學校信箱。請改填個人 Gmail —— 學校帳號等一下授權會被擋，換 wifi 也沒有用。';
         imail.classList.add('bad'); imail.select(); return;
       }
-      // 學校信箱：規則跟上面那欄剛好相反，一定要是學校網域。
-      // 因為它是用來收「你自己那一份課綱連結」的——
-      // 學校信箱只有本人進得去，等於一道現成的身分驗證。
-      var smail=ismail.value.trim().slice(0,60);
-      if(!okMail(smail)){
-        err.textContent='請填學校信箱，例如 yourname@isu.edu.tw。';
-        ismail.classList.add('bad'); ismail.focus(); return;
-      }
-      if(!schoolMail(smail)){
-        err.textContent='這欄要填學校信箱（@isu.edu.tw）。你的課綱連結會寄到這裡，只有你本人收得到。';
-        ismail.classList.add('bad'); ismail.select(); return;
-      }
-      if(mail.toLowerCase()===smail.toLowerCase()){
-        err.textContent='兩欄不能填同一個信箱——上面要個人的，下面要學校的。';
-        ismail.classList.add('bad'); ismail.select(); return;
-      }
       if(ipass.value.trim()!==PASS){
         err.textContent='通行碼不對，請再確認一次。';
         ipass.value=''; ipass.focus(); return;
       }
-      // 🔴 兩個信箱都**只寫進 localStorage**，不進 push() 的 payload。
-      //    這頁是公開網址、RTDB 規則還沒鎖，43 位老師的信箱不該躺在那裡。
-      //    要寄課綱連結的時候，是講師端拿名冊去寄，不是從這頁送出去。
-      me={id:rid(), name:n, dept:idept.value.slice(0,40), gmail:mail, smail:smail};
-      try{ localStorage.setItem(MEKEY,JSON.stringify(me)); }catch(e){}
-      enter();
+      // 職級與校內信箱**不問老師**，用姓名去查講師事先整理好的名冊。
+      // 這一步要跑 PBKDF2，約 0.2 秒，所以先把按鈕鎖住免得連按。
+      err.textContent='查詢中…';
+      var btn=form.querySelector('button[type=submit]');
+      if(btn) btn.disabled=true;
+      lookup(n).then(function(info){
+        if(btn) btn.disabled=false;
+        err.textContent='';
+        // 🔴 個人 Gmail 只寫進 localStorage，不進 push() 的 payload。
+        //    這頁是公開網址、RTDB 規則還沒鎖，老師的信箱不該躺在那裡。
+        me={id:rid(), name:n, dept:idept.value.slice(0,40), gmail:mail,
+            rank:(info&&info.r)||'', admin:(info&&info.a)||'',
+            smail:(info&&info.m)||'', ncourse:(info&&info.c)||0,
+            known:!!info};
+        try{ localStorage.setItem(MEKEY,JSON.stringify(me)); }catch(e){}
+        enter();
+      });
     });
     // 邊打邊提醒，不要等按了「進入」才罵人
     imail.addEventListener('input',function(){
@@ -908,14 +962,6 @@ function fbDead(status){
         imail.classList.add('bad');
         err.textContent='這看起來是學校信箱，等一下授權會被擋。建議改用個人 Gmail。';
       } else if(err.textContent.indexOf('信箱')>-1){ err.textContent=''; }
-    });
-    ismail.addEventListener('input',function(){
-      ismail.classList.remove('bad');
-      var v=ismail.value.trim();
-      if(v && okMail(v) && !schoolMail(v)){
-        ismail.classList.add('bad');
-        err.textContent='這欄要填學校信箱（@isu.edu.tw）。';
-      } else if(err.textContent.indexOf('學校信箱')>-1){ err.textContent=''; }
     });
     iname.focus();
   }
