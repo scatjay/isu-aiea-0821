@@ -226,6 +226,16 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 .brk{display:flex; align-items:center; gap:.5rem; font-size:.85rem; color:var(--ink-2);
   background:var(--bonus-soft); border-radius:.45rem; padding:.5rem .8rem; margin:0 0 1rem}
 .brk b{color:var(--ink)}
+/* iLink 六段自我檢核 */
+.checklist{display:flex; flex-direction:column; gap:.5rem; margin:.4rem 0}
+.checklist label{display:flex; gap:.6rem; align-items:flex-start; font-size:.9rem; line-height:1.6; cursor:pointer}
+.checklist input{margin-top:.25rem; flex:0 0 auto}
+.checklist em{display:block; font-style:normal; font-size:.82rem; color:var(--ink-3); margin-top:.1rem}
+.checklist em.warn{color:var(--warn)}
+.checklist label:has(input:checked) span{color:var(--ink-3)}
+.checklist label:has(input:checked) b{text-decoration:line-through; text-decoration-color:var(--core)}
+.ilink-tally{margin:.6rem 0 0; font-weight:700; font-variant-numeric:tabular-nums; color:var(--ink-2)}
+.ilink-tally.full{color:var(--core)}
 
 /* ── 通行碼閘 ── */
 #gate{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem; background:var(--bg)}
@@ -373,7 +383,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v3.2　·　2026-08-20 16:45 更新（休息時間放進各單元） </p>
+    <p class="ver" id="verStamp">v3.3　·　2026-08-20 16:50 更新（單元4 加 iLink 六段自我檢核） </p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -981,6 +991,32 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <p class="done"><b>做完長這樣：</b>至少兩段是完整的句子，不是條列關鍵字。</p>
   </div>
 
+  <div class="drill bonus">
+    <p class="dlabel">送審前自我檢核 —— 六段你缺哪段，勾一勾就知道</p>
+    <p style="font-size:.88rem;margin:0 0 .6rem;color:var(--ink-2)">
+      iLink 的作品規格要這六段。<b>今天下午做完，自然就有四段；</b>
+      另外兩段是反思、不用動工具，收尾這 15 分鐘寫一寫就補齊。
+      <b>缺一段就會被退件</b>——所以現在逐段勾。</p>
+    <div class="checklist" id="ilinkCheck">
+      <label><input type="checkbox"><span><b>① 題目</b>　我寫了「這門課、我教第幾年、最想改什麼」
+        <em>← 單元 2 那三句話</em></span></label>
+      <label><input type="checkbox"><span><b>② 設計理念</b>　我寫了「原本怎樣 → 改成怎樣 → 為什麼、AI 做什麼我做什麼」
+        <em>← 送審產出的 改版前快照.md</em></span></label>
+      <label><input type="checkbox"><span><b>③ 操作方式</b>　我有流程說明＋截圖（MCP → 雲端 → 本機）
+        <em>← 單元 2、4 的流程</em></span></label>
+      <label><input type="checkbox"><span><b>④ 驗證方式</b>　我寫了硬數字（稽核抓幾條、原本一學期做幾次）
+        <em class="warn">← 最容易漏，現在就寫</em></span></label>
+      <label><input type="checkbox"><span><b>⑤ 綜合評估／未來發展</b>　我寫了「下學期延伸到哪、哪幾門課也能用」
+        <em class="warn">← 最容易漏，現在就寫</em></span></label>
+      <label><input type="checkbox"><span><b>⑥ 作品連結</b>　連結<b>只指向 送審產出</b>，我逐頁確認過裡面沒有教科書掃圖、考卷、學生個資
+        <em class="warn">← 專業級會公開在 iLink 網站</em></span></label>
+    </div>
+    <p class="ilink-tally" id="ilinkTally">已完成 0 / 6 段</p>
+    <p style="font-size:.85rem;margin:.5rem 0 0;color:var(--ink-3)">
+      六段都勾滿＝你手上這份可以直接送審。<b>做完一件就能先送，不必等湊滿 12 門。</b>
+      實際格式與排程以總辦為準。</p>
+  </div>
+
   <div class="stuck"><b>關於送件，請以總辦說的為準：</b><br>
   ① 上面這六段是一個好用的<b>敘述骨架</b>，但官方把它寫在<b>基礎級</b>的繳交規格底下。專業級的硬要件是<b>「工具包＋自動化設計」</b>——就是你單元 4 做的那個。<br>
   ② 課程可以<b>回溯前兩年</b>，你過去教過的可能已經算數。<br>
@@ -1137,7 +1173,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v3.2';
+var PAGE_VER = 'v3.3';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
@@ -1267,7 +1303,33 @@ var PAGE_VER = 'v3.2';
 
     wirePresence();
     wireSend();
+    wireIlinkCheck();
     boot();
+  }
+
+  /* ── iLink 六段自我檢核（純本機，個人自檢不同步）───────────── */
+  function wireIlinkCheck(){
+    var box=document.getElementById('ilinkCheck');
+    if(!box) return;
+    var boxes=[].slice.call(box.querySelectorAll('input[type=checkbox]'));
+    var tally=document.getElementById('ilinkTally');
+    var K='isu0821-ilink';
+    var saved={};
+    try{ saved=JSON.parse(localStorage.getItem(K)||'{}'); }catch(e){}
+    function paint(){
+      var n=boxes.filter(function(b){return b.checked;}).length;
+      tally.textContent='已完成 '+n+' / 6 段' + (n===6 ? '　✓ 可以送審了' : '');
+      tally.classList.toggle('full', n===6);
+    }
+    boxes.forEach(function(b,i){
+      b.checked=!!saved[i];
+      b.addEventListener('change',function(){
+        saved[i]=b.checked;
+        try{ localStorage.setItem(K,JSON.stringify(saved)); }catch(e){}
+        paint();
+      });
+    });
+    paint();
   }
 
   /* ── 現在誰在線上 ───────────────────────────────────────
