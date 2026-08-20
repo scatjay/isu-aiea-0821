@@ -338,7 +338,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v2.1　·　2026-08-20 16:00 更新（在線人數）</p>
+    <p class="ver" id="verStamp">v2.2　·　2026-08-20 16:10 更新（Bypass 開關 · 資料夾統一 isu0821）</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -552,21 +552,25 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 
     <p style="font-size:.94rem;margin:1.4rem 0 .4rem"><b>然後把課綱放進來：</b></p>
     <ol>
-      <li><b>建兩個資料夾</b>，名字照這樣取：<br>
-        　<code>〔課名〕_課程原料</code>　←　讀進去的東西<br>
-        　<code>〔課名〕_送審產出</code>　←　生出來的東西
+      <li><b>建資料夾，名字照抄，不要自己改。</b><br>
+        在 <b>C 槽根目錄</b>（或你的桌面）建一個 <code>isu0821</code>，裡面再建兩個：<br>
+        　<code>isu0821\課程原料</code>　←　讀進去的東西<br>
+        　<code>isu0821\送審產出</code>　←　生出來的東西<br>
+        <span style="color:var(--warn)">全場統一用這個名字。你卡住的時候講師直接講路徑就能救你，
+        不用先問「你的資料夾叫什麼」——43 個人各取各的名字，現場會很亂。</span>
       </li>
       <li>把講師發的「你的 115-1 課綱」放進 <b>課程原料</b>。你自己帶的教材也丟進去（沒帶就只有課綱，一樣做得完）。</li>
       <li>把 <b>課程原料</b> 整個資料夾給 Claude，貼這句：</li>
     </ol>
     <div class="pr">看一下這個資料夾，列出裡面有哪些檔案，並用兩三句話告訴我這門課現在在教什麼。<button type="button">複製</button></div>
     <p style="font-size:.9rem;margin:.6rem 0 0;color:var(--ink-2)">它回答之後，請它把那段話存成 <code>改版前快照.md</code> 放進 <b>送審產出</b>。<b>下午寫「設計理念」要用。</b></p>
-    <p class="done"><b>做完長這樣：</b>兩個資料夾都在，<code>送審產出</code> 裡有一個 <code>改版前快照.md</code>，內容講的是你真實的那門課。</p>
+    <p class="done"><b>做完長這樣：</b><code>isu0821</code> 底下兩個資料夾都在，
+    <code>送審產出</code> 裡有一個 <code>改版前快照.md</code>，內容講的是你真實的那門課。</p>
   </div>
 
   <div class="stuck" style="background:var(--bonus-soft)">
     <b style="color:var(--bonus)">你把資料夾交出去的時候，它會連跳三個視窗——照這樣按就對了：</b><br>
-    ① <b>Select folder…</b>　挑你的 <code>課程原料</code> 資料夾。<br>
+    ① <b>Select folder…</b>　挑 <code>isu0821\課程原料</code>。<br>
     ② <b>Trust this workspace?</b>　按 <b>Trust Workspace</b>（意思是「這個資料夾我信得過，可以讀」）。<br>
     ③ <b>Install Git</b>　—— 只有<b>沒裝 Git 的人</b>會看到這個。原文寫：
     <span style="color:var(--ink-3)">Git for Windows is required to run local sessions.</span>
@@ -680,11 +684,24 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <tr><td><b>每次都問</b><br><span style="color:var(--ink-3);font-size:.85em">預設</span></td><td>每一個動作都停下來等你按同意</td><td>剛開始用、或它在動你不熟的資料夾</td></tr>
     <tr><td><b>計畫模式</b></td><td><b>只讀不寫。</b>先把它打算做的事整個講給你聽，你同意才開始動</td><td><b>老師最該學的一個。</b>你可以先看它理解得對不對，再放它去做</td></tr>
     <tr><td><b>自動接受編輯</b></td><td>改檔案不再一個一個問，但危險的動作還是會問</td><td>已經來回幾輪、你信得過它在做什麼的時候</td></tr>
-    <tr><td><b>略過所有確認</b><br><span style="color:var(--warn);font-size:.85em">bypass</span></td><td><b>完全不問，直接做。</b></td><td>只在「這個資料夾就算被改壞我也不心疼」的時候</td></tr>
+    <tr><td><b>略過所有確認</b><br><span style="color:var(--warn);font-size:.85em">Bypass permissions</span></td><td><b>完全不問，直接做。</b></td><td>只在「這個資料夾就算被改壞我也不心疼」的時候</td></tr>
   </table></div>
+
+  <div class="stuck" style="background:var(--bonus-soft);margin-top:.7rem">
+    <b style="color:var(--bonus)">「略過所有確認」預設是<u>看不到</u>的，要先去設定裡打開</b><br>
+    很多人在模式清單裡找不到它，以為自己版本不對——不是，是它預設被藏起來。<br>
+    <b>打開的地方：</b>左下角你的名字 → <b>Settings（設定）</b> → 找到
+    <b>Bypass permissions</b> 這個開關 → 打開。<br>
+    回到對話視窗，模式清單裡才會出現「略過所有確認」。<br>
+    <span style="color:var(--ink-3)">切模式的地方在<b>輸入框下方</b>那一排（跟模型、思考力道並排），
+    點一下就會展開清單。</span>
+  </div>
+
   <p class="stuck" style="margin-top:.7rem"><b>今天的建議：預設就好，覺得煩再往下放一格。</b>
   很多人第一天就切到「略過所有確認」，因為問得煩——但那也是你唯一的煞車。
-  真正該養成的習慣是<b>計畫模式</b>：讓它先講要做什麼，你看過再放行。<b>它太雞婆的時候直接按停，停掉不會壞。</b></p>
+  真正該養成的習慣是<b>計畫模式</b>：讓它先講要做什麼，你看過再放行。<b>它太雞婆的時候直接按停，停掉不會壞。</b><br>
+  <span style="color:var(--warn)">下午如果你已經來回幾輪、很確定它在做什麼，再打開 Bypass 會省很多時間——
+  但請先確定你動的是<b>課程原料的複本</b>，不是你教了五年的那個原始資料夾。</span></p>
 
   <div class="stuck">
     <b>它抓出來的東西，多半不是你填錯——這句話很重要：</b><br>
@@ -892,7 +909,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v2.1';
+var PAGE_VER = 'v2.2';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
