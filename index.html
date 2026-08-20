@@ -338,7 +338,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v2.3　·　2026-08-20 16:15 更新</p>
+    <p class="ver" id="verStamp">v2.4　·　2026-08-20 16:25 更新（單元2 加模型/力道與額度說明）</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -521,6 +521,29 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <div class="uhead"><span class="utag">單元 2</span><h2>讓 AI 讀得到你這門課</h2><span class="utime">09:30–10:50</span></div>
   <p class="uwhy">到目前為止它只是個聊天視窗。這一段之後，它才真的碰得到你的東西。<b>沒帶教材也做得完</b>——講師會發給你自己的課綱。</p>
 
+  <div class="stuck" style="background:var(--bonus-soft)">
+    <b style="color:var(--bonus)">先看一眼輸入框右下角——那兩個字要開始自己選了</b><br>
+    在你打字的那個框<b>右下角</b>，並排著兩個可以點的東西：<br>
+    　<b>左邊是模型</b>（<code>Opus</code> / <code>Sonnet</code> / <code>Haiku</code>）——決定它有多聰明、多貴<br>
+    　<b>右邊是思考力道</b>（<code>Low</code> / <code>Medium</code> / <code>High</code>）——決定它回答前想多久<br>
+
+    <div class="tw" style="margin:.6rem 0 .4rem"><table>
+      <tr><th>這一段（單元 2）建議</th><th>怎麼選</th><th>為什麼</th></tr>
+      <tr><td>模型</td><td><b>Sonnet</b></td><td>只是讀資料夾、列出檔案、講講這門課在教什麼——不需要動用最貴的</td></tr>
+      <tr><td>思考力道</td><td><b>Medium</b></td><td>預設就好。這一題沒有需要它想很久的東西</td></tr>
+    </table></div>
+
+    <b>為什麼現在就要管這個——因為你在花兩個桶子的額度：</b><br>
+    　<b>① 5 小時額度</b>：從你今天第一句話開始計時，五小時內能用的量，時間到自動回滿。
+    <span style="color:var(--ink-3)">今天 09:00 開始，大約下午 2 點會重來一次。</span><br>
+    　<b>② 週額度</b>：一整週的總量，每週固定重置。<b>這個才是真的會擋住你的。</b><br>
+    <span style="color:var(--warn)">今天六小時全程用 Opus + High，很可能還沒到下午就把週額度燒掉一大半，
+    而下午那段（讓它改課綱、產出送審包）才是真正需要它想清楚的地方。
+    <b>把力氣留在下午。</b></span><br>
+    <span style="color:var(--ink-3)">省額度最有效的不是少用，是<b>一次講清楚</b>——
+    反覆丟半句話讓它猜，是燒得最快的方式。完整說明在單元 3 後面那一段。</span>
+  </div>
+
   <div class="drill core">
     <p class="dlabel">練習 2</p>
 
@@ -559,7 +582,19 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
         <span style="color:var(--warn)">全場統一用這個名字。你卡住的時候講師直接講路徑就能救你，
         不用先問「你的資料夾叫什麼」——43 個人各取各的名字，現場會很亂。</span>
       </li>
-      <li>把講師發的「你的 115-1 課綱」放進 <b>課程原料</b>。你自己帶的教材也丟進去（沒帶就只有課綱，一樣做得完）。</li>
+      <li><b>把檔案放進 <code>課程原料</code> —— 這步做完才有東西給它讀。</b><br>
+        <b>一定要放的：</b>講師寄到你<b>學校信箱</b>的那份「你的 115-1 課綱」。
+        <span style="color:var(--ink-3)">（那是從義守授課計畫系統整理出來的，就是你自己填的那份。）</span><br>
+        <b>可以順便放的（有什麼放什麼，沒有也做得完）：</b><br>
+        　· 你的投影片、講義、作業說明<br>
+        　· 上學期的期中/期末考卷、評分規準<br>
+        　· 教科書目錄或章節大綱<br>
+        　· 任何你希望它「先讀過再跟你討論」的東西<br>
+        <span style="color:var(--warn)"><b>先別放：</b>教科書掃描檔、出版社的投影片、有學生姓名成績的檔案。
+        那些是下午最容易出事的地雷，單元 2 的地雷區會再講一次。</span><br>
+        <span style="color:var(--ink-3)">格式不用轉，<code>.pdf</code> <code>.docx</code> <code>.pptx</code>
+        <code>.txt</code> <code>.md</code> 它都讀得動。<b>不用改檔名。</b></span>
+      </li>
       <li>把 <b>課程原料</b> 整個資料夾給 Claude，貼這句：</li>
     </ol>
     <div class="pr">看一下這個資料夾，列出裡面有哪些檔案，並用兩三句話告訴我這門課現在在教什麼。<button type="button">複製</button></div>
@@ -909,7 +944,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v2.3';
+var PAGE_VER = 'v2.4';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
