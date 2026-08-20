@@ -404,7 +404,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v4.3　·　2026-08-20 23:14 更新</p>
+    <p class="ver" id="verStamp">v4.4　·　2026-08-20 23:24 更新</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。四個單元。<b>預設是拿你 115-1 真的要教的那門課</b>的官方課綱動手——因為手上有真材料，六小時才走得完。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。<br><span style="font-size:.94em">要<b>開一門全新的課</b>也完全走得通，同一套流程、同一份產出，只是起點不同——單元 1 會說明。</span></p>
@@ -1051,6 +1051,18 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   </div>
 
   <div class="stuck" style="border-left-color:var(--warn)">
+    <b style="color:var(--warn)">⚠ pull 下來之後，還有一步很多人會漏</b><br>
+    程式碼拉下來只是第一步。<b>你還要在 debug Chrome 那個視窗裡，用你自己的帳號登入一次 Moodle。</b><br>
+    <span style="color:var(--ink-3)">為什麼：那些工具是「借用你已經登入的瀏覽器」去讀資料的——
+    它沒有你的帳號密碼，也不該有。<b>瀏覽器沒登入，工具就什麼都讀不到</b>，
+    而且回的訊息會是「未登入」而不是報錯，很容易被當成程式壞了。</span><br>
+    <span style="color:var(--warn)">順序是：① 跑 <code>start_debug_chrome_moodle.py</code>
+    ② <b>在跳出來的那個視窗登入你的 Moodle</b> ③ 才開始問 Claude。</span><br>
+    <span style="color:var(--ink-3)">帳號密碼請直接打在瀏覽器裡，<b>不要打進對話框</b>——
+    對話紀錄會被保存，密碼一旦出現在裡面就等於外洩。</span>
+  </div>
+
+  <div class="stuck" style="border-left-color:var(--warn)">
     <b style="color:var(--warn)">這一段的節奏會看現場調整</b><br>
     如果上午環境還沒弄好的人多，<b>這一段就縮成半小時的示範</b>，你看著就好，不用跟。<br>
     如果進度順、想深挖的人夠多，就直接把 repo pull 下來動手接自己的課。<br>
@@ -1376,7 +1388,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v4.3';
+var PAGE_VER = 'v4.4';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
