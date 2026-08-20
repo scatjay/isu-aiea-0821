@@ -369,7 +369,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v3.0　·　2026-08-20 16:35 更新（上午下午分組 · 單元4/5對調 · footer） </p>
+    <p class="ver" id="verStamp">v3.1　·　2026-08-20 16:40 更新（完成人數同一人只算一次） </p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -1131,7 +1131,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v3.0';
+var PAGE_VER = 'v3.1';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
@@ -1475,7 +1475,9 @@ var PAGE_VER = 'v3.0';
       clearTimeout(timer);
       timer=setTimeout(function(){
         badge.dataset.s='off'; badge.textContent='回報中…';
-        fetch(FB_DB.replace(/\/+$/,'')+'/isu0821/students/'+me.id+'.json',{
+        // 講師端名單也用姓名 key，否則同一人多裝置會在名單裡出現兩筆。
+        presKey().then(function(k){
+        fetch(FB_DB.replace(/\/+$/,'')+'/isu0821/students/'+k+'.json',{
           method:'PUT',
           headers:{'Content-Type':'application/json'},
           body:JSON.stringify({name:me.name, dept:me.dept||'', done:mask(), t:Date.now()})
@@ -1485,6 +1487,7 @@ var PAGE_VER = 'v3.0';
           badge.dataset.s='err'; badge.textContent='進度存在這台電腦';
         }).catch(function(){
           badge.dataset.s='err'; badge.textContent='進度存在這台電腦';
+        });
         });
       }, 600);
     }
@@ -1539,10 +1542,16 @@ var PAGE_VER = 'v3.0';
 
     function markDone(i, on){
       if(!FB_DB || FB_LIVE===false) return;
-      var url=FB_DB.replace(/\/+$/,'')+'/isu0821/done/u'+(i+1)+'/'+me.id+'.json';
-      fetch(url, on ? {method:'PUT', headers:{'Content-Type':'application/json'}, body:'true'}
-                   : {method:'DELETE'})
-        .then(function(){ loadCounts(); }).catch(function(){});
+      // 🔴 用「姓名雜湊」當 key，不要用隨機 me.id：
+      //    同一個人手機＋筆電都勾單元1，隨機 id 會算成 2 人，
+      //    最後「已完成人數」會超過實際學員數（2026-08-20 楊老師實測）。
+      //    姓名 key 讓同一人不管幾台裝置、勾幾次都只算一個。
+      presKey().then(function(k){
+        var url=FB_DB.replace(/\/+$/,'')+'/isu0821/done/u'+(i+1)+'/'+k+'.json';
+        fetch(url, on ? {method:'PUT', headers:{'Content-Type':'application/json'}, body:'true'}
+                     : {method:'DELETE'})
+          .then(function(){ loadCounts(); }).catch(function(){});
+      });
     }
 
     function loadCounts(){
