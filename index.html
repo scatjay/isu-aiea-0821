@@ -383,7 +383,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v3.5　·　2026-08-20 17:10 更新（名單更新為 47 人） </p>
+    <p class="ver" id="verStamp">v3.6　·　2026-08-20 17:15 更新（三題與檢核後台留存） </p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。五個單元。<b>今天不做新課</b>——我們拿你 115-1 真的要教的那門課的官方課綱動手。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。</p>
@@ -620,7 +620,9 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
         <span id="qaMsg"></span>
         <button type="button" id="qaClear">清空我打的字</button>
       </div>
-      <p class="qawarn">⚠️ 送出的內容<b>全班看得到</b>（不會顯示你的名字，只會顯示學院）。<b>不要寫學生姓名或任何個資。</b>不想送出也沒關係——你打的字一律會存在自己的瀏覽器裡，不按送出就不會出去。</p>
+      <p class="qawarn">⚠️ 送出的內容<b>全班看得到</b>，但<b>不會顯示你的名字</b>，只會顯示學院。<br>
+      <b>講師端看得到是誰寫的</b>——課後會用來整理成果、回報承辦單位。<br>
+      <b>不要寫學生姓名或任何個資。</b>不想送出也沒關係——你打的字一律會存在自己的瀏覽器裡，不按送出就不會出去。</p>
     </div>
 
     <div id="qaBoard" hidden>
@@ -1173,7 +1175,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v3.5';
+var PAGE_VER = 'v3.6';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
@@ -1327,6 +1329,9 @@ var PAGE_VER = 'v3.5';
         saved[i]=b.checked;
         try{ localStorage.setItem(K,JSON.stringify(saved)); }catch(e){}
         paint();
+        // 同步給講師端（六段完成度）
+        window._lastIlink = boxes.map(function(x){return x.checked?'1':'0';}).join('');
+        if(window._pushProgress) window._pushProgress();
       });
     });
     paint();
@@ -1534,6 +1539,10 @@ var PAGE_VER = 'v3.5';
 
     function mask(){ return boxes.map(function(b){return b.checked?'1':'0';}).join(''); }
 
+    // 三題與六段檢核的最新值，push() 時一併送進 /students（實名，講師才讀得到）
+    window._lastAnswers = window._lastAnswers || {a1:'',a2:'',a3:''};
+    window._lastIlink = window._lastIlink || '000000';
+
     var timer=null;
     function push(){
       // 沒接資料庫時**什麼都不顯示**。
@@ -1548,7 +1557,15 @@ var PAGE_VER = 'v3.5';
         fetch(FB_DB.replace(/\/+$/,'')+'/isu0821/students/'+k+'.json',{
           method:'PUT',
           headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({name:me.name, dept:me.dept||'', done:mask(), t:Date.now()})
+          body:JSON.stringify({
+            name:me.name, dept:me.dept||'', rank:me.rank||'', done:mask(), t:Date.now(),
+            // 🔴 這條路徑是 .read:false，只有講師端帶 database secret 讀得到。
+            //    前台互看讀的是另一條 /answers（匿名、只有學院）。
+            a1:(window._lastAnswers.a1||'').slice(0,200),
+            a2:(window._lastAnswers.a2||'').slice(0,200),
+            a3:(window._lastAnswers.a3||'').slice(0,200),
+            ilink:(window._lastIlink||'000000')
+          })
         }).then(function(r){
           if(r.ok){ FB_LIVE=true; badge.dataset.s='ok'; badge.textContent='進度已回報'; return; }
           if(fbDead(r.status)){ badge.hidden=true; return; }   // 規則沒開＝安靜退回離線
@@ -1559,6 +1576,8 @@ var PAGE_VER = 'v3.5';
         });
       }, 600);
     }
+
+    window._pushProgress = push;   // 讓三題與檢核清單也能觸發回報
 
     var idDone=document.getElementById('idDone');
     function paint(){
@@ -1737,6 +1756,9 @@ var PAGE_VER = 'v3.5';
         try{ localStorage.setItem(AKEY,key); }catch(e){}
       }
       msg.textContent='送出中…';
+      // 同步存一份實名的（走 /students，講師端才讀得到）
+      window._lastAnswers = {a1:a1, a2:a2, a3:a3};
+      if(window._pushProgress) window._pushProgress();
       fetch(FB_DB.replace(/\/+$/,'')+'/isu0821/answers/'+key+'.json',{
         method:'PUT', headers:{'Content-Type':'application/json'},
         body:JSON.stringify({a1:a1,a2:a2,a3:a3,col:college(me.dept||''),t:Date.now()})
