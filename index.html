@@ -404,7 +404,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v4.2　·　2026-08-20 22:02 更新（單元1 加六步進度軌跡；修正 Firebase done 欄位長度）</p>
+    <p class="ver" id="verStamp">v4.3　·　2026-08-20 23:14 更新</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。四個單元。<b>預設是拿你 115-1 真的要教的那門課</b>的官方課綱動手——因為手上有真材料，六小時才走得完。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。<br><span style="font-size:.94em">要<b>開一門全新的課</b>也完全走得通，同一套流程、同一份產出，只是起點不同——單元 1 會說明。</span></p>
@@ -467,7 +467,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
   <button type="button" class="utab" role="tab" data-goto="0"><span class="utab-n">單元 1</span><span class="utab-t">桌面代理人環境</span><span class="utab-dot" aria-hidden="true"></span></button>
   <button type="button" class="utab" role="tab" data-goto="1"><span class="utab-n">單元 2</span><span class="utab-t">MCP 工具整合</span><span class="utab-dot" aria-hidden="true"></span></button>
   <span class="utab-grp">下午</span>
-  <button type="button" class="utab" role="tab" data-goto="2"><span class="utab-n">單元 3</span><span class="utab-t">Flipclass 實例</span><span class="utab-dot" aria-hidden="true"></span></button>
+  <button type="button" class="utab" role="tab" data-goto="2"><span class="utab-n">單元 3</span><span class="utab-t">Moodle × Flipclass</span><span class="utab-dot" aria-hidden="true"></span></button>
   <button type="button" class="utab utab-challenge" role="tab" data-goto="3"><span class="utab-n">單元 4</span><span class="utab-t">教學 Dashboard</span><span class="utab-dot" aria-hidden="true"></span></button>
 </nav>
 
@@ -920,7 +920,7 @@ footer{color:var(--ink-3); font-size:.85rem; padding-top:2rem; border-top:1px so
 
 <!-- ══════════ U3 ══════════ -->
 <article class="unit" data-u="2">
-  <div class="uhead"><span class="utag">單元 3</span><h2>南台 Flipclass MCP 實例</h2><span class="utime">13:30–14:30</span></div>
+  <div class="uhead"><span class="utag">單元 3</span><h2>義守 Moodle 和南台 Flipclass MCP 實例</h2><span class="utime">13:30–14:30</span></div>
   <p class="brk">🍱　<b>12:00–13:30 午休。</b>上午沒裝好的人這時候找講師補——下午整段建立在「環境有裝好」的前提上。</p>
   <p class="uwhy">你手上有的不只是這學期的課綱——還有<b>過去好幾年的授課紀錄</b>：教材、作業、學生繳交狀況。
   那些資料一直躺在數位學習平台裡，沒人有時間翻。這一段先看講師示範<b>怎麼把它們整批撈出來分析</b>，再回頭處理你自己的課綱。</p>
@@ -1376,7 +1376,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v4.2';
+var PAGE_VER = 'v4.3';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
