@@ -420,7 +420,7 @@ details.peek summary:hover{color:var(--core)}
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v4.9　·　2026-08-20 23:58 更新</p>
+    <p class="ver" id="verStamp">v5.0　·　2026-08-22 06:11 更新</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。四個單元。<b>預設是拿你 115-1 真的要教的那門課</b>的官方課綱動手——因為手上有真材料，六小時才走得完。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。<br><span style="font-size:.94em">要<b>開一門全新的課</b>也完全走得通，同一套流程、同一份產出，只是起點不同——單元 1 會說明。</span></p>
@@ -1597,7 +1597,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v4.9';
+var PAGE_VER = 'v5.0';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
@@ -1789,7 +1789,121 @@ var PAGE_VER = 'v4.9';
         .then(function(d){ _presKey = hex(d).slice(0,16); return _presKey; });
     }
 
-    function beat(){
+  
+  /* ── 事件記錄（append-only）────────────────────────────
+     為什麼要有這一層：done / present 存的是「現在的狀態」，會被下一次覆寫，
+     所以答不出「什麼時候」。這裡走 /isu0821/log 用 POST 產生新 id，
+     規則禁止改與刪既有紀錄，每一次動作都是獨立、蓋不掉的一筆。
+
+     隱私：只送姓名雜湊（跟 done / present 同一個），不送姓名。
+     這條路徑匿名【讀不到】，講師用 Firebase CLI 權杖讀。
+
+     🔴 失敗一律安靜吞掉 —— 記錄壞掉不該影響學員在做的事。       */
+  function logEvent(ev, note){
+    try{
+      if(!FB_DB || FB_LIVE === false) return;
+      presKey().then(function(k){
+        if(!k) return;
+        var body = { k:k, e:String(ev).slice(0,24), t:Date.now() };
+        if(note) body.s = String(note).slice(0,12);
+        fetch(FB_DB.replace(/\/+$/,'') + '/isu0821/log.json', {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify(body), keepalive: true
+        }).catch(function(){});
+      }).catch(function(){});
+    }catch(e){}
+  }
+  window.logEvent = logEvent;
+
+  /* ── 瀏覽觀測：他到底有沒有真的在讀 ─────────────────────
+     光靠「頁面開著」判斷不了 —— 分頁擺著不動也是開著。
+     所以量兩件不同的事：
+       看到（v1..v4）：那一段進入視窗
+       讀完（r1..r4）：捲到那一段的【底部】才算，這是真的捲過的證據
+     兩個都【每段只記一次】，避免上下捲動灌出一堆重複紀錄。         */
+  (function(){
+    var seen = {}, read = {};
+    var units = [];
+
+    function collectUnits(){
+      units = [];
+      var secs = document.querySelectorAll('section.unit, .unit');
+      for(var i=0;i<secs.length && i<8;i++) units.push(secs[i]);
+    }
+
+    function pct(){
+      var d = document.documentElement;
+      var max = (d.scrollHeight - d.clientHeight);
+      if(max <= 0) return 100;
+      return Math.max(0, Math.min(100, Math.round(d.scrollTop / max * 100)));
+    }
+
+    function nowUnit(){
+      // 目前視窗中心落在第幾個單元
+      var mid = window.innerHeight / 2, best = 0;
+      for(var i=0;i<units.length;i++){
+        var r = units[i].getBoundingClientRect();
+        if(r.top <= mid && r.bottom >= 0) best = i + 1;
+      }
+      return best;
+    }
+
+    function startObserving(){
+      collectUnits();
+      if(!units.length || !window.IntersectionObserver) return;
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          var i = units.indexOf(en.target) + 1;
+          if(i < 1) return;
+          if(en.isIntersecting && !seen[i]){
+            seen[i] = 1;
+            logEvent('v' + i);            // 第一次看到這一段
+          }
+          // 讀完：這一段的底部已經捲過視窗底緣
+          if(!read[i]){
+            var r = en.target.getBoundingClientRect();
+            if(r.bottom <= window.innerHeight + 40){
+              read[i] = 1;
+              logEvent('r' + i);
+            }
+          }
+        });
+      }, { threshold: [0, 0.25] });
+      units.forEach(function(u){ io.observe(u); });
+
+      // 捲動時補查「讀完」（IntersectionObserver 不一定在底部再觸發一次）
+      var tick = null;
+      window.addEventListener('scroll', function(){
+        if(tick) return;
+        tick = setTimeout(function(){
+          tick = null;
+          for(var i=1;i<=units.length;i++){
+            if(read[i]) continue;
+            var r = units[i-1].getBoundingClientRect();
+            if(r.bottom <= window.innerHeight + 40 && r.top < window.innerHeight){
+              read[i] = 1; logEvent('r' + i);
+            }
+          }
+        }, 400);
+      }, { passive:true });
+    }
+
+    /* 心跳：每 10 分鐘一次，【只在分頁真的可見時】送。
+       附註帶「當下在哪一段:捲動%」，一筆同時回答「待多久」和「待在哪」。
+       🔴 背景分頁不送 —— 8/21 那批 t=0 已經證明假數據比沒數據更糟。 */
+    function heartbeat(){
+      if(document.visibilityState !== 'visible') return;
+      logEvent('hb', 'u' + nowUnit() + ':' + pct());
+    }
+
+    if(document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', startObserving);
+    } else { startObserving(); }
+    setInterval(heartbeat, 600000);
+    setTimeout(heartbeat, 30000);   // 進站 30 秒後先記一筆，抓「只開了一下就走」
+  })();
+
+  function beat(){
       if(FB_LIVE === false) return Promise.resolve();
       return presKey().then(function(k){
       return fetch(FB_DB.replace(/\/+$/,'') + '/isu0821/present/' + k + '.json', {
@@ -1909,7 +2023,11 @@ var PAGE_VER = 'v4.9';
       });
     });
   }
-  if(me && me.id && me.name){ enter(); }
+  if(me && me.id && me.name){
+    // 已註冊的人重開頁面 —— 這也是一次登入，不記就看不到回訪
+    try{ if(window.logEvent) logEvent('enter','back'); }catch(e){}
+    enter();
+  }
   else{
     form.addEventListener('submit',function(e){
       e.preventDefault();
@@ -1944,6 +2062,8 @@ var PAGE_VER = 'v4.9';
             smail:(info&&info.m)||'', ncourse:(info&&info.c)||0,
             known:!!info};
         try{ localStorage.setItem(MEKEY,JSON.stringify(me)); }catch(e){}
+        // 進站事件：present 是狀態（會被覆寫），這一筆才留得住「幾點來的」
+        try{ if(window.logEvent) logEvent('enter','new'); }catch(e){}
         enter();
       });
     });
@@ -2064,6 +2184,8 @@ var PAGE_VER = 'v4.9';
       //    姓名 key 讓同一人不管幾台裝置、勾幾次都只算一個。
       presKey().then(function(k){
         var url=FB_DB.replace(/\/+$/,'')+'/isu0821/done/u'+(i+1)+'/'+k+'.json';
+        // 狀態會被覆寫，事件不會 —— 這一筆才答得出「什麼時候」
+        logEvent('u'+(i+1), on ? '' : '0');
         fetch(url, on ? {method:'PUT', headers:{'Content-Type':'application/json'}, body:'true'}
                      : {method:'DELETE'})
           .then(function(){ loadCounts(); }).catch(function(){});
@@ -2123,6 +2245,7 @@ var PAGE_VER = 'v4.9';
       if(!FB_DB || FB_LIVE===false) return;
       presKey().then(function(k){
         var url=FB_DB.replace(/\/+$/,'')+'/isu0821/done/'+sid+'/'+k+'.json';
+        logEvent(sid, on ? '' : '0');
         fetch(url, on ? {method:'PUT',headers:{'Content-Type':'application/json'},body:'true'}
                      : {method:'DELETE'})
           .then(function(){ loadStepCounts(); }).catch(function(){});
@@ -2293,6 +2416,16 @@ var PAGE_VER = 'v4.9';
     });
   });
 })();
+
+  /* 任務檔下載：GitHub Pages 沒有存取記錄，不自己記就永遠不知道有幾個人載 */
+  (function(){
+    document.querySelectorAll('a.dlbtn[href^="task-unit"]').forEach(function(a){
+      a.addEventListener('click', function(){
+        var m = (a.getAttribute('href')||'').match(/task-unit(\d)/);
+        if(m && window.logEvent) logEvent('dl' + m[1]);
+      });
+    });
+  })();
 </script>
 </body>
 </html>
