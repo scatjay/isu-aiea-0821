@@ -420,7 +420,7 @@ details.peek summary:hover{color:var(--core)}
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v5.1　·　2026-08-22 06:19 更新</p>
+    <p class="ver" id="verStamp">v5.2　·　2026-08-22 06:25 更新</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。四個單元。<b>預設是拿你 115-1 真的要教的那門課</b>的官方課綱動手——因為手上有真材料，六小時才走得完。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。<br><span style="font-size:.94em">要<b>開一門全新的課</b>也完全走得通，同一套流程、同一份產出，只是起點不同——單元 1 會說明。</span></p>
@@ -1597,7 +1597,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v5.1';
+var PAGE_VER = 'v5.2';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
@@ -2005,7 +2005,9 @@ var PAGE_VER = 'v5.1';
   }
   if(me && me.id && me.name){
     // 已註冊的人重開頁面 —— 這也是一次登入，不記就看不到回訪
-    try{ if(window.logEvent) logEvent('enter','back'); }catch(e){}
+    // 🔴 不能直接呼叫：logEvent 定義在後執行的區塊裡，此刻 window.logEvent 還是 undefined，
+    //    if 守衛會靜默跳過（2026-08-22 實測：v4 有記到、enter 一筆都沒有）。延後到所有腳本跑完再送。
+    try{ setTimeout(function(){ if(window.logEvent) logEvent('enter','back'); }, 1200); }catch(e){}
     enter();
   }
   else{
@@ -2043,7 +2045,9 @@ var PAGE_VER = 'v5.1';
             known:!!info};
         try{ localStorage.setItem(MEKEY,JSON.stringify(me)); }catch(e){}
         // 進站事件：present 是狀態（會被覆寫），這一筆才留得住「幾點來的」
-        try{ if(window.logEvent) logEvent('enter','new'); }catch(e){}
+        // 🔴 不能直接呼叫：logEvent 定義在後執行的區塊裡，此刻 window.logEvent 還是 undefined，
+    //    if 守衛會靜默跳過（2026-08-22 實測：v4 有記到、enter 一筆都沒有）。延後到所有腳本跑完再送。
+    try{ setTimeout(function(){ if(window.logEvent) logEvent('enter','new'); }, 1200); }catch(e){}
         enter();
       });
     });
