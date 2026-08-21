@@ -420,7 +420,7 @@ details.peek summary:hover{color:var(--core)}
     <!-- 改版戳記：每次改內容就更新這裡。
          學員會在不同時間點開這頁，看到的版本可能不一樣——
          標出來，他們才知道自己看的是不是最新的。 -->
-    <p class="ver" id="verStamp">v5.0　·　2026-08-22 06:11 更新</p>
+    <p class="ver" id="verStamp">v5.1　·　2026-08-22 06:19 更新</p>
   </div>
   <h1>把你手上那門課，翻新一輪</h1>
   <p class="sub">2026 年 8 月 21 日（五）09:00–16:30。四個單元。<b>預設是拿你 115-1 真的要教的那門課</b>的官方課綱動手——因為手上有真材料，六小時才走得完。結束時你手上會有一份課綱改版包，可以直接當 AIEA 送審成果，也接得上教學實踐研究計畫。<br><span style="font-size:.94em">要<b>開一門全新的課</b>也完全走得通，同一套流程、同一份產出，只是起點不同——單元 1 會說明。</span></p>
@@ -1597,7 +1597,7 @@ function fbDead(status){
 /* ── 舊版偵測 ─────────────────────────────────────────
    瀏覽器快取會讓老師看到幾天前的頁面，而且他們不會想到要按 Ctrl+Shift+R。
    version.json 很小、用 no-store 抓，跟這裡的常數比對。   */
-var PAGE_VER = 'v5.0';
+var PAGE_VER = 'v5.1';
 (function(){
   fetch('version.json?_=' + Date.now(), {cache:'no-store'})
     .then(function(r){ return r.ok ? r.json() : null; })
@@ -1815,92 +1815,72 @@ var PAGE_VER = 'v5.0';
   }
   window.logEvent = logEvent;
 
-  /* ── 瀏覽觀測：他到底有沒有真的在讀 ─────────────────────
-     光靠「頁面開著」判斷不了 —— 分頁擺著不動也是開著。
-     所以量兩件不同的事：
-       看到（v1..v4）：那一段進入視窗
-       讀完（r1..r4）：捲到那一段的【底部】才算，這是真的捲過的證據
-     兩個都【每段只記一次】，避免上下捲動灌出一堆重複紀錄。         */
+  /* ── 瀏覽觀測 v2（OBSERVE_V2）─────────────────────────
+     🔴 v1 的錯誤假設：以為這是一頁到底的長捲軸，用 IntersectionObserver
+        去看四個單元誰進了視窗。實測發現這頁是【分頁式】的 ——
+        只有當前單元 display:block，其餘三個是 display:none。
+        IntersectionObserver 對 display:none 的元素永遠不觸發，
+        所以單元 2–4 一筆都不會被記到，而且不會報錯。
+        我會拿到「大家只看單元1」的假結論 —— 那比沒有資料更糟。
+
+     正解：掛在 showUnit() 上。分頁點擊、和一進站「回到上次的單元」，
+     全部走那一個函式，是唯一的收斂點。
+
+     這一段只準備工具，實際掛鉤在 showUnit 定義之後（見 hookShowUnit）。  */
+  var _viewSeen = {}, _viewRead = {}, _curUnit = 0;
+
+  window.markUnitOpen = markUnitOpen;
+  function markUnitOpen(idx){
+    _curUnit = idx + 1;
+    if(_viewSeen[_curUnit]) return;
+    _viewSeen[_curUnit] = 1;
+    logEvent('v' + _curUnit);
+  }
+
+  function curArticle(){
+    var arts = document.querySelectorAll('article.unit');
+    for(var i=0;i<arts.length;i++){ if(!arts[i].hidden) return arts[i]; }
+    return null;
+  }
+
+  /* 當下這個單元捲了幾 % —— 用「單元自己的高度」算，不是整頁 */
+  function unitPct(){
+    var a = curArticle();
+    if(!a) return 0;
+    var r = a.getBoundingClientRect();
+    var total = r.height - window.innerHeight;
+    if(total <= 0) return 100;
+    var passed = Math.max(0, -r.top);
+    return Math.max(0, Math.min(100, Math.round(passed / total * 100)));
+  }
+
   (function(){
-    var seen = {}, read = {};
-    var units = [];
-
-    function collectUnits(){
-      units = [];
-      var secs = document.querySelectorAll('section.unit, .unit');
-      for(var i=0;i<secs.length && i<8;i++) units.push(secs[i]);
-    }
-
-    function pct(){
-      var d = document.documentElement;
-      var max = (d.scrollHeight - d.clientHeight);
-      if(max <= 0) return 100;
-      return Math.max(0, Math.min(100, Math.round(d.scrollTop / max * 100)));
-    }
-
-    function nowUnit(){
-      // 目前視窗中心落在第幾個單元
-      var mid = window.innerHeight / 2, best = 0;
-      for(var i=0;i<units.length;i++){
-        var r = units[i].getBoundingClientRect();
-        if(r.top <= mid && r.bottom >= 0) best = i + 1;
-      }
-      return best;
-    }
-
-    function startObserving(){
-      collectUnits();
-      if(!units.length || !window.IntersectionObserver) return;
-      var io = new IntersectionObserver(function(entries){
-        entries.forEach(function(en){
-          var i = units.indexOf(en.target) + 1;
-          if(i < 1) return;
-          if(en.isIntersecting && !seen[i]){
-            seen[i] = 1;
-            logEvent('v' + i);            // 第一次看到這一段
-          }
-          // 讀完：這一段的底部已經捲過視窗底緣
-          if(!read[i]){
-            var r = en.target.getBoundingClientRect();
-            if(r.bottom <= window.innerHeight + 40){
-              read[i] = 1;
-              logEvent('r' + i);
-            }
-          }
-        });
-      }, { threshold: [0, 0.25] });
-      units.forEach(function(u){ io.observe(u); });
-
-      // 捲動時補查「讀完」（IntersectionObserver 不一定在底部再觸發一次）
-      var tick = null;
-      window.addEventListener('scroll', function(){
-        if(tick) return;
-        tick = setTimeout(function(){
-          tick = null;
-          for(var i=1;i<=units.length;i++){
-            if(read[i]) continue;
-            var r = units[i-1].getBoundingClientRect();
-            if(r.bottom <= window.innerHeight + 40 && r.top < window.innerHeight){
-              read[i] = 1; logEvent('r' + i);
-            }
-          }
-        }, 400);
-      }, { passive:true });
-    }
+    var tick = null;
+    window.addEventListener('scroll', function(){
+      if(tick) return;
+      tick = setTimeout(function(){
+        tick = null;
+        if(!_curUnit || _viewRead[_curUnit]) return;
+        var a = curArticle();
+        if(!a) return;
+        var r = a.getBoundingClientRect();
+        // 這個單元的底部已經捲過視窗底緣 = 真的讀完了
+        if(r.bottom <= window.innerHeight + 60 && r.top < window.innerHeight){
+          _viewRead[_curUnit] = 1;
+          logEvent('r' + _curUnit);
+        }
+      }, 400);
+    }, { passive:true });
 
     /* 心跳：每 10 分鐘一次，【只在分頁真的可見時】送。
-       附註帶「當下在哪一段:捲動%」，一筆同時回答「待多久」和「待在哪」。
+       附註帶「在哪一單元:該單元捲了幾%」，一筆同時回答「待多久」和「待在哪」。
        🔴 背景分頁不送 —— 8/21 那批 t=0 已經證明假數據比沒數據更糟。 */
     function heartbeat(){
       if(document.visibilityState !== 'visible') return;
-      logEvent('hb', 'u' + nowUnit() + ':' + pct());
+      logEvent('hb', 'u' + (_curUnit || 0) + ':' + unitPct());
     }
-
-    if(document.readyState === 'loading'){
-      document.addEventListener('DOMContentLoaded', startObserving);
-    } else { startObserving(); }
     setInterval(heartbeat, 600000);
-    setTimeout(heartbeat, 30000);   // 進站 30 秒後先記一筆，抓「只開了一下就走」
+    setTimeout(heartbeat, 30000);   // 進站 30 秒先記一筆，抓「只開一下就走」
   })();
 
   function beat(){
@@ -2156,6 +2136,8 @@ var PAGE_VER = 'v5.0';
       if(tabsEl){ var y=tabsEl.getBoundingClientRect().top+window.pageYOffset-8; window.scrollTo(0,y); }
       // 把選中的 tab 捲進視野（手機上 tab 列會橫向捲動）
       if(tabs[idx]) tabs[idx].scrollIntoView({inline:'center',block:'nearest'});
+      // 唯一的收斂點：分頁點擊與一進站回到上次的單元，都走這裡
+      try{ if(window.markUnitOpen) markUnitOpen(idx); }catch(e){}
     }
     tabs.forEach(function(tb,i){
       tb.addEventListener('click',function(){ showUnit(i); });
